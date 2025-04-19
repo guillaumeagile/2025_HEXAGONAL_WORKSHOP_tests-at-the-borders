@@ -1,7 +1,7 @@
-package parcmetre.adapters.driven.storage.postGreSQL
+package location.adapters.driven.storage.postGreSQL
 
-import parcmetre.behaviors.ITicketRepository
-import parcmetre.models.DTOs.TicketDto
+import location.behaviors.ITicketRepository
+import location.models.DTOs.TicketDto
 import java.sql.DriverManager
 
 
@@ -30,7 +30,7 @@ class TicketRepository(jdbcUrl: String, username: String, password: String) : IT
         insertStatement.execute()
     }
 
-    override fun cardinalityTickets(): Result< Int> = runCatching {
+    override fun countTickets(): Result< Int> = runCatching {
         val selectStatement = storageConnection.prepareStatement(
             "select count(*) as cardinalityTickets from ticket"
         )

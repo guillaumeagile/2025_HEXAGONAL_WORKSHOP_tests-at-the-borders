@@ -5,9 +5,9 @@ import io.kotest.matchers.shouldBe
 import io.nacular.measured.units.Time.Companion.minutes
 import io.nacular.measured.units.times
 import kotlinx.datetime.*
-import parcmetre.domain.entities.ParcMetre
-import parcmetre.domain.valueObjects.Devises
-import parcmetre.domain.valueObjects.Monnaie
+import location.domain.entities.ParcMetre
+import location.domain.valueObjects.Devises
+import location.domain.valueObjects.Monnaie
 
 class `2_TestParcmetre` : StringSpec({
 

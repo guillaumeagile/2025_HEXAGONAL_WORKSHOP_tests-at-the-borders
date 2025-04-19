@@ -1,4 +1,6 @@
-package parcmetre.behaviors
+package location.behaviors
+
+// ce qui est technique: en anglais
 
 fun interface IJeDonneDesIdentifiants {
 

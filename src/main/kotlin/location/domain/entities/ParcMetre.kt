@@ -1,9 +1,11 @@
-package parcmetre.domain.entities
+package location.domain.entities
 
 import io.nacular.measured.units.Measure
 import io.nacular.measured.units.Time
-import parcmetre.domain.valueObjects.Monnaie
+import location.domain.valueObjects.Monnaie
 
+
+// en francais , parce que c'est métier, renommer en BorneLocation
 class ParcMetre(val Id: String) {
 
 

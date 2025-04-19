@@ -3,8 +3,8 @@ package adapters.driven.postGreSQL
 import io.kotest.core.spec.style.StringSpec
 import org.testcontainers.containers.PostgreSQLContainer
 import io.kotest.matchers.*
-import parcmetre.adapters.driven.storage.postGreSQL.TicketRepository
-import parcmetre.models.DTOs.TicketDto
+import location.adapters.driven.storage.postGreSQL.TicketRepository
+import location.models.DTOs.TicketDto
 
 class PostGreAdaptorTest : StringSpec({
 
@@ -18,7 +18,7 @@ class PostGreAdaptorTest : StringSpec({
         repo.saveTicket(TicketDto(id = 2, elapseMinutes = 18))
 
         // Act
-        val countTickets = repo.cardinalityTickets()
+        val countTickets = repo.countTickets()
         // Assert
         countTickets.isSuccess  shouldBe true
         countTickets.getOrThrow() shouldBe 2

@@ -1,8 +1,8 @@
 package adapters.exercice_3_adapters_fakes
 
-import parcmetre.behaviors.ITicketRepository
+import location.behaviors.ITicketRepository
 
-import parcmetre.models.DTOs.TicketDto
+import location.models.DTOs.TicketDto
 
 class FauxStockage : ITicketRepository {
 
@@ -12,7 +12,7 @@ class FauxStockage : ITicketRepository {
         listDesTickets.add(ticket)
     }
 
-    override fun cardinalityTickets(): Result<Int> = Result.success(listDesTickets.size)
+    override fun countTickets(): Result<Int> = Result.success(listDesTickets.size)
 
     override fun getTickets(): Result<List<TicketDto>> = Result.success( listDesTickets)
 

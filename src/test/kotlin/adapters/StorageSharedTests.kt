@@ -2,8 +2,8 @@ package adapters
 
 import io.kotest.core.spec.style.funSpec
 import io.kotest.matchers.shouldBe
-import parcmetre.behaviors.ITicketRepository
-import parcmetre.models.DTOs.TicketDto
+import location.behaviors.ITicketRepository
+import location.models.DTOs.TicketDto
 
 object StorageSharedTests
 {
@@ -11,7 +11,7 @@ object StorageSharedTests
         test("cardinalityTickets should return the number of saved tickets") {
 
             stockage.saveTicket(TicketDto(1, 2))
-            stockage.cardinalityTickets().getOrNull() shouldBe 1
+            stockage.countTickets().getOrNull() shouldBe 1
         }
     }
 

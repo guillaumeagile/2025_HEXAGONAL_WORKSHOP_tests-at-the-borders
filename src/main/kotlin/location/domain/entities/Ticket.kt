@@ -1,11 +1,10 @@
-package parcmetre.domain.entities
+package location.domain.entities
 
 import io.nacular.measured.units.Measure
 import io.nacular.measured.units.Time
 import io.nacular.measured.units.Time.Companion.seconds
 import io.nacular.measured.units.times
 import kotlinx.datetime.*
-import ulid.ULID
 
 data class Ticket(
 

@@ -2,13 +2,12 @@ package exercice_1.regles_metier
 
 import io.kotest.core.spec.style.StringSpec
 import io.kotest.matchers.shouldBe
-import io.kotest.matchers.shouldNotBe
 import io.nacular.measured.units.Time.Companion.minutes
 import io.nacular.measured.units.times
 import kotlinx.datetime.LocalDateTime
-import parcmetre.domain.entities.Ticket
-import parcmetre.domain.entities.UsineDeTickets
-import parcmetre.utilities.UlidGenerateur
+import location.domain.entities.Ticket
+import location.domain.entities.UsineDeTickets
+import location.utilities.UlidGenerateur
 
 class `1_TestTicket` : StringSpec({
 
