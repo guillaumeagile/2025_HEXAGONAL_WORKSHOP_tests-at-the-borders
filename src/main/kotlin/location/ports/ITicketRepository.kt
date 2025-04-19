@@ -8,10 +8,10 @@ import location.adapters.driven.storage.DTOs.TicketDto
 
 interface ITicketRepository { //CQS
     // write
-    fun saveTicket(ticket: TicketDto): Result<Boolean>
+    fun save(ticket: TicketDto): Result<Boolean>
     // read
-    fun countTickets(): Result<Int>
-    fun getTickets(): Result<List<TicketDto>>
+    fun count(): Result<Int>
+    fun getAll(): Result<List<TicketDto>>
 
 }
 

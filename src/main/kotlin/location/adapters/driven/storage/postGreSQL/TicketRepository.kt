@@ -21,16 +21,16 @@ class TicketRepository(jdbcUrl: String, username: String, password: String) : IT
         createTableStatement.execute()
     }
 
-    override fun saveTicket(ticket: TicketDto)  = runCatching {
+    override fun save(ticket: TicketDto)  = runCatching {
         val insertStatement = storageConnection.prepareStatement(
             "insert into ticket(id, park_time_minutes) values (?, ?)"
         )
         insertStatement.setInt(1, ticket.id)
-        insertStatement.setInt(2, ticket.elapseMinutes)
+        insertStatement.setInt(2, ticket.elapsedMinutes)
         insertStatement.execute()
     }
 
-    override fun countTickets(): Result< Int> = runCatching {
+    override fun count(): Result< Int> = runCatching {
         val selectStatement = storageConnection.prepareStatement(
             "select count(*) as cardinalityTickets from ticket"
         )
@@ -40,7 +40,7 @@ class TicketRepository(jdbcUrl: String, username: String, password: String) : IT
         return Result.success( res)
     }
 
-    override fun getTickets(): Result<List<TicketDto>> {
+    override fun getAll(): Result<List<TicketDto>> {
         TODO("Not yet implemented")
     }
 }

@@ -14,11 +14,11 @@ class PostGreAdaptorTest : StringSpec({
         postgres.start()
         val repo = TicketRepository(postgres.getJdbcUrl(), postgres.getUsername(), postgres.getPassword())
         repo.createTableTicket()
-        repo.saveTicket(TicketDto(id = 1, elapseMinutes = 30))
-        repo.saveTicket(TicketDto(id = 2, elapseMinutes = 18))
+        repo.save(TicketDto(id = 1, elapsedMinutes = 30))
+        repo.save(TicketDto(id = 2, elapsedMinutes = 18))
 
         // Act
-        val countTickets = repo.countTickets()
+        val countTickets = repo.count()
         // Assert
         countTickets.isSuccess  shouldBe true
         countTickets.getOrThrow() shouldBe 2
