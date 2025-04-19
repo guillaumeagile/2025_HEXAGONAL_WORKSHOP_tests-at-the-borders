@@ -11,21 +11,23 @@ import location.utilities.UlidGenerateur
 
 class `1_TestTicket` : StringSpec({
 
-    "le ticket ne peut avoir un montant à zero ou négatif" .config(enabled = false) {
+    "le ticket bidon ne sert pas à grand chose" .config(enabled = true) {
 
-        var sut =  Ticket.bidon()
+        val sut =  Ticket.bidon()
 
+        sut.dureeDeLocation shouldBe 0 * minutes
+        sut.momentEntree shouldBe LocalDateTime.parse("2000-01-01T00:00:00")
+        sut.momentSortie    shouldBe LocalDateTime.parse("2000-01-01T00:00:00")
     }
 
+    "le ticket ne peut avoir un montant à zero ou négatif" .config(enabled = true) {
+
+        val sut =  Ticket.builder( momentEntree = LocalDateTime.parse("2000-01-01T00:00:00"),
+            dureeDeLocation = 0 * minutes)
 
 
-
-
-
-
-
-
-
+        sut.isFailure shouldBe true
+    }
 
 
 
@@ -39,9 +41,9 @@ class `1_TestTicket` : StringSpec({
 
       //  ticket.id shouldNotBe null
       //  ticket.id shouldNotBe "quelque chose de fixe"
-        ticket.dureeDeStationnment shouldBe 42 * minutes
-        ticket.heureEntree.year shouldBe 2016
-        ticket.heureEntree.dayOfMonth shouldBe 15
+        ticket.dureeDeLocation shouldBe 42 * minutes
+        ticket.momentEntree.year shouldBe 2016
+        ticket.momentEntree.dayOfMonth shouldBe 15
     }
 
 
