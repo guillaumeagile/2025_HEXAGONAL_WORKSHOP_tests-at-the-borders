@@ -6,7 +6,7 @@ import kotlinx.datetime.LocalDateTime
 import location.ports.IJeDonneDesIdentifiants
 
 // QUELLE EST LA RESPONSABILITE DE CETTE CLASSE ?
-// fournir des tickerts
+// fournir des tickets
 // on peut lui mettre des contraintes métiers
 // par exemple: pas de ticket avant 8h
 // ou encore: pas de ticket d'une duree trop courte (30 minutes)
