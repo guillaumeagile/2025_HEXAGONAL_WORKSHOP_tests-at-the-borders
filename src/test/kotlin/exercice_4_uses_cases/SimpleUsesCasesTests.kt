@@ -6,7 +6,7 @@ import io.kotest.matchers.shouldNotBe
 import kotlinx.coroutines.async
 import kotlinx.coroutines.coroutineScope
 import location.commandHandlers.AcheterUnTicketAuParcmetre
-import location.commandHandlers.DemandeDuTicket
+import location.commandHandlers.data.DemandeDuTicket
 
 
 class SimpleUsesCasesTests : StringSpec({

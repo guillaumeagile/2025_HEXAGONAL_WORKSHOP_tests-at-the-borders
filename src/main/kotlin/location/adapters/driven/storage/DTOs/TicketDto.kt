@@ -1,4 +1,4 @@
-package location.models.DTOs
+package location.adapters.driven.storage.DTOs
 
 
 // TODO: pas sa place

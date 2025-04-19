@@ -1,6 +1,6 @@
 package location.ports
 
-import location.models.DTOs.TicketDto
+import location.adapters.driven.storage.DTOs.TicketDto
 
 // dans une branche de développement, on va utiliser une interface
 // interface ITicketRepository<TEntity> where TEntity : IEntity

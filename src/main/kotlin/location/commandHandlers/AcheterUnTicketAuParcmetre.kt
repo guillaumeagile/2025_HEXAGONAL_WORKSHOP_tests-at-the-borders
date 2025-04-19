@@ -3,10 +3,12 @@ package location.commandHandlers
 import kotlinx.coroutines.coroutineScope
 import kotlinx.coroutines.delay
 import location.abstractions.IRequestHandler
+import location.commandHandlers.data.DemandeDuTicket
+import location.commandHandlers.data.ReponseALaDemandeDuTicket
 
 class AcheterUnTicketAuParcmetre : IRequestHandler<DemandeDuTicket, ReponseALaDemandeDuTicket> {
 
-    override suspend fun handle(demande: DemandeDuTicket): ReponseALaDemandeDuTicket  = coroutineScope {
+    override suspend fun handle(demande: DemandeDuTicket): ReponseALaDemandeDuTicket = coroutineScope {
         println("on demarre le request handler, ca va prendre du temps")
 
         //inscrire ici l'appel métier

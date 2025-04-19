@@ -2,7 +2,7 @@ package adapters.exercice_3_adapters_fakes
 
 import location.ports.ITicketRepository
 
-import location.models.DTOs.TicketDto
+import location.adapters.driven.storage.DTOs.TicketDto
 
 class FauxStockage : ITicketRepository {
 

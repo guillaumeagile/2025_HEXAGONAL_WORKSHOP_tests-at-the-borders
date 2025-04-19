@@ -1,4 +1,4 @@
-package location.commandHandlers
+package location.commandHandlers.data
 
 import location.domain.entities.Ticket
 

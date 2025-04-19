@@ -4,7 +4,7 @@ import io.kotest.core.spec.style.StringSpec
 import org.testcontainers.containers.PostgreSQLContainer
 import io.kotest.matchers.*
 import location.adapters.driven.storage.postGreSQL.TicketRepository
-import location.models.DTOs.TicketDto
+import location.adapters.driven.storage.DTOs.TicketDto
 
 class PostGreAdaptorTest : StringSpec({
 

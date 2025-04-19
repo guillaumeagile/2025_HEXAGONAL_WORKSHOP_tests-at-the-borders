@@ -3,7 +3,7 @@ package adapters.exercice_3_adapters_fakes
 import adapters.StorageSharedTests
 import io.kotest.core.spec.style.FunSpec
 import io.kotest.matchers.shouldBe
-import location.models.DTOs.TicketDto
+import location.adapters.driven.storage.DTOs.TicketDto
 
 class FauxStockageTest : FunSpec({
 
