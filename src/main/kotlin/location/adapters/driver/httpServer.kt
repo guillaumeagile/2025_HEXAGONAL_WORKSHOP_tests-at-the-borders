@@ -11,7 +11,7 @@ import org.http4k.routing.routes
 import org.http4k.server.Http4kServer
 import org.http4k.server.Jetty
 import org.http4k.server.asServer
-import location.commandHandler.AcheterUnTicketAuParcmetre
+import location.commandHandlers.AcheterUnTicketAuParcmetre
 
 
 data class TicketDTO(

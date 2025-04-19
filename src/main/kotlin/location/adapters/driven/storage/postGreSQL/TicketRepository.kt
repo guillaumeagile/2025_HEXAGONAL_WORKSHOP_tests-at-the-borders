@@ -1,6 +1,6 @@
 package location.adapters.driven.storage.postGreSQL
 
-import location.behaviors.ITicketRepository
+import location.ports.ITicketRepository
 import location.models.DTOs.TicketDto
 import java.sql.DriverManager
 

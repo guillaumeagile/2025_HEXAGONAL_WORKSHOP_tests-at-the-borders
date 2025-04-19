@@ -2,7 +2,7 @@ package adapters
 
 import io.kotest.core.spec.style.funSpec
 import io.kotest.matchers.shouldBe
-import location.behaviors.ITicketRepository
+import location.ports.ITicketRepository
 import location.models.DTOs.TicketDto
 
 object StorageSharedTests

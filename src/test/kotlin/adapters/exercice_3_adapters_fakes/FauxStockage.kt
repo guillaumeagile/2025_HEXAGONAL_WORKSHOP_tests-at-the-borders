@@ -1,6 +1,6 @@
 package adapters.exercice_3_adapters_fakes
 
-import location.behaviors.ITicketRepository
+import location.ports.ITicketRepository
 
 import location.models.DTOs.TicketDto
 

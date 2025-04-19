@@ -1,4 +1,4 @@
-package location.behaviors
+package location.ports
 
 // ce qui est technique: en anglais
 

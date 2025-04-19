@@ -1,6 +1,6 @@
 package location.utilities
 
-import location.behaviors.IJeDonneDesIdentifiants
+import location.ports.IJeDonneDesIdentifiants
 import ulid.ULID
 
 

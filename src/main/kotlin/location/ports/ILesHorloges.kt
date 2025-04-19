@@ -1,4 +1,4 @@
-package location.behaviors
+package location.ports
 
 import kotlinx.datetime.LocalDateTime
 

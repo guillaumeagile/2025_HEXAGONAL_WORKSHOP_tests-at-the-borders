@@ -3,7 +3,7 @@ package location.domain.entities
 import io.nacular.measured.units.Measure
 import io.nacular.measured.units.Time
 import kotlinx.datetime.LocalDateTime
-import location.behaviors.IJeDonneDesIdentifiants
+import location.ports.IJeDonneDesIdentifiants
 
 // TODO: se ré accorder sur ce truc là
 

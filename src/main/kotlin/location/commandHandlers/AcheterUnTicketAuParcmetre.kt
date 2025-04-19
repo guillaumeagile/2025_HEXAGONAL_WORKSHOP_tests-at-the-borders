@@ -1,8 +1,8 @@
-package location.commandHandler
+package location.commandHandlers
 
 import kotlinx.coroutines.coroutineScope
 import kotlinx.coroutines.delay
-import location.behaviors.IRequestHandler
+import location.abstractions.IRequestHandler
 
 class AcheterUnTicketAuParcmetre : IRequestHandler<DemandeDuTicket, ReponseALaDemandeDuTicket> {
 

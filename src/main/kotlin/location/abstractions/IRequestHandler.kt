@@ -1,4 +1,4 @@
-package location.behaviors
+package location.abstractions
 
 interface IRequestHandler<Tin, Tout> {
 

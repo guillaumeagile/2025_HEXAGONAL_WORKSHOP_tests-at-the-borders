@@ -13,8 +13,8 @@ import org.http4k.core.Status.Companion.OK
 import org.http4k.hamkrest.hasBody
 import org.http4k.hamkrest.hasStatus
 import location.adapters.driver.httpServer
-import location.commandHandler.AcheterUnTicketAuParcmetre
-import location.commandHandler.DemandeDuTicket
+import location.commandHandlers.AcheterUnTicketAuParcmetre
+import location.commandHandlers.DemandeDuTicket
 
 
 class RestApiTest : FunSpec({
