@@ -7,7 +7,8 @@ import io.nacular.measured.units.times
 import kotlinx.datetime.LocalDateTime
 
 data class Ticket(
-
+    val id : String,
+    val usagerId : String,  // son email
     val momentEntree: LocalDateTime,
     val dureeDeLocation: Measure<Time>, // à changer par un value object qui porte la règle de temps maximal de locatiin
     val momentSortie: LocalDateTime
@@ -15,6 +16,8 @@ data class Ticket(
     companion object {
         fun bidon(): Ticket {
             return Ticket(
+                id = "fake",
+                usagerId = "fake@user.com",
                 momentEntree = LocalDateTime.parse("2000-01-01T00:00:00"),
                 dureeDeLocation = (0 * seconds),
                 momentSortie = LocalDateTime.parse("2000-01-01T00:00:00")

@@ -5,7 +5,7 @@ import io.kotest.matchers.result.shouldBeSuccess
 import io.kotest.matchers.shouldNotBe
 import kotlinx.coroutines.async
 import kotlinx.coroutines.coroutineScope
-import location.commandHandlers.AcheterUnTicketAuParcmetre
+import location.commandHandlers.AcheterUnTicketDeLocation
 import location.commandHandlers.data.DemandeDuTicket
 
 
@@ -18,7 +18,7 @@ class SimpleUsesCasesTests : StringSpec({
     "l'utilisateur prend un ticket et celui est enregistré pour de bon" .config(enabled = true) {
 
         val demande = DemandeDuTicket(immatriculationVehicule = "imma", montantEuro = 5)
-        val useCase = AcheterUnTicketAuParcmetre()
+        val useCase = AcheterUnTicketDeLocation()
 
         coroutineScope {
 

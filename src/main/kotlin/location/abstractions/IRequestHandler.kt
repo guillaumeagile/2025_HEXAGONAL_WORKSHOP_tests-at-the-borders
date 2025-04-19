@@ -1,7 +1,7 @@
 package location.abstractions
 
-interface IRequestHandler<Tin, Tout> {
+interface IRequestHandler<TCommand, TResponse> {
 
-   suspend fun handle(demande: Tin) : Tout
+   suspend fun handle(demande: TCommand) : TResponse
 
 }

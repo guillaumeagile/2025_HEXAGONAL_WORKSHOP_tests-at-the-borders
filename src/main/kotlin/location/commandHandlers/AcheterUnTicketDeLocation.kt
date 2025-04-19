@@ -7,7 +7,7 @@ import location.commandHandlers.data.DemandeDuTicket
 import location.commandHandlers.data.ReponseALaDemandeDuTicket
 import location.domain.entities.Ticket
 
-class AcheterUnTicketAuParcmetre : IRequestHandler<DemandeDuTicket, ReponseALaDemandeDuTicket> {
+class AcheterUnTicketDeLocation : IRequestHandler<DemandeDuTicket, ReponseALaDemandeDuTicket> {
 
     override suspend fun handle(demande: DemandeDuTicket): ReponseALaDemandeDuTicket = coroutineScope {
         println("on demarre le request handler, ca va prendre du temps")
