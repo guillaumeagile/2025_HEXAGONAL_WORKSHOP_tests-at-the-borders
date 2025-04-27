@@ -6,15 +6,17 @@ import location.adapters.driven.storage.DTOs.TicketDto
 
 class FauxStockage : ITicketRepository {
 
-    val listDesTickets = mutableListOf<TicketDto>()
+    val listeOrdonneeDesTickets = hashMapOf<Int, TicketDto>()
 
     override fun save(ticket: TicketDto) = runCatching {
-        listDesTickets.add(ticket)
+      //  listDesTickets.add(ticket)
+        listeOrdonneeDesTickets.put(ticket.id, ticket)
+        true
     }
 
-    override fun count(): Result<Int> = Result.success(listDesTickets.size)
+    override fun count(): Result<Int> = Result.success(listeOrdonneeDesTickets.size)
 
-    override fun getAll(): Result<List<TicketDto>> = Result.success( listDesTickets)
+    override fun getAll(): Result<List<TicketDto>> = Result.success( listeOrdonneeDesTickets.map( { it.value }) )
 
 }
 
