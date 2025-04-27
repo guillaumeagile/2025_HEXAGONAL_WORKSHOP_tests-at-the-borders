@@ -8,17 +8,23 @@ import location.adapters.driven.storage.DTOs.TicketDto
 class FauxStockageTest : FunSpec({
 
     val testTicket = TicketDto(1, 2)
-    val fauxStockageFactory = {  -> FauxStockage() }
+    val fauxStockageFactory = { -> FauxStockage() }
 
-        include( StorageSharedTests.storageSaveAndCount(stockage = fauxStockageFactory()))
+    include(StorageSharedTests.storageNoSaveAndCount(stockage = fauxStockageFactory()))
 
-        include(StorageSharedTests.storageSaveAndRead(stockage = fauxStockageFactory()))
+    include(StorageSharedTests.storageSaveAndCount(stockage = fauxStockageFactory()))
 
-        test("saveTicket should add a ticket ") {
-            val leStockage = fauxStockageFactory()
-            leStockage.save(testTicket)
-            leStockage.listDesTickets.size shouldBe 1
-        }
+    include(StorageSharedTests.storageSaveAndRead(stockage = fauxStockageFactory()))
+
+    include((StorageSharedTests.storageSaveTwoAndRead(stockage = fauxStockageFactory())))
+
+    include(StorageSharedTests.storageCannotSaveTwoOfTheSameId(stockage = fauxStockageFactory()))
+
+    test("saveTicket should add a ticket ") {
+        val leStockage = fauxStockageFactory()
+        leStockage.save(testTicket)
+        leStockage.listDesTickets.size shouldBe 1
+    }
 
 })
 
