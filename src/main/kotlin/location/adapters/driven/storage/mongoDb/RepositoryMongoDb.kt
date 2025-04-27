@@ -3,19 +3,20 @@ package location.adapters.driven.storage.mongoDb
 import com.mongodb.client.model.Filters
 import com.mongodb.client.model.ReplaceOptions
 import com.mongodb.client.model.Sorts.ascending
+import com.mongodb.kotlin.client.MongoClient
 import location.adapters.driven.storage.DTOs.TicketDto
 import location.ports.ITicketRepository
 import org.bson.codecs.pojo.annotations.BsonId
 
-data class DTOMongoTicket(
-    @BsonId
-    val id: Long,
-    val parkTimeMinutes: Int
-)
-
 
 class RepositoryMongoDb(connexionUrl: String) : ITicketRepository {
-    private val mongoClient = com.mongodb.kotlin.client.MongoClient.Factory.create(connexionUrl)
+
+     data class DTOMongoTicket(
+        @BsonId
+        val id: Long,
+        val parkTimeMinutes: Int
+    )
+    private val mongoClient = MongoClient.Factory.create(connexionUrl)
     private val db = mongoClient.getDatabase("tickets")
     private val ticketCollection = db.getCollection<DTOMongoTicket>("ledgerTicket")
 

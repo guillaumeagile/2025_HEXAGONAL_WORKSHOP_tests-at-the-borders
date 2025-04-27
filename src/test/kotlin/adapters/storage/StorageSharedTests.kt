@@ -41,12 +41,9 @@ object StorageSharedTests {
             actualResultOfGetAll shouldNotBeNull
                     {
                         actualResultOfGetAll?.size shouldBe 2
-
-                        // .first() shouldBe testTicket1
                         actualResultOfGetAll?.first() shouldBe testTicket1
                         actualResultOfGetAll?.last() shouldBe testTicket2
                     }
-
         }
     }
 
@@ -61,11 +58,8 @@ object StorageSharedTests {
             actualResultOfGetAll shouldNotBeNull
                     {
                         actualResultOfGetAll?.size shouldBe 1
-
-                        // .first() shouldBe testTicket1
                         actualResultOfGetAll?.first() shouldBe testTicket2
                     }
-
         }
     }
 }
