@@ -87,6 +87,11 @@ dependencies {
     testImplementation("org.testcontainers:postgresql:1.20.1")
     testImplementation("org.postgresql:postgresql:42.7.4")
 
+    // Testcontainers mongodb
+    testImplementation("org.testcontainers:mongodb:1.20.6")
+    implementation("org.mongodb:mongodb-driver-kotlin-sync:5.4.0")
+    implementation("org.mongodb:bson-kotlin:5.4.0")
+
 }
 
 wrapper {
