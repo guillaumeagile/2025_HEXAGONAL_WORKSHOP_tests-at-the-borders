@@ -11,6 +11,7 @@ interface ITicketRepository { //CQS
     fun save(ticket: TicketDto): Result<Boolean>
     // read
     fun count(): Result<Int>
+
     fun getAll(): Result<List<TicketDto>>
 
 }

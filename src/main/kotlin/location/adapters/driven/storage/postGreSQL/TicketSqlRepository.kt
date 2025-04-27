@@ -5,7 +5,7 @@ import location.adapters.driven.storage.DTOs.TicketDto
 import java.sql.DriverManager
 
 
-class TicketRepository(jdbcUrl: String, username: String, password: String) : ITicketRepository {
+class TicketSqlRepository(jdbcUrl: String, username: String, password: String) : ITicketRepository {
     private val storageConnection = DriverManager.getConnection(jdbcUrl, username, password)
 
 
@@ -23,7 +23,11 @@ class TicketRepository(jdbcUrl: String, username: String, password: String) : IT
 
     override fun save(ticket: TicketDto)  = runCatching {
         val insertStatement = storageConnection.prepareStatement(
-            "insert into ticket(id, park_time_minutes) values (?, ?)"
+            """insert into ticket(id, park_time_minutes) 
+                |values (?, ?)
+                |ON CONFLICT (id)
+                |DO UPDATE SET
+                |park_time_minutes = EXCLUDED.park_time_minutes""".trimMargin()
         )
         insertStatement.setInt(1, ticket.id)
         insertStatement.setInt(2, ticket.elapsedMinutes)
@@ -36,11 +40,23 @@ class TicketRepository(jdbcUrl: String, username: String, password: String) : IT
         )
         val result = selectStatement.executeQuery()
         result.next()
-        var res =  result.getInt("cardinalityTickets")
+        val res =  result.getInt("cardinalityTickets")
         return Result.success( res)
     }
 
     override fun getAll(): Result<List<TicketDto>> {
-        TODO("Not yet implemented")
+        val selectStatement = storageConnection.prepareStatement(
+            "select * from ticket order by id"
+        )
+        val resultQuery = selectStatement.executeQuery()
+        val listOfTickets = ArrayList<TicketDto>()
+        while (resultQuery.next()) {
+            val aTicketDto = TicketDto(
+                id = resultQuery.getInt("id"),
+                elapsedMinutes = resultQuery.getInt("park_time_minutes")
+            )
+            listOfTickets.add(aTicketDto)
+        }
+        return Result.success(listOfTickets)
     }
 }

@@ -3,7 +3,7 @@ package adapters.driven.postGreSQL
 import io.kotest.core.spec.style.StringSpec
 import org.testcontainers.containers.PostgreSQLContainer
 import io.kotest.matchers.*
-import location.adapters.driven.storage.postGreSQL.TicketRepository
+import location.adapters.driven.storage.postGreSQL.TicketSqlRepository
 import location.adapters.driven.storage.DTOs.TicketDto
 
 class PostGreAdaptorTest : StringSpec({
@@ -12,7 +12,7 @@ class PostGreAdaptorTest : StringSpec({
         // Arrange
         val postgres = PostgreSQLContainer("postgres:16")
         postgres.start()
-        val repo = TicketRepository(postgres.getJdbcUrl(), postgres.getUsername(), postgres.getPassword())
+        val repo = TicketSqlRepository(postgres.getJdbcUrl(), postgres.getUsername(), postgres.getPassword())
         repo.createTableTicket()
         repo.save(TicketDto(id = 1, elapsedMinutes = 30))
         repo.save(TicketDto(id = 2, elapsedMinutes = 18))

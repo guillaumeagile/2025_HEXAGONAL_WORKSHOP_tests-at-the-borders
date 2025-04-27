@@ -1,6 +1,6 @@
-package adapters.exercice_3_adapters_fakes
+package adapters.storage.fake
 
-import adapters.StorageSharedTests
+import adapters.storage.StorageSharedTests
 import io.kotest.core.spec.style.FunSpec
 import io.kotest.matchers.shouldBe
 import location.adapters.driven.storage.DTOs.TicketDto
@@ -8,7 +8,7 @@ import location.adapters.driven.storage.DTOs.TicketDto
 class FauxStockageTest : FunSpec({
 
     val testTicket = TicketDto(1, 2)
-    val fauxStockageFactory = {  -> FauxStockage()}
+    val fauxStockageFactory = {  -> FauxStockage() }
 
         include( StorageSharedTests.storageSaveAndCount(stockage = fauxStockageFactory()))
 
