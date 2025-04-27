@@ -1,12 +1,12 @@
 package adapters.driven.postGreSQL
 
 import io.kotest.core.spec.style.StringSpec
-import org.testcontainers.containers.PostgreSQLContainer
-import io.kotest.matchers.*
-import location.adapters.driven.storage.postGreSQL.TicketSqlRepository
+import io.kotest.matchers.shouldBe
 import location.adapters.driven.storage.DTOs.TicketDto
+import location.adapters.driven.storage.postGreSQL.TicketSqlRepository
+import org.testcontainers.containers.PostgreSQLContainer
 
-class PostGreAdaptorTest : StringSpec({
+class AnExampleOfPostGreWithContainerTest : StringSpec({
 
     "simple CRUD avec test container".config(enabled = false) {
         // Arrange
@@ -20,13 +20,10 @@ class PostGreAdaptorTest : StringSpec({
         // Act
         val countTickets = repo.count()
         // Assert
-        countTickets.isSuccess  shouldBe true
+        countTickets.isSuccess shouldBe true
         countTickets.getOrThrow() shouldBe 2
 
         // Tear Down
         postgres.stop()
-
-
-
     }
 })

@@ -1,33 +1,45 @@
 package location.adapters.driven.storage.mongoDb
 
-import com.mongodb.kotlin.client.MongoClient
+import com.mongodb.client.model.Filters
+import com.mongodb.client.model.ReplaceOptions
+import com.mongodb.client.model.Sorts.ascending
+import location.adapters.driven.storage.DTOs.TicketDto
 import location.ports.ITicketRepository
 import org.bson.codecs.pojo.annotations.BsonId
 
-
 data class DTOMongoTicket(
     @BsonId
-    val id: Int,
+    val id: Long,
     val parkTimeMinutes: Int
 )
 
 
-class RepositoryMongoDb(connexionUrl: String)  {
+class RepositoryMongoDb(connexionUrl: String) : ITicketRepository {
     private val mongoClient = com.mongodb.kotlin.client.MongoClient.Factory.create(connexionUrl)
     private val db = mongoClient.getDatabase("tickets")
     private val ticketCollection = db.getCollection<DTOMongoTicket>("ledgerTicket")
 
-    fun createTicket(ticket: DTOMongoTicket) {
-        ticketCollection.insertOne(ticket)
+    private fun saveOrUpdateTicket(ticket: DTOMongoTicket) {
+        val filter = Filters.eq("_id", ticket.id)
+        val options = ReplaceOptions().upsert(true)
+        ticketCollection.replaceOne(filter, ticket, options)
     }
 
-    fun countTickets(): Long {
-        return ticketCollection.countDocuments()
+    override fun save(ticket: TicketDto): Result<Boolean> {
+        val adaptedTicket = DTOMongoTicket(id = ticket.id.toLong(), parkTimeMinutes = ticket.elapsedMinutes)
+        saveOrUpdateTicket(adaptedTicket)
+        return Result.success(true)
     }
 
-    fun getTickets(): List<DTOMongoTicket> {
-        val l = mutableListOf<DTOMongoTicket>()
-        return ticketCollection.find().toCollection(l)
+    override fun count(): Result<Int> = runCatching {
+         ticketCollection.countDocuments().toInt()
+    }
+
+    override fun getAll(): Result<List<TicketDto>>  = runCatching {
+        ticketCollection
+            .find()
+            .sort(ascending("_id"))
+            .map  { t -> TicketDto(id = t.id.toInt(), elapsedMinutes = t.parkTimeMinutes) }.toList()
     }
 
 }

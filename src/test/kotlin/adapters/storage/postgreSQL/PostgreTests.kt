@@ -8,7 +8,7 @@ import location.adapters.driven.storage.DTOs.TicketDto
 import location.adapters.driven.storage.postGreSQL.TicketSqlRepository
 import org.testcontainers.containers.PostgreSQLContainer
 
-class postgreTests : FunSpec({
+class PostgreTests : FunSpec({
 
     val testTicket = TicketDto(1, 200)
     val stockageFactory = {
