@@ -1,6 +1,6 @@
 package adapters.storage.postgreSQL
 
-import adapters.storage.StorageSharedTests
+import adapters.storage.RepositorySharedTests
 
 import io.kotest.core.spec.style.FunSpec
 import io.kotest.matchers.shouldBe
@@ -28,15 +28,15 @@ class PostgreTests : FunSpec({
         leStockage.getAll().getOrNull()?.first() shouldBe testTicket
     }
 
-    // test hérités
-    include( StorageSharedTests.storageNoSaveAndCount(stockage = stockageFactory()))
+    // zone de vérification du contrat par les tests partagés
+    include( RepositorySharedTests.storageNoSaveAndCount(stockage = stockageFactory()))
 
-    include( StorageSharedTests.storageSaveAndCount(stockage = stockageFactory()))
+    include( RepositorySharedTests.storageSaveAndCount(stockage = stockageFactory()))
 
-    include(StorageSharedTests.storageSaveAndRead(stockage = stockageFactory()))
+    include(RepositorySharedTests.storageSaveAndRead(stockage = stockageFactory()))
 
-    include((StorageSharedTests.storageSaveTwoAndRead(stockage = stockageFactory())))
+    include((RepositorySharedTests.storageSaveTwoAndRead(stockage = stockageFactory())))
 
-    include( StorageSharedTests.storageCannotSaveTwoOfTheSameId(stockage = stockageFactory()))
+    include( RepositorySharedTests.storageCannotSaveTwoOfTheSameId(stockage = stockageFactory()))
 
 })

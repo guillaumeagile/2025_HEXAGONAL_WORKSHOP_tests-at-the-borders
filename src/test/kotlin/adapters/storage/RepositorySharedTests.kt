@@ -6,7 +6,8 @@ import io.kotest.matchers.shouldBe
 import location.adapters.driven.storage.DTOs.TicketDto
 import location.ports.ITicketRepository
 
-object StorageSharedTests {
+object RepositorySharedTests {
+
     fun storageSaveAndCount(stockage: ITicketRepository) = funSpec {
         test("count should return the number of saved tickets") {
 
