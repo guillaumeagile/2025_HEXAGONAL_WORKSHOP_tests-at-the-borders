@@ -6,7 +6,16 @@ import io.kotest.matchers.shouldBe
 import location.adapters.driven.storage.DTOs.TicketDto
 import location.ports.ITicketRepository
 
-object RepositorySharedTests {
+object RepositoryContractTests {
+
+    // Immutable list of all test functions, to be reused by other tests
+    val allTests = listOf(
+        ::storageSaveAndCount,
+        ::storageNoSaveAndCount,
+        ::storageSaveAndRead,
+        ::storageSaveTwoAndRead,
+        ::storageCannotSaveTwoOfTheSameId
+    )
 
     fun storageSaveAndCount(stockage: ITicketRepository) = funSpec {
         test("count should return the number of saved tickets") {
@@ -64,4 +73,3 @@ object RepositorySharedTests {
         }
     }
 }
-

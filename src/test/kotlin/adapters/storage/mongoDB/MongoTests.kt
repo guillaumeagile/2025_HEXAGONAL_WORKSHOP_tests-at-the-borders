@@ -1,6 +1,6 @@
 package adapters.storage.mongoDB
 
-import adapters.storage.RepositorySharedTests
+import adapters.storage.RepositoryContractTests
 
 import io.kotest.core.spec.style.FunSpec
 import io.kotest.matchers.shouldBe
@@ -26,15 +26,9 @@ class MongoTests : FunSpec(
         }
 
         // zone de vérification du contrat par les tests partagés
-        include(RepositorySharedTests.storageNoSaveAndCount(stockage = stockageFactory()))
-
-        include(RepositorySharedTests.storageSaveAndCount(stockage = stockageFactory()))
-
-        include(RepositorySharedTests.storageSaveAndRead(stockage = stockageFactory()))
-
-        include((RepositorySharedTests.storageSaveTwoAndRead(stockage = stockageFactory())))
-
-        include(RepositorySharedTests.storageCannotSaveTwoOfTheSameId(stockage = stockageFactory()))
+        RepositoryContractTests.allTests.forEach {
+            include(it(stockageFactory()))
+        }
 
         test("test local pour préparation") {
             val leStockage = stockageFactory()
