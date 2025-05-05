@@ -1,6 +1,6 @@
-package adapters.storage.postgreSQL
+package adapters.storage.withContractTesting.postgreSQL
 
-import adapters.storage.RepositoryContractTests
+import adapters.storage.withContractTesting.RepositoryContractTests
 
 import io.kotest.core.spec.style.FunSpec
 import io.kotest.matchers.shouldBe

@@ -1,4 +1,4 @@
-package adapters.driven.postGreSQL
+package adapters.driven.oldfashionnedTests.postGreSQL
 
 import io.kotest.core.spec.style.StringSpec
 import io.kotest.matchers.shouldBe

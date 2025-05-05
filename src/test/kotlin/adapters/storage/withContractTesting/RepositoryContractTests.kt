@@ -1,4 +1,4 @@
-package adapters.storage
+package adapters.storage.withContractTesting
 
 import io.kotest.core.spec.style.funSpec
 import io.kotest.core.spec.style.stringSpec
@@ -14,11 +14,11 @@ object RepositoryContractTests  {
 
     // Immutable list of all test functions, to be reused by other tests
     val allTests = listOf(
-        ::storageSaveAndCount,
-        ::storageNoSaveAndCount,
-        ::storageSaveAndRead,
-        ::storageSaveTwoAndRead,
-        ::storageCannotSaveTwoOfTheSameId
+        RepositoryContractTests::storageSaveAndCount,
+        RepositoryContractTests::storageNoSaveAndCount,
+        RepositoryContractTests::storageSaveAndRead,
+        RepositoryContractTests::storageSaveTwoAndRead,
+        RepositoryContractTests::storageCannotSaveTwoOfTheSameId
     )
 
     fun storageNoSaveAndCount(stockage: ITicketRepository) = stringSpec {

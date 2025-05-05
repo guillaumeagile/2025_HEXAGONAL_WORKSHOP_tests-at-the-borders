@@ -1,6 +1,6 @@
-package adapters.storage.fake
+package adapters.storage.withContractTesting.fake
 
-import adapters.storage.RepositoryContractTests
+import adapters.storage.withContractTesting.RepositoryContractTests
 import io.kotest.core.spec.style.FunSpec
 import io.kotest.matchers.shouldBe
 import location.adapters.driven.storage.DTOs.TicketDto
