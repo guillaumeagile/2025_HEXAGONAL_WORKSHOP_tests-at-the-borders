@@ -30,10 +30,5 @@ class MongoTests : FunSpec(
             include(it(stockageFactory()))
         }
 
-        test("test local pour préparation") {
-            val leStockage = stockageFactory()
-            leStockage.save(testTicket)
-            leStockage.getAll().getOrNull()?.first() shouldBe testTicket
 
-        }
     })

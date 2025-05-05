@@ -1,12 +1,16 @@
 package adapters.storage
 
 import io.kotest.core.spec.style.funSpec
+import io.kotest.core.spec.style.stringSpec
 import io.kotest.matchers.nulls.shouldNotBeNull
 import io.kotest.matchers.shouldBe
 import location.adapters.driven.storage.DTOs.TicketDto
 import location.ports.ITicketRepository
 
-object RepositoryContractTests {
+
+// FIND A WAY to bind the Contracts of Tests with the Contract of Implementations
+
+object RepositoryContractTests  {
 
     // Immutable list of all test functions, to be reused by other tests
     val allTests = listOf(
@@ -17,31 +21,22 @@ object RepositoryContractTests {
         ::storageCannotSaveTwoOfTheSameId
     )
 
-    fun storageSaveAndCount(stockage: ITicketRepository) = funSpec {
-        test("count should return the number of saved tickets") {
-
-            stockage.save(TicketDto(1, 2))
-            stockage.count().getOrNull() shouldBe 1
-        }
-    }
-
-    fun storageNoSaveAndCount(stockage: ITicketRepository) = funSpec {
-        test("count should return zero tickets") {
-
+    fun storageNoSaveAndCount(stockage: ITicketRepository) = stringSpec {
+        "count should return zero tickets" {
             stockage.count().getOrNull() shouldBe 0
         }
     }
 
-    fun storageSaveAndRead(stockage: ITicketRepository) = funSpec {
-        test("getTickets should return the list of saved tickets") {
+    fun storageSaveAndRead(stockage: ITicketRepository) = stringSpec {
+       "getTickets should return the list of saved tickets" {
             val testTicket = TicketDto(2, 3)
             stockage.save(testTicket)
             stockage.getAll().getOrNull()?.first() shouldBe testTicket
         }
     }
 
-    fun storageSaveTwoAndRead(stockage: ITicketRepository) = funSpec {
-        test("getTickets should return the list of saved tickets ordered by id") {
+    fun storageSaveTwoAndRead(stockage: ITicketRepository) = stringSpec {
+        "getTickets should return the list of saved tickets ordered by id" {
             val testTicket1 = TicketDto(1, 3)
             val testTicket2 = TicketDto(2, 4)
             stockage.save(testTicket2)
@@ -57,8 +52,8 @@ object RepositoryContractTests {
         }
     }
 
-    fun storageCannotSaveTwoOfTheSameId(stockage: ITicketRepository) = funSpec {
-        test("saving 2 tickets with the same id should return only the last updated") {
+    fun storageCannotSaveTwoOfTheSameId(stockage: ITicketRepository) = stringSpec {
+        "saving 2 tickets with the same id should return only the last updated" {
             val testTicket1 = TicketDto(1, 3)
             val testTicket2 = TicketDto(1, 4)
             stockage.save(testTicket1)
@@ -72,4 +67,16 @@ object RepositoryContractTests {
                     }
         }
     }
+
+    fun storageSaveAndCount(stockage: ITicketRepository) = stringSpec {
+        "count should return the number of saved tickets" {
+
+            stockage.save(TicketDto(1, 2))
+            stockage.count().getOrNull() shouldBe 1
+        }
+    }
+
 }
+
+
+

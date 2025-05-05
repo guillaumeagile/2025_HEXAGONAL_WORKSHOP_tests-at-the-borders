@@ -14,7 +14,7 @@ class FauxStockage : ITicketRepository {
         true
     }
 
-    override fun count(): Result<Int> = Result.success(listeOrdonneeDesTickets.size)
+    override fun count(): Result<Int> = Result.success(listeOrdonneeDesTickets.size + 1)
 
     override fun getAll(): Result<List<TicketDto>> = Result.success( listeOrdonneeDesTickets.map( { it.value }) )
 
