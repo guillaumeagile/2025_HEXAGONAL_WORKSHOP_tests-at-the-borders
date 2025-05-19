@@ -1,3 +1,3 @@
 package annotationsSpecs
 
-class InheritedAnnotationSpec : AnnotationSpecBase()
+class InheritedAnnotationSpec : AnnotationSpecBase(9)

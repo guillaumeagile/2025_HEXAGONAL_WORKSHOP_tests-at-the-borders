@@ -5,7 +5,17 @@ import io.kotest.matchers.shouldBe
 
 // voir si on peut faire héritage avec annotationSpec
 // ou bien ré-utiliser les fonctions
-open class AnnotationSpecBase : AnnotationSpec() {
+open class AnnotationSpecBase : AnnotationSpec {
+
+    private var _sut: Int
+
+    constructor() {
+        _sut = 1
+    }
+
+    constructor(sut: Int ) {
+        _sut = sut
+    }
 
     @BeforeEach
     fun beforeTest() {
@@ -14,7 +24,7 @@ open class AnnotationSpecBase : AnnotationSpec() {
 
     @Test
     fun test1() {
-        1 shouldBe 1
+        _sut shouldBe 1
     }
 
     @Test
