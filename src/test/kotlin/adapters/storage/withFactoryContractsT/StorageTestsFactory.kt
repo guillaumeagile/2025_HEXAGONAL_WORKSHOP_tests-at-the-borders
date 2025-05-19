@@ -29,9 +29,9 @@ class StorageTestsFactory  : StringSpec (   {
     }
 
 
-    include( "test avec Mongo", contractOfStorageAdaptersTests( mongoStockageFactory()))
+    include( "test avec Mongo :", contractOfStorageAdaptersTests( mongoStockageFactory()))
 
-    include( "test avec PostGreSQL",  contractOfStorageAdaptersTests(sqlStockageFactory()))
+    include( "test avec PostGreSQL :",  contractOfStorageAdaptersTests(sqlStockageFactory()))
 
 
 })
