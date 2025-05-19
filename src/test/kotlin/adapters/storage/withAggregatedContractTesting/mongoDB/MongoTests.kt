@@ -1,22 +1,21 @@
-package adapters.storage.withContractTesting.mongoDB
+package adapters.storage.withAggregatedContractTesting.mongoDB
 
-import adapters.storage.withContractTesting.RepositoryContractTests
+import adapters.storage.withAggregatedContractTesting.AggregatorOfContractTests
 
 import io.kotest.core.spec.style.FunSpec
-import io.kotest.matchers.shouldBe
 import location.adapters.driven.storage.DTOs.TicketDto
 import location.adapters.driven.storage.mongoDb.RepositoryMongoDb
 import org.testcontainers.containers.MongoDBContainer
 
 class MongoTests : FunSpec(
     {
-        val testTicket = TicketDto(1, 200)
+        TicketDto(1, 200)
 
         beforeTest {
             println("Starting a test $it")
         }
 
-        val stockageFactory = {
+        val mongoStockageFactory = {
             // Arrange
             val mongoDB = MongoDBContainer("mongo:8")
             mongoDB.start()
@@ -26,9 +25,8 @@ class MongoTests : FunSpec(
         }
 
         // zone de vérification du contrat par les tests partagés
-        RepositoryContractTests.allTests.forEach {
-            include(it(stockageFactory()))
+        AggregatorOfContractTests.allTests.forEach {
+            include(it(mongoStockageFactory()))
         }
-
 
     })

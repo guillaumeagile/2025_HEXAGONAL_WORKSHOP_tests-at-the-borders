@@ -5,13 +5,10 @@ import io.kotest.matchers.shouldBe
 import io.kotest.matchers.shouldNotBe
 
 // specification de contrat de tous les tests avec Annotation
-open abstract class ContractSpecification : AnnotationSpec {
+ abstract class ContractSpecification : AnnotationSpec {
 
     private var _sut: Int
 
-    constructor() {
-        _sut = 1
-    }
 
     constructor(sut: Int ) {
         _sut = sut

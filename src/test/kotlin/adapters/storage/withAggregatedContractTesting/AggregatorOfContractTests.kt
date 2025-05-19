@@ -1,6 +1,5 @@
-package adapters.storage.withContractTesting
+package adapters.storage.withAggregatedContractTesting
 
-import io.kotest.core.spec.style.funSpec
 import io.kotest.core.spec.style.stringSpec
 import io.kotest.matchers.nulls.shouldNotBeNull
 import io.kotest.matchers.shouldBe
@@ -10,15 +9,15 @@ import location.ports.ITicketRepository
 
 // FIND A WAY to bind the Contracts of Tests with the Contract of Implementations
 
-object RepositoryContractTests  {
+object AggregatorOfContractTests  {
 
     // Immutable list of all test functions, to be reused by other tests
     val allTests = listOf(
-        RepositoryContractTests::storageSaveAndCount,
-        RepositoryContractTests::storageNoSaveAndCount,
-        RepositoryContractTests::storageSaveAndRead,
-        RepositoryContractTests::storageSaveTwoAndRead,
-        RepositoryContractTests::storageCannotSaveTwoOfTheSameId
+        AggregatorOfContractTests::storageSaveAndCount,
+        AggregatorOfContractTests::storageNoSaveAndCount,
+        AggregatorOfContractTests::storageSaveAndRead,
+        AggregatorOfContractTests::storageSaveTwoAndRead,
+        AggregatorOfContractTests::storageCannotSaveTwoOfTheSameId
     )
 
     fun storageNoSaveAndCount(stockage: ITicketRepository) = stringSpec {

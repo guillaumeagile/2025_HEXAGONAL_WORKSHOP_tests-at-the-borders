@@ -1,6 +1,6 @@
-package adapters.storage.withContractTesting.postgreSQL
+package adapters.storage.withAggregatedContractTesting.postgreSQL
 
-import adapters.storage.withContractTesting.RepositoryContractTests
+import adapters.storage.withAggregatedContractTesting.AggregatorOfContractTests
 
 import io.kotest.core.spec.style.FunSpec
 import io.kotest.matchers.shouldBe
@@ -10,8 +10,7 @@ import org.testcontainers.containers.PostgreSQLContainer
 
 class PostgreTests : FunSpec({
 
-    val testTicket = TicketDto(1, 200)
-    val stockageFactory = {
+    val sqlStockageFactory = {
         // Arrange
         val postgres = PostgreSQLContainer("postgres:16")
         postgres.start()
@@ -22,15 +21,16 @@ class PostgreTests : FunSpec({
     }
 
     test("test local pour préparation") {
-        val leStockage = stockageFactory()
+        val testTicket = TicketDto(1, 200)
+        val leStockage = sqlStockageFactory()
         leStockage.save(testTicket)
         leStockage.save(testTicket)
         leStockage.getAll().getOrNull()?.first() shouldBe testTicket
     }
 
     // zone de vérification du contrat par les tests partagés
-    RepositoryContractTests.allTests.forEach {
-        include(it(stockageFactory()))
+    AggregatorOfContractTests.allTests.forEach {
+        include(it(sqlStockageFactory()))
     }
 
 })

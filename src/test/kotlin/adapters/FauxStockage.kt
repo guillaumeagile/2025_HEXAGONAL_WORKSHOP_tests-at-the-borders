@@ -1,8 +1,7 @@
-package adapters.storage.withContractTesting.fake
-
-import location.ports.ITicketRepository
+package adapters
 
 import location.adapters.driven.storage.DTOs.TicketDto
+import location.ports.ITicketRepository
 
 class FauxStockage : ITicketRepository {
 
@@ -19,5 +18,3 @@ class FauxStockage : ITicketRepository {
     override fun getAll(): Result<List<TicketDto>> = Result.success( listeOrdonneeDesTickets.map( { it.value }) )
 
 }
-
-
