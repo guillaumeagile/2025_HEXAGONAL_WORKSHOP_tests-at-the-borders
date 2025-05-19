@@ -2,10 +2,10 @@ package annotationsSpecs
 
 import io.kotest.core.spec.style.AnnotationSpec
 import io.kotest.matchers.shouldBe
+import io.kotest.matchers.shouldNotBe
 
-// voir si on peut faire héritage avec annotationSpec
-// ou bien ré-utiliser les fonctions
-open class AnnotationSpecBase : AnnotationSpec {
+// specification de contrat de tous les tests avec Annotation
+open abstract class ContractSpecification : AnnotationSpec {
 
     private var _sut: Int
 
@@ -29,6 +29,6 @@ open class AnnotationSpecBase : AnnotationSpec {
 
     @Test
     fun test2() {
-        3 shouldBe 3
+        _sut shouldNotBe 9
     }
 }
