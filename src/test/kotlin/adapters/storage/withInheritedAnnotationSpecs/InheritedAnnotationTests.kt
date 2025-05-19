@@ -1,0 +1,30 @@
+package adapters.storage.withInheritedAnnotationSpecs
+
+import location.adapters.driven.storage.mongoDb.RepositoryMongoDb
+import location.adapters.driven.storage.postGreSQL.TicketSqlRepository
+import org.testcontainers.containers.MongoDBContainer
+import org.testcontainers.containers.PostgreSQLContainer
+
+val sqlStockageFactory = {
+    // Arrange
+    val postgres = PostgreSQLContainer("postgres:16")
+    postgres.start()
+    val repo = TicketSqlRepository(postgres.getJdbcUrl(), postgres.getUsername(), postgres.getPassword())
+    repo.createTableTicket()
+    // return repo
+    repo
+}
+
+val mongoStockageFactory = {
+    // Arrange
+    val mongoDB = MongoDBContainer("mongo:8")
+    mongoDB.start()
+    val connectionUri = mongoDB.connectionString
+    RepositoryMongoDb(connectionUri)
+    // return repo
+}
+
+
+class InheritedAnnotationTests_WithMongoDB : StorageContractSpecification(mongoStockageFactory()) {}
+
+class InheritedAnnotationTests_WithSQL : StorageContractSpecification(sqlStockageFactory()) {}

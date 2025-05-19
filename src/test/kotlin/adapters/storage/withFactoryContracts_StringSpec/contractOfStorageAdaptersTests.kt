@@ -1,4 +1,4 @@
-package adapters.storage.withFactoryContractsT
+package adapters.storage.withFactoryContracts_StringSpec
 
 import io.kotest.core.spec.style.stringSpec
 import io.kotest.matchers.nulls.shouldNotBeNull

@@ -20,6 +20,12 @@ class PostgreTests : FunSpec({
         repo
     }
 
+    // zone de vérification du contrat par les tests partagés
+    AggregatorOfContractTests.allTests.forEach {
+        include(it(sqlStockageFactory()))
+    }
+
+    /*
     test("test local pour préparation") {
         val testTicket = TicketDto(1, 200)
         val leStockage = sqlStockageFactory()
@@ -27,10 +33,5 @@ class PostgreTests : FunSpec({
         leStockage.save(testTicket)
         leStockage.getAll().getOrNull()?.first() shouldBe testTicket
     }
-
-    // zone de vérification du contrat par les tests partagés
-    AggregatorOfContractTests.allTests.forEach {
-        include(it(sqlStockageFactory()))
-    }
-
+*/
 })
