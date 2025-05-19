@@ -43,4 +43,9 @@ class RepositoryMongoDb(connexionUrl: String) : ITicketRepository {
             .map  { t -> TicketDto(id = t.id.toInt(), elapsedMinutes = t.parkTimeMinutes) }.toList()
     }
 
+    override fun reset(): Result<Boolean> {
+        ticketCollection.deleteMany(Filters.empty())
+        return Result.success(true)
+    }
+
 }

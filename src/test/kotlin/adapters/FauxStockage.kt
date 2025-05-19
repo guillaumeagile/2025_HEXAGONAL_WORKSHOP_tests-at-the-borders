@@ -17,4 +17,9 @@ class FauxStockage : ITicketRepository {
 
     override fun getAll(): Result<List<TicketDto>> = Result.success( listeOrdonneeDesTickets.map( { it.value }) )
 
+    override fun reset(): Result<Boolean> {
+        listeOrdonneeDesTickets.clear()
+        return Result.success(true)
+    }
+
 }

@@ -9,7 +9,8 @@ import location.ports.ITicketRepository
 fun contractOfStorageAdaptersTests( stockage: ITicketRepository) = stringSpec {
 
     beforeTest {
-        println("Executing $it")
+        println("Reset data before Executing $it")
+        stockage.reset()
     }
 
     "count should return zero tickets" {

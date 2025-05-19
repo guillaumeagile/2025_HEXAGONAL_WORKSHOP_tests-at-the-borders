@@ -59,4 +59,13 @@ class TicketSqlRepository(jdbcUrl: String, username: String, password: String) :
         }
         return Result.success(listOfTickets)
     }
+
+    override fun reset(): Result<Boolean> {
+        val deleteStatement = storageConnection.prepareStatement(
+            "delete from ticket"
+        )
+        return Result.success(
+            deleteStatement.execute()
+        )
+    }
 }

@@ -12,7 +12,8 @@ interface ITicketRepository { //CQS
     // read
     fun count(): Result<Int>
     fun getAll(): Result<List<TicketDto>>
-
+    // unfortunately, I created this only for test purposes
+    fun reset(): Result<Boolean>
 }
 
 //  séparation des responsabilités entre query(read) et write => CQRS = CQS + ISP
