@@ -1,11 +1,11 @@
-package adapters.storage.withContractTesting
+package annotationsSpecs
 
 import io.kotest.core.spec.style.AnnotationSpec
 import io.kotest.matchers.shouldBe
 
 // voir si on peut faire héritage avec annotationSpec
 // ou bien ré-utiliser les fonctions
-class AnnotationSpecExample : AnnotationSpec() {
+open class AnnotationSpecBase : AnnotationSpec() {
 
     @BeforeEach
     fun beforeTest() {
