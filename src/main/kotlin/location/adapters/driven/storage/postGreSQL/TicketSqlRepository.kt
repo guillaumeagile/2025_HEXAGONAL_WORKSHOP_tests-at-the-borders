@@ -1,6 +1,6 @@
 package location.adapters.driven.storage.postGreSQL
 
-import location.ports.PourStocker
+import location.ports.antiseche.PourStocker
 import location.adapters.driven.storage.DTOs.TicketDto
 import java.sql.DriverManager
 

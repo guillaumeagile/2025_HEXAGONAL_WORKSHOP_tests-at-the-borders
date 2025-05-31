@@ -1,6 +1,6 @@
-package adapters.storage.withAggregatedContractTesting.mongoDB
+package adapters.stockage.antiseche.withAggregatedContractTesting.mongoDB
 
-import adapters.storage.withAggregatedContractTesting.AggregatorOfContractTests
+import adapters.stockage.antiseche.withAggregatedContractTesting.AggregatorOfContractTests
 
 import io.kotest.core.spec.style.FunSpec
 import location.adapters.driven.storage.DTOs.TicketDto

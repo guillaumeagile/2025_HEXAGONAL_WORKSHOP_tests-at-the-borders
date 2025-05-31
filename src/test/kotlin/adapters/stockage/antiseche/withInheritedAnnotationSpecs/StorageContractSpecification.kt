@@ -1,9 +1,9 @@
-package adapters.storage.withInheritedAnnotationSpecs
+package adapters.stockage.antiseche.withInheritedAnnotationSpecs
 
 import io.kotest.core.spec.style.AnnotationSpec
 import io.kotest.matchers.shouldBe
 import location.adapters.driven.storage.DTOs.TicketDto
-import location.ports.PourStocker
+import location.ports.antiseche.PourStocker
 
 // specification de contrat de tous les tests avec Annotation
  abstract class StorageContractSpecification : AnnotationSpec {

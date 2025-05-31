@@ -1,7 +1,7 @@
-package adapters
+package adapters.stockage.antiseche
 
 import location.adapters.driven.storage.DTOs.TicketDto
-import location.ports.PourStocker
+import location.ports.antiseche.PourStocker
 
 class FauxStockage : PourStocker {
 

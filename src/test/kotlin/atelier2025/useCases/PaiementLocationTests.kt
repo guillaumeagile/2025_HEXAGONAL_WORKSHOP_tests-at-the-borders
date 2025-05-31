@@ -1,20 +1,19 @@
 package atelier2025.useCases
 
-import adapters.FauxStockage
+import adapters.stockage.antiseche.FauxStockage
 import adapters.autres_adapters_fakes.FausseHorloge
 import io.kotest.core.spec.style.BehaviorSpec
 import io.kotest.matchers.shouldBe
 import io.nacular.measured.units.Time
 import io.nacular.measured.units.times
 import kotlinx.datetime.LocalDateTime
-import location.domain.entities.Ticket
 import location.domain.usine.UsineDeTickets
 import location.domain.useCases.PaiementLocation
 import location.domain.usine.regles.CalculPrixHauteSaison
 import location.domain.valueObjects.DureeDeLocation
 import location.domain.valueObjects.Monnaie
 import location.ports.PourAvoirHeure
-import location.ports.PourStocker
+import location.ports.antiseche.PourStocker
 import location.utilities.TestableIdGenerateur
 
 class PaiementLocationTests: BehaviorSpec( {

@@ -5,7 +5,7 @@ import com.mongodb.client.model.ReplaceOptions
 import com.mongodb.client.model.Sorts.ascending
 import com.mongodb.kotlin.client.MongoClient
 import location.adapters.driven.storage.DTOs.TicketDto
-import location.ports.PourStocker
+import location.ports.antiseche.PourStocker
 import org.bson.codecs.pojo.annotations.BsonId
 
 

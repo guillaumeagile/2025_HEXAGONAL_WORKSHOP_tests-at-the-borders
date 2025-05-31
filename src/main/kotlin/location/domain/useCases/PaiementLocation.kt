@@ -4,7 +4,7 @@ import location.domain.entities.Ticket
 import location.domain.usine.UsineDeTickets
 import location.domain.valueObjects.DureeDeLocation
 import location.ports.PourAvoirHeure
-import location.ports.PourStocker
+import location.ports.antiseche.PourStocker
 
 class PaiementLocation(
     val usineDeTickets: UsineDeTickets,

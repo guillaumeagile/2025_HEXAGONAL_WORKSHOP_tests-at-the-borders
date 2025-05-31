@@ -1,9 +1,8 @@
-package adapters.storage.withAggregatedContractTesting.fake
+package adapters.stockage.antiseche.withAggregatedContractTesting.fake
 
-import adapters.FauxStockage
-import adapters.storage.withAggregatedContractTesting.AggregatorOfContractTests
+import adapters.stockage.antiseche.FauxStockage
+import adapters.stockage.antiseche.withAggregatedContractTesting.AggregatorOfContractTests
 import io.kotest.core.spec.style.FunSpec
-import io.kotest.matchers.shouldBe
 import location.adapters.driven.storage.DTOs.TicketDto
 
 class FauxStockageTest : FunSpec({

@@ -1,10 +1,10 @@
-package adapters.storage.withFactoryContracts_StringSpec
+package adapters.stockage.antiseche.withFactoryContracts_StringSpec
 
 import io.kotest.core.spec.style.stringSpec
 import io.kotest.matchers.nulls.shouldNotBeNull
 import io.kotest.matchers.shouldBe
 import location.adapters.driven.storage.DTOs.TicketDto
-import location.ports.PourStocker
+import location.ports.antiseche.PourStocker
 
 fun contractOfStorageAdaptersTests( stockage: PourStocker) = stringSpec {
 

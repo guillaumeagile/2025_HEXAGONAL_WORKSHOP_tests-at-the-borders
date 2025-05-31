@@ -1,23 +1,29 @@
 package location.ports
 
-import location.adapters.driven.storage.DTOs.TicketDto
+// A VOUS DE DESIGNER LA SIGNATURE DE CETTE INTERFACE
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// AUTRES IDEES
 
 // dans une branche de développement, on va utiliser une interface
 // interface  PourStocker<TEntity> where TEntity : Entity
 // Entity doit avoir un ID
-
-interface PourStocker { //CQS
-
-    // write
-    fun save(ticket: TicketDto): Result<Boolean>
-    // read
-    fun count(): Result<Int>
-    fun getAll(): Result<List<TicketDto>>
-    // unfortunately, I created this only for test purposes
-    fun reset(): Result<Boolean>
-
-
-}
 
 //  séparation des responsabilités entre query(read) et write => CQRS = CQS + ISP
 

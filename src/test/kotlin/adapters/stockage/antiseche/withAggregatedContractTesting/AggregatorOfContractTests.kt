@@ -1,10 +1,10 @@
-package adapters.storage.withAggregatedContractTesting
+package adapters.stockage.antiseche.withAggregatedContractTesting
 
 import io.kotest.core.spec.style.stringSpec
 import io.kotest.matchers.nulls.shouldNotBeNull
 import io.kotest.matchers.shouldBe
 import location.adapters.driven.storage.DTOs.TicketDto
-import location.ports.PourStocker
+import location.ports.antiseche.PourStocker
 
 
 // FIND A WAY to bind the Contracts of Tests with the Contract of Implementations
