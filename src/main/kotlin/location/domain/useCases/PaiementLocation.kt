@@ -1,7 +1,7 @@
 package location.domain.useCases
 
 import location.domain.entities.Ticket
-import location.domain.entities.UsineDeTickets
+import location.domain.usine.UsineDeTickets
 import location.domain.valueObjects.DureeDeLocation
 import location.ports.ILesHorloges
 import location.ports.ITicketRepository

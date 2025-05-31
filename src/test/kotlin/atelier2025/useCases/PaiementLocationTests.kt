@@ -4,8 +4,10 @@ import adapters.FauxStockage
 import adapters.autres_adapters_fakes.FausseHorloge
 import io.kotest.core.spec.style.BehaviorSpec
 import io.kotest.matchers.shouldBe
+import io.nacular.measured.units.Time
+import io.nacular.measured.units.times
 import kotlinx.datetime.LocalDateTime
-import location.domain.entities.UsineDeTickets
+import location.domain.usine.UsineDeTickets
 import location.domain.useCases.PaiementLocation
 import location.domain.valueObjects.DureeDeLocation
 import location.domain.valueObjects.Monnaie
@@ -20,7 +22,7 @@ class PaiementLocationTests: BehaviorSpec( {
         val usineDeTickets = UsineDeTickets(TestableIdGenerateur())
         val fausseHorloge = FausseHorloge( LocalDateTime.parse("2025-06-01T00:00:00") )
 
-        val sut = PaiementLocation( fauxStockageDeTickets, usineDeTickets, fausseHorloge)
+        val sut = PaiementLocation( fauxStockageDeTickets, usineDeTickets,  fausseHorloge)
 
         //
         When("je loue pour 15 minutes") {
@@ -31,6 +33,8 @@ class PaiementLocationTests: BehaviorSpec( {
 
                 actualTicket.id shouldBe "fakeId-1"
                 actualTicket.momentEntree shouldBe LocalDateTime.parse("2025-06-01T00:00:00")
+                //A FAIRE PASSER: actualTicket.momentSortie shouldBe LocalDateTime.parse("2025-06-01T00:15:00")
+                actualTicket.dureeDeLocation shouldBe 15 * Time.Companion.minutes
                 actualTicket.prix shouldBe  Monnaie.Euros(0.25)
 
             }
