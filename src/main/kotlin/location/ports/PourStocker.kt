@@ -3,10 +3,10 @@ package location.ports
 import location.adapters.driven.storage.DTOs.TicketDto
 
 // dans une branche de développement, on va utiliser une interface
-// interface ITicketRepository<TEntity> where TEntity : IEntity
-// IEntity doit avoir un ID
+// interface  PourStocker<TEntity> where TEntity : Entity
+// Entity doit avoir un ID
 
-interface ITicketRepository { //CQS
+interface PourStocker { //CQS
 
     // write
     fun save(ticket: TicketDto): Result<Boolean>

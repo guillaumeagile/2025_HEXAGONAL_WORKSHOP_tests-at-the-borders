@@ -4,7 +4,7 @@ import io.kotest.core.spec.style.stringSpec
 import io.kotest.matchers.nulls.shouldNotBeNull
 import io.kotest.matchers.shouldBe
 import location.adapters.driven.storage.DTOs.TicketDto
-import location.ports.ITicketRepository
+import location.ports.PourStocker
 
 
 // FIND A WAY to bind the Contracts of Tests with the Contract of Implementations
@@ -20,14 +20,14 @@ object AggregatorOfContractTests  {
         AggregatorOfContractTests::storageCannotSaveTwoOfTheSameId
     )
 
-    fun storageNoSaveAndCount(stockage: ITicketRepository) = stringSpec {
+    fun storageNoSaveAndCount(stockage: PourStocker) = stringSpec {
         "count should return zero tickets" {
             stockage.reset()
             stockage.count().getOrNull() shouldBe 0
         }
     }
 
-    fun storageSaveAndRead(stockage: ITicketRepository) = stringSpec {
+    fun storageSaveAndRead(stockage: PourStocker) = stringSpec {
        "getTickets should return the list of saved tickets" {
             stockage.reset()
             val testTicket = TicketDto(2, 3)
@@ -36,7 +36,7 @@ object AggregatorOfContractTests  {
         }
     }
 
-    fun storageSaveTwoAndRead(stockage: ITicketRepository) = stringSpec {
+    fun storageSaveTwoAndRead(stockage: PourStocker) = stringSpec {
         "getTickets should return the list of saved tickets ordered by id" {
             stockage.reset()
             val testTicket1 = TicketDto(1, 3)
@@ -54,7 +54,7 @@ object AggregatorOfContractTests  {
         }
     }
 
-    fun storageCannotSaveTwoOfTheSameId(stockage: ITicketRepository) = stringSpec {
+    fun storageCannotSaveTwoOfTheSameId(stockage: PourStocker) = stringSpec {
         "saving 2 tickets with the same id should return only the last updated" {
             stockage.reset()
             val testTicket1 = TicketDto(1, 3)
@@ -71,7 +71,7 @@ object AggregatorOfContractTests  {
         }
     }
 
-    fun storageSaveAndCount(stockage: ITicketRepository) = stringSpec {
+    fun storageSaveAndCount(stockage: PourStocker) = stringSpec {
         "count should return the number of saved tickets" {
             stockage.reset()
             stockage.save(TicketDto(1, 2))

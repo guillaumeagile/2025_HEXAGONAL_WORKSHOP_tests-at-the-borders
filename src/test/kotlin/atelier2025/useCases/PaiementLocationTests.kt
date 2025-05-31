@@ -23,7 +23,7 @@ class PaiementLocationTests: BehaviorSpec( {
         val usineDeTickets = UsineDeTickets(TestableIdGenerateur(), CalculPrixHauteSaison())
         val fausseHorloge = FausseHorloge( LocalDateTime.parse("2025-06-01T00:00:00") )
 
-        val sut = PaiementLocation( fauxStockageDeTickets, usineDeTickets,  fausseHorloge)
+        val sut = PaiementLocation(usineDeTickets, fauxStockageDeTickets, fausseHorloge)
 
         //
         When("je loue pour 15 minutes") {

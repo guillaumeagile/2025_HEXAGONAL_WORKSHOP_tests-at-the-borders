@@ -3,7 +3,7 @@ package location.ports
 import kotlinx.datetime.LocalDateTime
 
 
-interface ILesHorloges {
+interface PourAvoirHeure {
 
     fun quelleHeureEstIl(): LocalDateTime
 

@@ -3,13 +3,13 @@ package location.domain.useCases
 import location.domain.entities.Ticket
 import location.domain.usine.UsineDeTickets
 import location.domain.valueObjects.DureeDeLocation
-import location.ports.ILesHorloges
-import location.ports.ITicketRepository
+import location.ports.PourAvoirHeure
+import location.ports.PourStocker
 
 class PaiementLocation(
-    val fauxStockageDeTickets: ITicketRepository,  // PourStocker
     val usineDeTickets: UsineDeTickets,
-    val horloges: ILesHorloges // suggestion:  PourAvoirHeure
+    val fauxStockageDeTickets: PourStocker,
+    val horloges: PourAvoirHeure
 ) {
 
     fun PayerLocationImmediate( duree: DureeDeLocation) : Ticket {

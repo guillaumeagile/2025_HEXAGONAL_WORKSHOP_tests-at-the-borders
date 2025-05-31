@@ -2,16 +2,15 @@ package adapters.storage.withInheritedAnnotationSpecs
 
 import io.kotest.core.spec.style.AnnotationSpec
 import io.kotest.matchers.shouldBe
-import io.kotest.matchers.shouldNotBe
 import location.adapters.driven.storage.DTOs.TicketDto
-import location.ports.ITicketRepository
+import location.ports.PourStocker
 
 // specification de contrat de tous les tests avec Annotation
  abstract class StorageContractSpecification : AnnotationSpec {
 
-    private var _sut: ITicketRepository
+    private var _sut: PourStocker
 
-    constructor(sut: ITicketRepository ) {
+    constructor(sut: PourStocker ) {
         _sut = sut
     }
 

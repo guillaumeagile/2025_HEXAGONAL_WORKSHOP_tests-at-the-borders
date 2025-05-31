@@ -1,9 +1,9 @@
 package adapters
 
 import location.adapters.driven.storage.DTOs.TicketDto
-import location.ports.ITicketRepository
+import location.ports.PourStocker
 
-class FauxStockage : ITicketRepository {
+class FauxStockage : PourStocker {
 
    // val listeOrdonneeDesTickets = hashMapOf<Int, TicketDto>()
     val listDesTickets = ArrayList<TicketDto>()
