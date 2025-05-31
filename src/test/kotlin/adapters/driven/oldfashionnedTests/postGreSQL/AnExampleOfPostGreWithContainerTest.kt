@@ -8,7 +8,7 @@ import org.testcontainers.containers.PostgreSQLContainer
 
 class AnExampleOfPostGreWithContainerTest : StringSpec({
 
-    "simple CRUD avec test container".config(enabled = false) {
+    "simple CRUD avec test container".config(enabled = true) {
         // Arrange
         val postgres = PostgreSQLContainer("postgres:16")
         postgres.start()

@@ -7,6 +7,7 @@ import location.adapters.driven.storage.DTOs.TicketDto
 // IEntity doit avoir un ID
 
 interface ITicketRepository { //CQS
+
     // write
     fun save(ticket: TicketDto): Result<Boolean>
     // read
@@ -14,6 +15,8 @@ interface ITicketRepository { //CQS
     fun getAll(): Result<List<TicketDto>>
     // unfortunately, I created this only for test purposes
     fun reset(): Result<Boolean>
+
+
 }
 
 //  séparation des responsabilités entre query(read) et write => CQRS = CQS + ISP

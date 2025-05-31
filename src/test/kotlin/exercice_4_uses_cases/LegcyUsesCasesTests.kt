@@ -9,7 +9,7 @@ import location.commandHandlers.AcheterUnTicketDeLocation
 import location.commandHandlers.data.DemandeDuTicket
 
 
-class SimpleUsesCasesTests : StringSpec({
+class LegcyUsesCasesTests : StringSpec({
     /*A use case is executed from a controller, it may access any external services
     using any of the output ports available to it,
     it often loads one or several aggregates and invokes business logic on them.*/

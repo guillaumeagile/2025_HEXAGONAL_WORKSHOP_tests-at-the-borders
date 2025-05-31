@@ -1,4 +1,4 @@
-package annotationsSpecs
+package annotationsSpecs_ExampleSimple
 
 import io.kotest.core.spec.style.AnnotationSpec
 import io.kotest.matchers.shouldBe

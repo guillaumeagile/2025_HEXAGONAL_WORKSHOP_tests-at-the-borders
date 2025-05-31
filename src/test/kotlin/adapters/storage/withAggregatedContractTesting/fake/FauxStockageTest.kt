@@ -17,11 +17,5 @@ class FauxStockageTest : FunSpec({
     }
 
 
-    test("saveTicket should add a ticket ") {
-        val leStockage = fauxStockageFactory()
-        leStockage.save(testTicket)
-        leStockage.listeOrdonneeDesTickets.size shouldBe 1
-    }
-
 })
 

@@ -13,7 +13,7 @@ class `1_TestTicket` : StringSpec({
 
     "le ticket bidon ne sert pas à grand chose" .config(enabled = true) {
 
-        val sut =  Ticket.bidon()
+        val sut =  Ticket.genererUnFake()
 
         sut.dureeDeLocation shouldBe 0 * minutes
         sut.momentEntree shouldBe LocalDateTime.parse("2000-01-01T00:00:00")

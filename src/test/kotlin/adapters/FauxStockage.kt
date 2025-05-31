@@ -5,20 +5,28 @@ import location.ports.ITicketRepository
 
 class FauxStockage : ITicketRepository {
 
-    val listeOrdonneeDesTickets = hashMapOf<Int, TicketDto>()
+   // val listeOrdonneeDesTickets = hashMapOf<Int, TicketDto>()
+    val listDesTickets = ArrayList<TicketDto>()
 
     override fun save(ticket: TicketDto) = runCatching {
-      //  listDesTickets.add(ticket)
-        listeOrdonneeDesTickets.put(ticket.id, ticket)
+        listDesTickets.add(ticket)
+      //  listeOrdonneeDesTickets.put(ticket.id, ticket)
         true
     }
 
-    override fun count(): Result<Int> = Result.success(listeOrdonneeDesTickets.size + 1)
+    override fun count(): Result<Int> = Result.success(
+    //    listeOrdonneeDesTickets.size + 1
+        listDesTickets.size
+    )
 
-    override fun getAll(): Result<List<TicketDto>> = Result.success( listeOrdonneeDesTickets.map( { it.value }) )
+    override fun getAll(): Result<List<TicketDto>> = Result.success(
+    //    listeOrdonneeDesTickets.map( { it.value })
+        listDesTickets
+    )
 
     override fun reset(): Result<Boolean> {
-        listeOrdonneeDesTickets.clear()
+        //listeOrdonneeDesTickets.clear()
+        listDesTickets.clear()
         return Result.success(true)
     }
 

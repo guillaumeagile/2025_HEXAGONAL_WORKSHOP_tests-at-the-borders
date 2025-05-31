@@ -1,11 +1,15 @@
 package location.domain.valueObjects
 
-data class Monnaie(val valeur: Int, val devise: Devises) {
+data class Monnaie(val valeur: Double, val devise: Devises) {
+    
+    constructor(valeur: Int, devise: Devises) : this(valeur.toDouble(), devise)
 
     companion object {
         const val DOLLAR_VERS_EUROS = 2
         fun Euros(value: Int): Monnaie = Monnaie(value, Devises.EUROS)
+        fun Euros(value: Double): Monnaie = Monnaie(value, Devises.EUROS)
         fun Dollars(value: Int): Monnaie = Monnaie(value, Devises.DOLLARS)
+        fun Dollars(value: Double): Monnaie = Monnaie(value, Devises.DOLLARS)
     }
 
 
@@ -21,8 +25,8 @@ data class Monnaie(val valeur: Int, val devise: Devises) {
 
     override fun hashCode(): Int {
         var result = valeur
-        result = 31 * result + devise.hashCode()
-        return result
+        result = 31.0 * result + devise.hashCode()
+        return result.toInt()
     }
 }
 

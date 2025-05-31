@@ -19,7 +19,7 @@ class AcheterUnTicketDeLocation : IRequestHandler<DemandeDuTicket, ReponseALaDem
 
          ReponseALaDemandeDuTicket(
            // resultat = Result.failure(TODO("faites passer ce test au vert"))
-            resultat = Result.success(Ticket.bidon())
+            resultat = Result.success(Ticket.genererUnFake())
         )
     }
 

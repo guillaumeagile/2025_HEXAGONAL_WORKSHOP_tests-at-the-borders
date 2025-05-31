@@ -1,4 +1,4 @@
-package annotationsSpecs
+package annotationsSpecs_ExampleSimple
 
 class InheritedAnnotationFailingSpec : ContractSpecification(9)
 
