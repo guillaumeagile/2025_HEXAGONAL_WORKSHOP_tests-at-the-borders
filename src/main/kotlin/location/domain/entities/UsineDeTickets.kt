@@ -2,7 +2,10 @@ package location.domain.entities
 
 import io.nacular.measured.units.Measure
 import io.nacular.measured.units.Time
+import io.nacular.measured.units.Time.Companion.minutes
+import io.nacular.measured.units.times
 import kotlinx.datetime.LocalDateTime
+import location.domain.valueObjects.Monnaie
 import location.ports.IJeDonneDesIdentifiants
 
 // QUELLE EST LA RESPONSABILITE DE CETTE CLASSE ?
@@ -15,8 +18,15 @@ import location.ports.IJeDonneDesIdentifiants
 
 class UsineDeTickets(val idGenerateur: IJeDonneDesIdentifiants) {
 
-    fun creation(heureEntree: LocalDateTime, dureeMinutes: Int): Ticket {
-        TODO()
+    fun creation(heureEntree: LocalDateTime, dureeMinutes: Int): Result<Ticket>  {
+
+        val tempsDemmande=  dureeMinutes * minutes;
+        val temp = Ticket.builder( heureEntree, tempsDemmande,  Monnaie.Euros(0.0))
+        val ticket = temp .map {
+            it.copy(     id = this.idGenerateur.idSuivant())
+        }
+          return ticket
+
     }
 
     //TODO: choisir quelle Primitive Obsession

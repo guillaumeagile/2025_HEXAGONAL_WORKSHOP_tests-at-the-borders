@@ -1,4 +1,4 @@
-package exercice_2_utils_idGenerateur
+package utils_idGenerateur
 
 import io.kotest.core.spec.style.StringSpec
 import io.kotest.matchers.shouldBe

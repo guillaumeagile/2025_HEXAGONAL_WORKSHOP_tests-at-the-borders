@@ -1,4 +1,4 @@
-package `2025`.useCases
+package atelier2025.useCases
 
 import adapters.FauxStockage
 import io.kotest.core.spec.style.BehaviorSpec

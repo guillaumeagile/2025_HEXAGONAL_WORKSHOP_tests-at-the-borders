@@ -1,4 +1,4 @@
-package metier.objetValeurs
+package atelier2025.objetValeurs
 
 
 import io.kotest.core.spec.style.StringSpec

@@ -1,8 +1,9 @@
-package annotationsSpecs_ExampleSimple
+package zEssais.annotationsSpecs_ExampleSimple
 
 import io.kotest.core.spec.style.AnnotationSpec
 import io.kotest.matchers.shouldBe
 import io.kotest.matchers.shouldNotBe
+import org.junit.jupiter.api.Disabled
 
 // specification de contrat de tous les tests avec Annotation
  abstract class ContractSpecification : AnnotationSpec {
@@ -20,11 +21,13 @@ import io.kotest.matchers.shouldNotBe
     }
 
     @Test
+    @Disabled
     fun test1() {
         _sut shouldBe 1
     }
 
     @Test
+    @Disabled
     fun test2() {
         _sut shouldNotBe 9
     }

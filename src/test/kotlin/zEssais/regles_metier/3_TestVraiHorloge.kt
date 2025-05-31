@@ -1,4 +1,4 @@
-package exercice_1.regles_metier
+package zEssais.regles_metier
 
 import io.kotest.core.spec.style.StringSpec
 import io.kotest.matchers.shouldNotBe

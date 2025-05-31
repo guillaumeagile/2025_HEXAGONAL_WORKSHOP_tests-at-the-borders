@@ -37,18 +37,5 @@ data class Ticket(
                     prix = prix
                 )
             )
-
-        /*
-        fun builderAvecRegleDePrix(momentEntree: LocalDateTime, dureeDeLocation: Measure<Time>): Result<Ticket> {
-
-            return Result.success(
-                Ticket.builder(momentEntree, dureeDeLocation)
-            )
-        }*/
     }
 }
-
-// quelles sont les régles métier du ticket? (à traduire en tests)
-
-
-// val id: String ,  //extarnilser la création du Id du ticket
