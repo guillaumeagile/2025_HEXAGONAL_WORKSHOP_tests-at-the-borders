@@ -4,10 +4,13 @@ import location.ports.IJeDonneDesIdentifiants
 import ulid.ULID
 
 
-class testableIdGenerateur : IJeDonneDesIdentifiants {
+class TestableIdGenerateur : IJeDonneDesIdentifiants {
+
+    private var compteur: Int = 0
 
     override fun idSuivant(): String {
-        TODO("quelque chose de facile à tester")
+        compteur++;
+       return "fakeId-${compteur}"
     }
 
 }
@@ -21,4 +24,3 @@ class ulidGenerateur : IJeDonneDesIdentifiants   {
 val UlidGenerateur = IJeDonneDesIdentifiants {
     ULID.randomULID()
 }
-//probleme: c'est pas facile à tester

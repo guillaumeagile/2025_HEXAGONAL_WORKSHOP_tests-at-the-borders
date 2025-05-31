@@ -29,10 +29,22 @@ data class Ticket(
             )
         }
 
-        fun builder(momentEntree: LocalDateTime, dureeDeLocation: Measure<Time>): Result<Ticket> =
+        fun builder(momentEntree: LocalDateTime, dureeDeLocation: Measure<Time>, prix: Monnaie): Result<Ticket> =
             Result.success(
-                Ticket.genererUnFake()
+                Ticket.genererUnFake() .copy(
+                    momentEntree = momentEntree,
+                    dureeDeLocation = dureeDeLocation,
+                    prix = prix
+                )
             )
+
+        /*
+        fun builderAvecRegleDePrix(momentEntree: LocalDateTime, dureeDeLocation: Measure<Time>): Result<Ticket> {
+
+            return Result.success(
+                Ticket.builder(momentEntree, dureeDeLocation)
+            )
+        }*/
     }
 }
 

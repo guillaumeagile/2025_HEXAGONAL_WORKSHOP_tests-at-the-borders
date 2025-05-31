@@ -15,14 +15,14 @@ import location.ports.IJeDonneDesIdentifiants
 
 class UsineDeTickets(val idGenerateur: IJeDonneDesIdentifiants) {
 
-    fun Creation(heureEntree: LocalDateTime, dureeMinutes: Int): Ticket {
+    fun creation(heureEntree: LocalDateTime, dureeMinutes: Int): Ticket {
         TODO()
     }
 
     //TODO: choisir quelle Primitive Obsession
 
 
-    fun Creation(heureEntree: LocalDateTime, duree: Measure<Time>): Ticket {
+    fun creation(heureEntree: LocalDateTime, duree: Measure<Time>): Ticket {
         TODO()
     }
 

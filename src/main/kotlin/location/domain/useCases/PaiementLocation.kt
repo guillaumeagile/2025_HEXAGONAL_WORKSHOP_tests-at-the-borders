@@ -8,6 +8,9 @@ class PaiementLocation(fauxStockageDeTickets: ITicketRepository) {
 
     fun PayerLocationImmediate( duree: DureeDeLocation) : Ticket {
         TODO("à moi de coder la partie metier pure")
+
+
+
      // à vous de jouer pour choisir comment on va mettre le ticket dans le repo
      //   fauxStockageDeTickets.X(ticket)
     }
