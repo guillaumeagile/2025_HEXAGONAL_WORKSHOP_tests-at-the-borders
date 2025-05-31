@@ -8,14 +8,21 @@ import location.domain.entities.Ticket
 import location.domain.valueObjects.Monnaie
 import location.ports.IJeDonneDesIdentifiants
 
-class UsineDeTickets(val idGenerateur: IJeDonneDesIdentifiants) {
+class UsineDeTickets(
+    val idGenerateur: IJeDonneDesIdentifiants,
+    val regleDePrix: PourCalculerLePrix,
+// si on faisait du fonctionnel, on aurait fait une lambda (duree: Int) -> Monnaie
+) {
 
     fun creation(heureEntree: LocalDateTime, dureeMinutes: Int): Result<Ticket>  {
 
         val tempsDemmande=  dureeMinutes * Time.Companion.minutes;
         val temp = Ticket.Companion.builder( heureEntree, tempsDemmande,  Monnaie.Companion.Euros(0.0))
         val ticket = temp .map {
-            it.copy(     id = this.idGenerateur.idSuivant())
+            it.copy(
+                id = this.idGenerateur.idSuivant(),
+                prix = this.regleDePrix.calculPrix(dureeMinutes)
+            )
         }
           return ticket
     }

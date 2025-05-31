@@ -9,6 +9,7 @@ import io.nacular.measured.units.times
 import kotlinx.datetime.LocalDateTime
 import location.domain.usine.UsineDeTickets
 import location.domain.useCases.PaiementLocation
+import location.domain.usine.regles.CalculPrixHauteSaison
 import location.domain.valueObjects.DureeDeLocation
 import location.domain.valueObjects.Monnaie
 import location.utilities.TestableIdGenerateur
@@ -19,7 +20,7 @@ class PaiementLocationTests: BehaviorSpec( {
     Given("le use case de paiement de location") {
 
         val fauxStockageDeTickets = FauxStockage()
-        val usineDeTickets = UsineDeTickets(TestableIdGenerateur())
+        val usineDeTickets = UsineDeTickets(TestableIdGenerateur(), CalculPrixHauteSaison())
         val fausseHorloge = FausseHorloge( LocalDateTime.parse("2025-06-01T00:00:00") )
 
         val sut = PaiementLocation( fauxStockageDeTickets, usineDeTickets,  fausseHorloge)
