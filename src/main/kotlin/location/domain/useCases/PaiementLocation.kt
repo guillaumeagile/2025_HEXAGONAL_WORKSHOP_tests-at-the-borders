@@ -8,7 +8,7 @@ import location.ports.PourStocker
 
 class PaiementLocation(
     val usineDeTickets: UsineDeTickets,
-    val fauxStockageDeTickets: PourStocker,
+    val stockageDeTickets: PourStocker,
     val horloges: PourAvoirHeure
 ) {
 
@@ -20,14 +20,13 @@ class PaiementLocation(
         if ( ticket.isFailure )
            return Ticket.enEchec()
 
-
      // à vous de jouer pour choisir comment on va mettre le ticket dans le repo
-     //   fauxStockageDeTickets.X(ticket)
+     //   stockageDeTickets.X(ticket)
 
         return ticket.getOrDefault( Ticket.enEchec() )
     }
 
     fun ObtenirTicket(id: String) : Ticket{
-        TODO()
+        TODO("il faut chercher le ticket dans le stockage")
     }
 }

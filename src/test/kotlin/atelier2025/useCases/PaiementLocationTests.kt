@@ -7,25 +7,29 @@ import io.kotest.matchers.shouldBe
 import io.nacular.measured.units.Time
 import io.nacular.measured.units.times
 import kotlinx.datetime.LocalDateTime
+import location.domain.entities.Ticket
 import location.domain.usine.UsineDeTickets
 import location.domain.useCases.PaiementLocation
 import location.domain.usine.regles.CalculPrixHauteSaison
 import location.domain.valueObjects.DureeDeLocation
 import location.domain.valueObjects.Monnaie
+import location.ports.PourAvoirHeure
+import location.ports.PourStocker
 import location.utilities.TestableIdGenerateur
 
 class PaiementLocationTests: BehaviorSpec( {
 
     // ce test doit rester une page blanche, il ne doit pas supposer de quoique ce soit de technique sur le stockage
     Given("le use case de paiement de location") {
+        val fausseHorloge = FausseHorloge( LocalDateTime.parse("2025-06-01T00:00:00") ) as PourAvoirHeure
+        val fauxStockageDeTickets = FauxStockage() as PourStocker
 
-        val fauxStockageDeTickets = FauxStockage()
         val usineDeTickets = UsineDeTickets(TestableIdGenerateur(), CalculPrixHauteSaison())
-        val fausseHorloge = FausseHorloge( LocalDateTime.parse("2025-06-01T00:00:00") )
+
 
         val sut = PaiementLocation(usineDeTickets, fauxStockageDeTickets, fausseHorloge)
 
-        //
+
         When("je loue pour 15 minutes") {
 
             val actualTicket = sut.PayerLocationImmediate (DureeDeLocation(15))
@@ -52,7 +56,7 @@ class PaiementLocationTests: BehaviorSpec( {
             Then("le cout est de 0,25€") {
                 actualTicket.prix shouldBe  Monnaie.Euros(0.25)
             }
-            Then("le ticket est obtenable") {
+            Then("le ticket est disponible à tout moment") {
                val actualObtenu =   sut.ObtenirTicket(actualTicket.id)
                 actualObtenu shouldBe actualTicket
             }
