@@ -1,5 +1,5 @@
 package location.domain.valueObjects
 
-data class DureeDeLocation(val dureeEnMinutes: Int) {
+data class DureeDeLocation(val enMinutes: Int) {
 
 }
