@@ -1,15 +1,14 @@
-package atelier2025.useCases
+package atelier2025.useCases.antiseche
 
-import adapters.stockage.antiseche.FauxStockage
 import adapters.autres_adapters_fakes.FausseHorloge
-import adapters.stockage.UnStockage
+import adapters.stockage.antiseche.FauxStockage
 import io.kotest.core.spec.style.BehaviorSpec
 import io.kotest.matchers.shouldBe
 import io.nacular.measured.units.Time
 import io.nacular.measured.units.times
 import kotlinx.datetime.LocalDateTime
-import location.domain.usine.UsineDeTickets
 import location.domain.useCases.PaiementLocation
+import location.domain.usine.UsineDeTickets
 import location.domain.usine.regles.CalculPrixHauteSaison
 import location.domain.valueObjects.DureeDeLocation
 import location.domain.valueObjects.Monnaie
@@ -21,7 +20,7 @@ class PaiementLocationTests: BehaviorSpec( {
 
     // ce test doit rester une page blanche, il ne doit pas supposer de quoique ce soit de technique sur le stockage
     Given("le use case de paiement de location") {
-        val fausseHorloge = FausseHorloge( LocalDateTime.parse("2025-06-01T00:00:00") ) as PourAvoirHeure
+        val fausseHorloge = FausseHorloge(LocalDateTime.Companion.parse("2025-06-01T00:00:00")) as PourAvoirHeure
         val stockageDeTickets =   FauxStockage() as PourStocker  // à vous de jouer:  UnStockage()
 
         val usineDeTickets = UsineDeTickets(TestableIdGenerateur(), CalculPrixHauteSaison())
@@ -36,10 +35,10 @@ class PaiementLocationTests: BehaviorSpec( {
             Then("le cout est de 0,25€") {
 
                 actualTicket.id shouldBe "fakeId-1"
-                actualTicket.momentEntree shouldBe LocalDateTime.parse("2025-06-01T00:00:00")
+                actualTicket.momentEntree shouldBe LocalDateTime.Companion.parse("2025-06-01T00:00:00")
                 //A FAIRE PASSER: actualTicket.momentSortie shouldBe LocalDateTime.parse("2025-06-01T00:15:00")
                 actualTicket.dureeDeLocation shouldBe 15 * Time.Companion.minutes
-                actualTicket.prix shouldBe  Monnaie.Euros(0.25)
+                actualTicket.prix shouldBe  Monnaie.Companion.Euros(0.25)
             }
 
             Then("le ticket est enregistré") {
