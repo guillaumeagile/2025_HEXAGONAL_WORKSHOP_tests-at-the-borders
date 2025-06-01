@@ -1,9 +1,10 @@
 package location.utilities
 
-import location.ports.IJeDonneDesIdentifiants
+import location.ports.PourLesIdentifiants
 import ulid.ULID
 
-class TestableIdGenerateur : IJeDonneDesIdentifiants {
+// pour les tests
+class TestableIdGenerateur : PourLesIdentifiants {
     private var compteur: Int = 0
 
     override fun idSuivant(): String {
@@ -12,11 +13,12 @@ class TestableIdGenerateur : IJeDonneDesIdentifiants {
     }
 }
 
-class ulidGenerateur : IJeDonneDesIdentifiants   {
+//  pour la production
+class UlidGenerateur : PourLesIdentifiants   {
     override fun idSuivant(): String = ULID.randomULID()
 }
 
-// juste pour la beauté des interfaces fonctionnelles
-val UlidGenerateur = IJeDonneDesIdentifiants {
+// la même chose, mais juste pour la beauté des interfaces fonctionnelles
+val ulidGenerateur = PourLesIdentifiants {
     ULID.randomULID()
 }

@@ -3,16 +3,14 @@ package atelier2025.ateliers
 import atelier2025.entites.RegleDePrixPourTests
 import io.kotest.core.spec.style.StringSpec
 import io.kotest.matchers.shouldBe
-import io.kotest.matchers.shouldNot
 import io.kotest.matchers.shouldNotBe
-import io.kotest.matchers.string.shouldContain
 import io.kotest.matchers.string.shouldNotContain
 import io.nacular.measured.units.Time
 import io.nacular.measured.units.times
 import kotlinx.datetime.LocalDateTime
 import location.domain.usine.UsineDeTickets
 import location.utilities.TestableIdGenerateur
-import location.utilities.UlidGenerateur
+import location.utilities.ulidGenerateur
 
 class UsineEtReglesTests : StringSpec({
 
@@ -36,7 +34,7 @@ class UsineEtReglesTests : StringSpec({
     "le ticket doit avoir un generateur qui s'occupe de l'ID et garanti que un 2e ticket possede un Id different"
         .config(enabled = true) {
 
-            var ticketGenerateur= UsineDeTickets(UlidGenerateur, RegleDePrixPourTests )
+            var ticketGenerateur= UsineDeTickets(ulidGenerateur, RegleDePrixPourTests )
             val ticket1 = ticketGenerateur.creation(
                 LocalDateTime(2016, 2, 15, 16, 57, 0, 0),
                 42)

@@ -1,15 +1,14 @@
 package location.domain.usine
 
-import io.nacular.measured.units.Measure
 import io.nacular.measured.units.Time
 import io.nacular.measured.units.times
 import kotlinx.datetime.LocalDateTime
 import location.domain.entities.Ticket
 import location.domain.valueObjects.Monnaie
-import location.ports.IJeDonneDesIdentifiants
+import location.ports.PourLesIdentifiants
 
 class UsineDeTickets(
-    val idGenerateur: IJeDonneDesIdentifiants,
+    val idGenerateur: PourLesIdentifiants,
     val regleDePrix: PourCalculerLePrix,
 // si on faisait du fonctionnel, on aurait fait une lambda (duree: Int) -> Monnaie
 ) {
