@@ -1,5 +1,6 @@
 package location.domain.useCases
 
+import kotlinx.datetime.LocalDateTime
 import location.domain.entities.Ticket
 import location.domain.usine.UsineDeTickets
 import location.domain.valueObjects.DureeDeLocation
@@ -17,6 +18,7 @@ class PaiementLocation(
         val heureEntree = this.horloges.quelleHeureEstIl()
         val ticket =  usineDeTickets.creation( heureEntree, duree.enMinutes)
 
+
         if ( ticket.isFailure )
            return Ticket.enEchec()
 
@@ -24,6 +26,10 @@ class PaiementLocation(
      //   stockageDeTickets.X(ticket)
 
         return ticket.getOrDefault( Ticket.enEchec() )
+    }
+
+    fun PayerLocationEnAvance( duree: DureeDeLocation, heureEntree: LocalDateTime) : Ticket {
+         TODO()
     }
 
     fun ObtenirTicket(id: String) : Ticket{

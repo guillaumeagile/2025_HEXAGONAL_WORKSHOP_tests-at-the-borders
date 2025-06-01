@@ -12,7 +12,8 @@ import location.domain.usine.UsineDeTickets
 import location.utilities.TestableIdGenerateur
 import location.utilities.ulidGenerateur
 
-class UsineEtReglesTests : StringSpec({
+class UsineTests
+    : StringSpec({
 
 
     "le ticket doit avoir un generateur qui s'occupe de l'ID" .config(enabled = true) {

@@ -2,6 +2,7 @@ package atelier2025.useCases
 
 import adapters.stockage.antiseche.FauxStockage
 import adapters.autres_adapters_fakes.FausseHorloge
+import adapters.stockage.UnStockage
 import io.kotest.core.spec.style.BehaviorSpec
 import io.kotest.matchers.shouldBe
 import io.nacular.measured.units.Time
@@ -21,13 +22,12 @@ class PaiementLocationTests: BehaviorSpec( {
     // ce test doit rester une page blanche, il ne doit pas supposer de quoique ce soit de technique sur le stockage
     Given("le use case de paiement de location") {
         val fausseHorloge = FausseHorloge( LocalDateTime.parse("2025-06-01T00:00:00") ) as PourAvoirHeure
-        val fauxStockageDeTickets = FauxStockage() as PourStocker
+        val stockageDeTickets =   FauxStockage() as PourStocker  // à vous de jouer:  UnStockage()
 
         val usineDeTickets = UsineDeTickets(TestableIdGenerateur(), CalculPrixHauteSaison())
+        // on peut aussi utiliser RegleDePrixPourTests
 
-
-        val sut = PaiementLocation(usineDeTickets, fauxStockageDeTickets, fausseHorloge)
-
+        val sut = PaiementLocation(usineDeTickets, stockageDeTickets, fausseHorloge)
 
         When("je loue pour 15 minutes") {
 
@@ -40,10 +40,11 @@ class PaiementLocationTests: BehaviorSpec( {
                 //A FAIRE PASSER: actualTicket.momentSortie shouldBe LocalDateTime.parse("2025-06-01T00:15:00")
                 actualTicket.dureeDeLocation shouldBe 15 * Time.Companion.minutes
                 actualTicket.prix shouldBe  Monnaie.Euros(0.25)
-
             }
+
             Then("le ticket est enregistré") {
-                fauxStockageDeTickets.count() shouldBe 1
+                stockageDeTickets.count().isSuccess shouldBe true
+                stockageDeTickets.count().getOrNull() shouldBe 1
             }
         }
 
@@ -52,10 +53,11 @@ class PaiementLocationTests: BehaviorSpec( {
 
             val actualTicket = sut.PayerLocationImmediate (DureeDeLocation(3))
 
-            Then("le cout est de 0,25€") {
+           /*   // le test de la règle de calcul de prix est complètement couvert par les tests unitaires ailleurs
+           Then("le cout est de 0,25€") {
                 actualTicket.prix shouldBe  Monnaie.Euros(0.25)
-            }
-            Then("le ticket est disponible à tout moment") {
+            }*/
+            Then("je peux obtenir le ticket à tout moment") {
                val actualObtenu =   sut.ObtenirTicket(actualTicket.id)
                 actualObtenu shouldBe actualTicket
             }

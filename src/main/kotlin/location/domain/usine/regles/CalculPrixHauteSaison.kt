@@ -7,6 +7,7 @@ class CalculPrixHauteSaison : PourCalculerLePrix {
 
     override fun calculPrix(duree: Int): Monnaie {
         //TODO: finir l'example mapping
+
       return  Monnaie.Euros(  duree.toDouble() / 60.0 )
     }
 }

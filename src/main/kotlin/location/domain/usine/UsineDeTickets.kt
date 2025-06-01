@@ -9,8 +9,8 @@ import location.ports.PourLesIdentifiants
 
 class UsineDeTickets(
     val idGenerateur: PourLesIdentifiants,
-    val regleDePrix: PourCalculerLePrix,
-// si on faisait du fonctionnel, on aurait fait une lambda (duree: Int) -> Monnaie
+    val regleDePrix: PourCalculerLePrix // au lieu de cette interface
+// si on faisait du fonctionnel, on aurait passé juste une lambda (duree: Int) -> Monnaie
 ) {
 
     fun creation(heureEntree: LocalDateTime, dureeMinutes: Int): Result<Ticket>  {
