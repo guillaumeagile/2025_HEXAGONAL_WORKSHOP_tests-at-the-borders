@@ -5,11 +5,11 @@ import com.mongodb.client.model.ReplaceOptions
 import com.mongodb.client.model.Sorts.ascending
 import com.mongodb.kotlin.client.MongoClient
 import location.adapters.driven.storage.DTOs.TicketDto
-import location.ports.antiseche.PourStocker
+import location.ports.antiseche.PourX
 import org.bson.codecs.pojo.annotations.BsonId
 
 
-class RepositoryMongoDb(connexionUrl: String) : PourStocker {
+class RepositoryMongoDb(connexionUrl: String) : PourX {
 
      data class DTOMongoTicket(
         @BsonId

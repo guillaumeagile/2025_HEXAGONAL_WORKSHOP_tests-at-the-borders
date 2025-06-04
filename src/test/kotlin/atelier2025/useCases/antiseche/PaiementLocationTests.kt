@@ -1,7 +1,7 @@
 package atelier2025.useCases.antiseche
 
 import adapters.autres_adapters_fakes.FausseHorloge
-import adapters.stockage.antiseche.FauxStockage
+import adapters.driven.stockage.antiseche.XAdapter
 import io.kotest.core.spec.style.BehaviorSpec
 import io.kotest.matchers.shouldBe
 import io.nacular.measured.units.Time
@@ -13,7 +13,7 @@ import location.domain.usine.regles.CalculPrixHauteSaison
 import location.domain.valueObjects.DureeDeLocation
 import location.domain.valueObjects.Monnaie
 import location.ports.PourAvoirHeure
-import location.ports.antiseche.PourStocker
+import location.ports.antiseche.PourX
 import location.utilities.TestableIdGenerateur
 
 class PaiementLocationTests: BehaviorSpec( {
@@ -21,16 +21,17 @@ class PaiementLocationTests: BehaviorSpec( {
     // ce test doit rester une page blanche, il ne doit pas supposer de quoique ce soit de technique sur le stockage
     Given("le use case de paiement de location") {
         val fausseHorloge = FausseHorloge(LocalDateTime.Companion.parse("2025-06-01T00:00:00")) as PourAvoirHeure
-        val stockageDeTickets =   FauxStockage() as PourStocker  // à vous de jouer:  UnStockage()
+        val adapter =   XAdapter() as PourX  // à vous de jouer:
+        // écrivez le port et l'adapter qui va bien pour notre métier
 
         val usineDeTickets = UsineDeTickets(TestableIdGenerateur(), CalculPrixHauteSaison())
         // on peut aussi utiliser RegleDePrixPourTests
 
-        val sut = PaiementLocation(usineDeTickets, stockageDeTickets, fausseHorloge)
+        val sut = PaiementLocation(usineDeTickets, adapter, fausseHorloge)
 
         When("je loue pour 15 minutes") {
 
-            val actualTicket = sut.PayerLocationImmediate (DureeDeLocation(15))
+            val actualTicket = sut.payerLocationImmediate (DureeDeLocation(15))
 
             Then("le cout est de 0,25€") {
 
@@ -42,22 +43,22 @@ class PaiementLocationTests: BehaviorSpec( {
             }
 
             Then("le ticket est enregistré") {
-                stockageDeTickets.count().isSuccess shouldBe true
-                stockageDeTickets.count().getOrNull() shouldBe 1
+                adapter.count().isSuccess shouldBe true
+                adapter.count().getOrNull() shouldBe 1
             }
         }
 
         // ce test est plus pur au niveau du métier (domaine)
         When("je loue pour 3 minutes") {
 
-            val actualTicket = sut.PayerLocationImmediate (DureeDeLocation(3))
+            val actualTicket = sut.payerLocationImmediate (DureeDeLocation(3))
 
            /*   // le test de la règle de calcul de prix est complètement couvert par les tests unitaires ailleurs
            Then("le cout est de 0,25€") {
                 actualTicket.prix shouldBe  Monnaie.Euros(0.25)
             }*/
             Then("je peux obtenir le ticket à tout moment") {
-               val actualObtenu =   sut.ObtenirTicket(actualTicket.id)
+               val actualObtenu =   sut.obtenirTicket(actualTicket.id)
                 actualObtenu shouldBe actualTicket
             }
         }

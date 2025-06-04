@@ -1,9 +1,9 @@
-package adapters.stockage.antiseche
+package adapters.driven.stockage.antiseche
 
 import location.adapters.driven.storage.DTOs.TicketDto
-import location.ports.antiseche.PourStocker
+import location.ports.antiseche.PourX
 
-class FauxStockage : PourStocker {
+class XAdapter : PourX {
 
    // val listeOrdonneeDesTickets = hashMapOf<Int, TicketDto>()
     val listDesTickets = ArrayList<TicketDto>()

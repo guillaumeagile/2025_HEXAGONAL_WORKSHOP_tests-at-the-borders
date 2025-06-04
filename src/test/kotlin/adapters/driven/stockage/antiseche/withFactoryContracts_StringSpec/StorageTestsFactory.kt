@@ -1,4 +1,4 @@
-package adapters.stockage.antiseche.withFactoryContracts_StringSpec
+package adapters.driven.stockage.antiseche.withFactoryContracts_StringSpec
 
 import io.kotest.core.spec.style.StringSpec
 import location.adapters.driven.storage.mongoDb.RepositoryMongoDb

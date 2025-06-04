@@ -1,8 +1,6 @@
 package atelier2025.ateliers
 
-import io.kotest.core.spec.style.BehaviorSpec
 import io.kotest.core.spec.style.FeatureSpec
-import io.kotest.core.spec.style.StringSpec
 import io.kotest.matchers.shouldBe
 import location.domain.usine.regles.CalculPrixHauteSaison
 import location.domain.valueObjects.Monnaie

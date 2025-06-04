@@ -1,6 +1,6 @@
-package adapters.stockage.antiseche.withAggregatedContractTesting.postgreSQL
+package adapters.driven.stockage.antiseche.withAggregatedContractTesting.postgreSQL
 
-import adapters.stockage.antiseche.withAggregatedContractTesting.AggregatorOfContractTests
+import adapters.driven.stockage.antiseche.withAggregatedContractTesting.AggregatorOfContractTests
 
 import io.kotest.core.spec.style.FunSpec
 import location.adapters.driven.storage.postGreSQL.TicketSqlRepository

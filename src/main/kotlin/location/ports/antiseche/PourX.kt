@@ -2,7 +2,7 @@ package location.ports.antiseche
 
 import location.adapters.driven.storage.DTOs.TicketDto
 
-interface PourStocker { //CQS
+interface PourX { //CQS
 
     // write
     fun save(ticket: TicketDto): Result<Boolean>

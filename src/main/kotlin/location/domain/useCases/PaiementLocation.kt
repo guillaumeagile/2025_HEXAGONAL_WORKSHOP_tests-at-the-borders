@@ -5,15 +5,15 @@ import location.domain.entities.Ticket
 import location.domain.usine.UsineDeTickets
 import location.domain.valueObjects.DureeDeLocation
 import location.ports.PourAvoirHeure
-import location.ports.antiseche.PourStocker
+import location.ports.antiseche.PourX
 
 class PaiementLocation(
     val usineDeTickets: UsineDeTickets,
-    val stockageDeTickets: PourStocker,
+    val stockageDeTickets: PourX,
     val horloges: PourAvoirHeure
 ) {
 
-    fun PayerLocationImmediate( duree: DureeDeLocation) : Ticket {
+    fun payerLocationImmediate(duree: DureeDeLocation) : Ticket {
 
         val heureEntree = this.horloges.quelleHeureEstIl()
         val ticket =  usineDeTickets.creation( heureEntree, duree.enMinutes)
@@ -28,11 +28,11 @@ class PaiementLocation(
         return ticket.getOrDefault( Ticket.enEchec() )
     }
 
-    fun PayerLocationEnAvance( duree: DureeDeLocation, heureEntree: LocalDateTime) : Ticket {
+    fun payerLocationEnAvance(duree: DureeDeLocation, heureEntree: LocalDateTime) : Ticket {
          TODO()
     }
 
-    fun ObtenirTicket(id: String) : Ticket{
+    fun obtenirTicket(id: String) : Ticket{
         TODO("il faut chercher le ticket dans le stockage")
     }
 }

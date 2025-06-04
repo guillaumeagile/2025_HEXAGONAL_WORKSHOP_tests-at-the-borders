@@ -1,11 +1,11 @@
 package location.adapters.driven.storage.postGreSQL
 
-import location.ports.antiseche.PourStocker
+import location.ports.antiseche.PourX
 import location.adapters.driven.storage.DTOs.TicketDto
 import java.sql.DriverManager
 
 
-class TicketSqlRepository(jdbcUrl: String, username: String, password: String) : PourStocker {
+class TicketSqlRepository(jdbcUrl: String, username: String, password: String) : PourX {
     private val storageConnection = DriverManager.getConnection(jdbcUrl, username, password)
 
 

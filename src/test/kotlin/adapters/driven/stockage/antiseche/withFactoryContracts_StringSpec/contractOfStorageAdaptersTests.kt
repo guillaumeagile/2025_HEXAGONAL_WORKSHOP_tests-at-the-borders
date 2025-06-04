@@ -1,12 +1,13 @@
-package adapters.stockage.antiseche.withFactoryContracts_StringSpec
+package adapters.driven.stockage.antiseche.withFactoryContracts_StringSpec
+
 
 import io.kotest.core.spec.style.stringSpec
 import io.kotest.matchers.nulls.shouldNotBeNull
 import io.kotest.matchers.shouldBe
 import location.adapters.driven.storage.DTOs.TicketDto
-import location.ports.antiseche.PourStocker
+import location.ports.antiseche.PourX
 
-fun contractOfStorageAdaptersTests( stockage: PourStocker) = stringSpec {
+fun contractOfStorageAdaptersTests( stockage: PourX) = stringSpec {
 
     beforeTest {
         println("Reset data before Executing $it")

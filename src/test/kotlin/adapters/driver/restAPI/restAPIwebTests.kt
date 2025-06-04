@@ -18,6 +18,7 @@ import location.commandHandlers.data.DemandeDuTicket
 
 
 class RestApiTest : FunSpec({
+    @OptIn(io.kotest.common.ExperimentalKotest::class)
 
     context("en utilisant http4k server").config(enabled = false) {
         val client = OkHttp()
