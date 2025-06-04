@@ -4,12 +4,12 @@ import io.kotest.core.spec.style.AnnotationSpec
 import io.kotest.matchers.shouldBe
 import location.ports.Pour
 
-class TestsPourUnStockage : AnnotationSpec {
+class TestsPourUnTruc : AnnotationSpec {
 
     private var _sut: Pour
 
     constructor(){
-        _sut = UnStockage()
+        _sut = UnTruc()
     }
 
     @Test

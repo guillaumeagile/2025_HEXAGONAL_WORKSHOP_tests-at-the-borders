@@ -1,6 +1,6 @@
 package atelier2025.adapters.driven.storage.verifierLeContratPourTous
 
-import atelier2025.adapters.driven.storage.ContratDeTest
+import atelier2025.adapters.driven.storage.ContratDeTestPour
 import location.adapters.driven.antiseche.mongoDb.RepositoryMongoDb
 import location.adapters.driven.antiseche.postGreSQL.TicketSqlRepository
 import org.testcontainers.containers.MongoDBContainer
@@ -36,8 +36,8 @@ val fakeStorageFactory = { TODO() } //mais c'est assez simple :)
 
 // et maintenant héritons du contrat, ca va faire jouer tous les (même) tests pour les différents adapteurs
 
-class InheritedAnnotationTests_WithFake : ContratDeTest(fakeStorageFactory()) {}
+class InheritedAnnotationTests_WithFake : ContratDeTestPour(fakeStorageFactory()) {}
 
-class InheritedAnnotationTests_WithMongoDB : ContratDeTest(mongoStockageFactory()) {}
+class InheritedAnnotationTests_WithMongoDB : ContratDeTestPour(mongoStockageFactory()) {}
 
-class InheritedAnnotationTests_WithSQL : ContratDeTest(sqlStockageFactory()) {}
+class InheritedAnnotationTests_WithSQL : ContratDeTestPour(sqlStockageFactory()) {}
