@@ -4,18 +4,12 @@ import io.kotest.core.spec.style.AnnotationSpec
 import io.kotest.matchers.shouldBe
 import location.ports.Pour
 
-class testsPourUnStockage : AnnotationSpec {
+class TestsPourUnStockage : AnnotationSpec {
 
     private var _sut: Pour
 
     constructor(){
         _sut = UnStockage()
-    }
-
-    @BeforeEach
-    fun beforeTest() {
-        println("Before each test")
-       // _sut.reset() // ca serait bien de le tester lui aussi
     }
 
     @Test
@@ -27,10 +21,12 @@ class testsPourUnStockage : AnnotationSpec {
 
 
 
+    @BeforeEach
+    fun beforeTest() {
+        println("Before each test")
+        // _sut.reset() // ca serait bien de le tester lui aussi
+    }
 
 
 
-    //constructor(sut: Pour ) {
-    //    _sut =sut
-    // }
 }
