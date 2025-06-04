@@ -3,7 +3,7 @@ package adapters.driven.stockage.antiseche.withAggregatedContractTesting.postgre
 import adapters.driven.stockage.antiseche.withAggregatedContractTesting.AggregatorOfContractTests
 
 import io.kotest.core.spec.style.FunSpec
-import location.adapters.driven.storage.postGreSQL.TicketSqlRepository
+import location.adapters.driven.antiseche.postGreSQL.TicketSqlRepository
 import org.testcontainers.containers.PostgreSQLContainer
 
 class PostgreTests : FunSpec({

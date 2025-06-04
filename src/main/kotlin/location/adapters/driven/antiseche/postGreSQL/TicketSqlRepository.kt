@@ -1,4 +1,4 @@
-package location.adapters.driven.storage.postGreSQL
+package location.adapters.driven.antiseche.postGreSQL
 
 import location.ports.antiseche.PourX
 import location.adapters.driven.storage.DTOs.TicketDto

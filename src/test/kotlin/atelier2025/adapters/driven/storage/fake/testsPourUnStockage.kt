@@ -8,7 +8,6 @@ class testsPourUnStockage : AnnotationSpec {
 
     private var _sut: Pour
 
-
     constructor(){
         _sut = UnStockage()
     }

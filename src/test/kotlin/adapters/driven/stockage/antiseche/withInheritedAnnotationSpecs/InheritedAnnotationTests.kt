@@ -1,7 +1,7 @@
 package adapters.driven.stockage.antiseche.withInheritedAnnotationSpecs
 
-import location.adapters.driven.storage.mongoDb.RepositoryMongoDb
-import location.adapters.driven.storage.postGreSQL.TicketSqlRepository
+import location.adapters.driven.antiseche.mongoDb.RepositoryMongoDb
+import location.adapters.driven.antiseche.postGreSQL.TicketSqlRepository
 import org.testcontainers.containers.MongoDBContainer
 import org.testcontainers.containers.PostgreSQLContainer
 

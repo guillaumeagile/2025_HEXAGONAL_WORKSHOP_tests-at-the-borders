@@ -1,4 +1,4 @@
-package location.adapters.driven.storage.mongoDb
+package location.adapters.driven.antiseche.mongoDb
 
 import com.mongodb.client.model.Filters
 import com.mongodb.client.model.ReplaceOptions

@@ -4,7 +4,7 @@ import adapters.driven.stockage.antiseche.withAggregatedContractTesting.Aggregat
 
 import io.kotest.core.spec.style.FunSpec
 import location.adapters.driven.storage.DTOs.TicketDto
-import location.adapters.driven.storage.mongoDb.RepositoryMongoDb
+import location.adapters.driven.antiseche.mongoDb.RepositoryMongoDb
 import org.testcontainers.containers.MongoDBContainer
 
 class MongoTests : FunSpec(
