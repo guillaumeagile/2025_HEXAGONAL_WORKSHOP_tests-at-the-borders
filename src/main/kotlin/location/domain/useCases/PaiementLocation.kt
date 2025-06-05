@@ -5,28 +5,30 @@ import location.domain.entities.Ticket
 import location.domain.usine.UsineDeTickets
 import location.domain.valueObjects.DureeDeLocation
 import location.ports.PourAvoirHeure
-import location.ports.antiseche.PourX
+import location.ports.PourStockage
 
 class PaiementLocation(
     val usineDeTickets: UsineDeTickets,
-    val stockageDeTickets: PourX,
+    val stockageDeTickets: PourStockage,
     val horloges: PourAvoirHeure
 ) {
 
-    fun payerLocationImmediate(duree: DureeDeLocation) : Ticket {
+    internal fun payerLocationImmediate(duree: DureeDeLocation): Result<Ticket> {
 
         val heureEntree = this.horloges.quelleHeureEstIl()
         val ticket =  usineDeTickets.creation( heureEntree, duree.enMinutes)
 
-
         if ( ticket.isFailure )
-           return Ticket.enEchec()
+           return ticket
 
-     // à vous de jouer pour choisir comment on va mettre le ticket dans le repo
-     //   stockageDeTickets.X(ticket)
+        val ticketStocke = stockageDeTickets.StockerTicket(ticket)
 
-        return ticket.getOrDefault( Ticket.enEchec() )
+        return ticketStocke
+
+       // return ticket.getOrDefault( Ticket.enEchec() )
     }
+
+
 
     fun payerLocationEnAvance(duree: DureeDeLocation, heureEntree: LocalDateTime) : Ticket {
          TODO()

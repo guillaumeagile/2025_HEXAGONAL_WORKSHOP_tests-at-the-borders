@@ -26,6 +26,7 @@ val mongoStockageFactory = {
 
 val fakeStorageFactory = { TODO() } //mais c'est assez simple :)
 
+
 class InheritedAnnotationTests_WithMongoDB : StorageContractSpecification(mongoStockageFactory()) {}
 
 class InheritedAnnotationTests_WithSQL : StorageContractSpecification(sqlStockageFactory()) {}
