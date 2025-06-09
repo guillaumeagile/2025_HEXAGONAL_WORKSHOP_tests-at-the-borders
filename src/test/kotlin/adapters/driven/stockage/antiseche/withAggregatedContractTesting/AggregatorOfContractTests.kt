@@ -31,7 +31,7 @@ object AggregatorOfContractTests  {
     fun storageSaveAndRead(stockage: PourTickets) = stringSpec {
        "getTickets should return the list of saved tickets" {
             stockage.reset()
-            val testTicket = Ticket(2, 3)
+            val testTicket = Ticket.BuildOne( )
             stockage.save(testTicket)
             stockage.getAll().getOrNull()?.first() shouldBe testTicket
         }

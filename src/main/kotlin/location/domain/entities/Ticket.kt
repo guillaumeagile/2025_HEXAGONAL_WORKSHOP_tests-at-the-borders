@@ -1,11 +1,17 @@
 package location.domain.entities
 
-import io.nacular.measured.units.Measure
-import io.nacular.measured.units.Time
-import io.nacular.measured.units.Time.Companion.seconds
-import io.nacular.measured.units.times
+
+import kotlinx.datetime.DateTimeUnit
+import kotlinx.datetime.FixedOffsetTimeZone
 import kotlinx.datetime.LocalDateTime
+import kotlinx.datetime.TimeZone
+import kotlinx.datetime.plus
+import kotlinx.datetime.toInstant
+import kotlinx.datetime.toLocalDateTime
 import location.domain.valueObjects.Monnaie
+import kotlin.time.Duration.Companion.days
+
+
 
 data class Ticket(
     val id: String,
@@ -36,5 +42,19 @@ data class Ticket(
                     prix = prix
                 )
             )
+
+        fun BuildOne() : Ticket {
+            val momentEntree = LocalDateTime.parse("2025-01-01T00:00:00")    .toInstant(TimeZone.currentSystemDefault())
+            val momentSortie = momentEntree .plus(5, DateTimeUnit.MINUTE)
+            val duration = momentEntree - momentSortie
+            return Ticket(
+                id = "ID",
+                usagerId = "userID",
+                momentEntree = momentEntree  .toLocalDateTime(TimeZone.currentSystemDefault()),
+                dureeDeLocation = (5 * minutes), // TODO: utiliser DURATION et non pas Measure
+                momentSortie = momentSortie .toLocalDateTime(TimeZone.currentSystemDefault()),
+                prix = Monnaie.Euros(0.0)
+            )
+        }
     }
 }
