@@ -4,18 +4,29 @@ import com.mongodb.client.model.Filters
 import com.mongodb.client.model.ReplaceOptions
 import com.mongodb.client.model.Sorts.ascending
 import com.mongodb.kotlin.client.MongoClient
+import dev.krud.shapeshift.ShapeShiftBuilder
+import io.nacular.measured.units.Time.Companion.minutes
+import io.nacular.measured.units.times
+import kotlinx.datetime.LocalDateTime
 import location.adapters.driven.storage.DTOs.TicketDto
-import location.ports.antiseche.PourX
+import location.domain.entities.Ticket
+import location.ports.antiseche.PourTickets
 import org.bson.codecs.pojo.annotations.BsonId
 
 
-class RepositoryMongoDb(connexionUrl: String) : PourX {
+class RepositoryMongoDb(connexionUrl: String) : PourTickets {
 
-     data class DTOMongoTicket(
+
+    data class DTOMongoTicket(
         @BsonId
-        val id: Long,
-        val parkTimeMinutes: Int
-    )
+        val id: String,
+        val usagerId: String,  // son email
+        val momentEntree: LocalDateTime,
+        val dureeDeLocationEnMinutes: Long,
+        val momentSortie: LocalDateTime,
+        val prixEnEuros: Double)
+
+
     private val mongoClient = MongoClient.Factory.create(connexionUrl)
     private val db = mongoClient.getDatabase("tickets")
     private val ticketCollection = db.getCollection<DTOMongoTicket>("ledgerTicket")
@@ -26,8 +37,17 @@ class RepositoryMongoDb(connexionUrl: String) : PourX {
         ticketCollection.replaceOne(filter, ticket, options)
     }
 
-    override fun save(ticket: TicketDto): Result<Boolean> {
-        val adaptedTicket = DTOMongoTicket(id = ticket.id.toLong(), parkTimeMinutes = ticket.elapsedMinutes)
+    override fun save(ticket: Ticket): Result<Boolean> {
+        // mapper le domain object vers le DTO
+        val adaptedTicket = DTOMongoTicket(
+            id = ticket.id,
+            usagerId = ticket.usagerId,
+            momentEntree = ticket.momentEntree,
+            dureeDeLocationEnMinutes = (ticket.dureeDeLocation.amount * minutes ).amount.toLong(),
+            momentSortie = ticket.momentSortie,
+            prixEnEuros = ticket.prix.EnEuros()
+        )
+            //DTOMongoTicket(id = ticket.id.toLong(), parkTimeMinutes = ticket.elapsedMinutes)
         saveOrUpdateTicket(adaptedTicket)
         return Result.success(true)
     }
@@ -36,11 +56,13 @@ class RepositoryMongoDb(connexionUrl: String) : PourX {
          ticketCollection.countDocuments().toInt()
     }
 
-    override fun getAll(): Result<List<TicketDto>>  = runCatching {
-        ticketCollection
+    override fun getAll(): Result<List<Ticket>>  = runCatching {
+        TODO("mapper le DTO vers le domain object")
+      /*  ticketCollection
             .find()
             .sort(ascending("_id"))
-            .map  { t -> TicketDto(id = t.id.toInt(), elapsedMinutes = t.parkTimeMinutes) }.toList()
+            .map  { t -> Ticket(id = t.id.toInt(), elapsedMinutes = t.parkTimeMinutes) }.toList()
+            */
     }
 
     override fun reset(): Result<Boolean> {

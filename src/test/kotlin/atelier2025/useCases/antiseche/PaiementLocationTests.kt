@@ -13,7 +13,7 @@ import location.domain.usine.regles.CalculPrixHauteSaison
 import location.domain.valueObjects.DureeDeLocation
 import location.domain.valueObjects.Monnaie
 import location.ports.PourAvoirHeure
-import location.ports.antiseche.PourX
+import location.ports.antiseche.PourTickets
 import location.utilities.TestableIdGenerateur
 
 class PaiementLocationTests: BehaviorSpec( {
@@ -21,7 +21,7 @@ class PaiementLocationTests: BehaviorSpec( {
     // ce test doit rester une page blanche, il ne doit pas supposer de quoique ce soit de technique sur le stockage
     Given("le use case de paiement de location") {
         val fausseHorloge = FausseHorloge(LocalDateTime.Companion.parse("2025-06-01T00:00:00")) as PourAvoirHeure
-        val adapter =   XAdapter() as PourX  // à vous de jouer:
+        val adapter =   XAdapter() as PourTickets  // à vous de jouer:
         // écrivez le port et l'adapter qui va bien pour notre métier
 
         val usineDeTickets = UsineDeTickets(TestableIdGenerateur(), CalculPrixHauteSaison())

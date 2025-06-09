@@ -5,11 +5,11 @@ import location.domain.entities.Ticket
 import location.domain.usine.UsineDeTickets
 import location.domain.valueObjects.DureeDeLocation
 import location.ports.PourAvoirHeure
-import location.ports.antiseche.PourX
+import location.ports.antiseche.PourTickets
 
 class PaiementLocation(
     val usineDeTickets: UsineDeTickets,
-    val stockageDeTickets: PourX,
+    val stockageDeTickets: PourTickets,
     val horloges: PourAvoirHeure
 ) {
 

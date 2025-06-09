@@ -10,7 +10,9 @@ data class Monnaie(val valeur: Double, val devise: Devises) {
         fun Euros(value: Double): Monnaie = Monnaie(value, Devises.EUROS)
         fun Dollars(value: Int): Monnaie = Monnaie(value, Devises.DOLLARS)
         fun Dollars(value: Double): Monnaie = Monnaie(value, Devises.DOLLARS)
-    }
+       }
+
+    fun EnEuros(): Double = if (this.devise == Devises.DOLLARS) this.valeur * DOLLAR_VERS_EUROS else this.valeur
 
 
     override fun equals(other: Any?): Boolean {

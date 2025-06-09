@@ -1,14 +1,15 @@
 package adapters.driven.stockage.antiseche
 
 import location.adapters.driven.storage.DTOs.TicketDto
-import location.ports.antiseche.PourX
+import location.domain.entities.Ticket
+import location.ports.antiseche.PourTickets
 
-class XAdapter : PourX {
+class XAdapter : PourTickets {
 
    // val listeOrdonneeDesTickets = hashMapOf<Int, TicketDto>()
-    val listDesTickets = ArrayList<TicketDto>()
+    val listDesTickets = ArrayList<Ticket>()
 
-    override fun save(ticket: TicketDto) = runCatching {
+    override fun save(ticket: Ticket) = runCatching {
         listDesTickets.add(ticket)
       //  listeOrdonneeDesTickets.put(ticket.id, ticket)
         true
@@ -19,7 +20,7 @@ class XAdapter : PourX {
         listDesTickets.size
     )
 
-    override fun getAll(): Result<List<TicketDto>> = Result.success(
+    override fun getAll(): Result<List<Ticket>> = Result.success(
     //    listeOrdonneeDesTickets.map( { it.value })
         listDesTickets
     )

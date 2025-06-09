@@ -1,11 +1,12 @@
 package location.adapters.driven.antiseche.postGreSQL
 
-import location.ports.antiseche.PourX
+import location.ports.antiseche.PourTickets
 import location.adapters.driven.storage.DTOs.TicketDto
+import location.domain.entities.Ticket
 import java.sql.DriverManager
 
 
-class TicketSqlRepository(jdbcUrl: String, username: String, password: String) : PourX {
+class TicketSqlRepository(jdbcUrl: String, username: String, password: String) : PourTickets {
     private val storageConnection = DriverManager.getConnection(jdbcUrl, username, password)
 
 
@@ -21,7 +22,10 @@ class TicketSqlRepository(jdbcUrl: String, username: String, password: String) :
         createTableStatement.execute()
     }
 
-    override fun save(ticket: TicketDto)  = runCatching {
+    override fun save(ticket: Ticket)  = runCatching {
+
+        TODO("mapper le domain object vers le DTO")
+        /*
         val insertStatement = storageConnection.prepareStatement(
             """insert into ticket(id, park_time_minutes) 
                 |values (?, ?)
@@ -32,6 +36,7 @@ class TicketSqlRepository(jdbcUrl: String, username: String, password: String) :
         insertStatement.setInt(1, ticket.id)
         insertStatement.setInt(2, ticket.elapsedMinutes)
         insertStatement.execute()
+        */
     }
 
     override fun count(): Result< Int> = runCatching {
@@ -44,7 +49,9 @@ class TicketSqlRepository(jdbcUrl: String, username: String, password: String) :
         return Result.success( res)
     }
 
-    override fun getAll(): Result<List<TicketDto>> {
+    override fun getAll(): Result<List<Ticket>> {
+        TODO("mapper le DTO vers le domain object")
+        /*
         val selectStatement = storageConnection.prepareStatement(
             "select * from ticket order by id"
         )
@@ -58,6 +65,8 @@ class TicketSqlRepository(jdbcUrl: String, username: String, password: String) :
             listOfTickets.add(aTicketDto)
         }
         return Result.success(listOfTickets)
+        
+         */
     }
 
     override fun reset(): Result<Boolean> {

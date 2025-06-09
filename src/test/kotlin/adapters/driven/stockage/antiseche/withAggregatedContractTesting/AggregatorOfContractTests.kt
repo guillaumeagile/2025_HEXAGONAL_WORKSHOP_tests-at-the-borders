@@ -4,7 +4,8 @@ import io.kotest.core.spec.style.stringSpec
 import io.kotest.matchers.nulls.shouldNotBeNull
 import io.kotest.matchers.shouldBe
 import location.adapters.driven.storage.DTOs.TicketDto
-import location.ports.antiseche.PourX
+import location.domain.entities.Ticket
+import location.ports.antiseche.PourTickets
 
 
 // FIND A WAY to bind the Contracts of Tests with the Contract of Implementations
@@ -20,23 +21,23 @@ object AggregatorOfContractTests  {
         AggregatorOfContractTests::storageCannotSaveTwoOfTheSameId
     )
 
-    fun storageNoSaveAndCount(stockage: PourX) = stringSpec {
+    fun storageNoSaveAndCount(stockage: PourTickets) = stringSpec {
         "count should return zero tickets" {
             stockage.reset()
             stockage.count().getOrNull() shouldBe 0
         }
     }
 
-    fun storageSaveAndRead(stockage: PourX) = stringSpec {
+    fun storageSaveAndRead(stockage: PourTickets) = stringSpec {
        "getTickets should return the list of saved tickets" {
             stockage.reset()
-            val testTicket = TicketDto(2, 3)
+            val testTicket = Ticket(2, 3)
             stockage.save(testTicket)
             stockage.getAll().getOrNull()?.first() shouldBe testTicket
         }
     }
 
-    fun storageSaveTwoAndRead(stockage: PourX) = stringSpec {
+    fun storageSaveTwoAndRead(stockage: PourTickets) = stringSpec {
         "getTickets should return the list of saved tickets ordered by id" {
             stockage.reset()
             val testTicket1 = TicketDto(1, 3)
@@ -54,7 +55,7 @@ object AggregatorOfContractTests  {
         }
     }
 
-    fun storageCannotSaveTwoOfTheSameId(stockage: PourX) = stringSpec {
+    fun storageCannotSaveTwoOfTheSameId(stockage: PourTickets) = stringSpec {
         "saving 2 tickets with the same id should return only the last updated" {
             stockage.reset()
             val testTicket1 = TicketDto(1, 3)
@@ -71,7 +72,7 @@ object AggregatorOfContractTests  {
         }
     }
 
-    fun storageSaveAndCount(stockage: PourX) = stringSpec {
+    fun storageSaveAndCount(stockage: PourTickets) = stringSpec {
         "count should return the number of saved tickets" {
             stockage.reset()
             stockage.save(TicketDto(1, 2))
