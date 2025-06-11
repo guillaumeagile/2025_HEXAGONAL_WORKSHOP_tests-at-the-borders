@@ -26,7 +26,7 @@ val mongoStockageFactory = {
     // return repo
 }
 
-val fakeStorageFactory = { TODO() } //mais c'est assez simple :)
+//class InheritedAnnotationTests_WithFake : StorageContractSpecification(FakeAdapterPourTicket()) {}   // le fake n'est pas compatible
 
 class InheritedAnnotationTests_WithMongoDB : StorageContractSpecification(mongoStockageFactory()) {}
 
@@ -40,13 +40,9 @@ val valKeyFactory = {
     val redisContainer =  RedisContainer(
             RedisContainer.DEFAULT_IMAGE_NAME.withTag(RedisContainer.DEFAULT_TAG));
     redisContainer.start()
-    
-    // Get the connection URL for Redis
-  //  val redisHost = redisContainer.host
-  //  val redisPort = redisContainer.getMappedPort(6379)
+
     val redisUrl = redisContainer.getRedisURI();
-        //"redis://$redisHost:$redisPort"
-    
+
     // Create and return the ValKeyAdapter
     ValKeyAdapter(redisUrl)
 }
