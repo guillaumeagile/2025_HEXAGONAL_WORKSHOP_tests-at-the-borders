@@ -1,4 +1,4 @@
-package adapters.driven.stockage.antiseche.withAggregatedContractTesting.mongoDB
+package antiseche.adapters.driven.stockage.antiseche.withAggregatedContractTesting.mongoDB
 
 import adapters.driven.stockage.antiseche.withAggregatedContractTesting.AggregatorOfContractTests
 import io.kotest.core.spec.style.FunSpec

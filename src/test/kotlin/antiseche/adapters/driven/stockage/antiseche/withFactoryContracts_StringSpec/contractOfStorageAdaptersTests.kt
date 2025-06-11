@@ -1,4 +1,4 @@
-package adapters.driven.stockage.antiseche.withFactoryContracts_StringSpec
+package antiseche.adapters.driven.stockage.antiseche.withFactoryContracts_StringSpec
 
 
 import io.kotest.core.spec.style.stringSpec

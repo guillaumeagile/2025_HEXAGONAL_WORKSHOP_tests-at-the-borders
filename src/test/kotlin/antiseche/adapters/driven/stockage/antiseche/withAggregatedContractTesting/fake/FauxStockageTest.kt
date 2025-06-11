@@ -1,4 +1,4 @@
-package adapters.driven.stockage.antiseche.withAggregatedContractTesting.fake
+package antiseche.adapters.driven.stockage.antiseche.withAggregatedContractTesting.fake
 
 import adapters.driven.stockage.antiseche.XAdapter
 import adapters.driven.stockage.antiseche.withAggregatedContractTesting.AggregatorOfContractTests

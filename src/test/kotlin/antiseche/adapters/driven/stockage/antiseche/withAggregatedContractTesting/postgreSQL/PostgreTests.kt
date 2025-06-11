@@ -1,4 +1,4 @@
-package adapters.driven.stockage.antiseche.withAggregatedContractTesting.postgreSQL
+package antiseche.adapters.driven.stockage.antiseche.withAggregatedContractTesting.postgreSQL
 
 import adapters.driven.stockage.antiseche.withAggregatedContractTesting.AggregatorOfContractTests
 

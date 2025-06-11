@@ -1,4 +1,4 @@
-package adapters.autres_adapters_fakes
+package antiseche.adapters.autres_adapters_fakes
 
 import kotlinx.datetime.LocalDateTime
 import location.ports.PourAvoirHeure

@@ -1,4 +1,4 @@
-package adapters.driven.stockage.antiseche.withInheritedAnnotationSpecs
+package antiseche.adapters.driven.stockage.antiseche.withInheritedAnnotationSpecs
 
 import location.adapters.driven.antiseche.mongoDb.RepositoryMongoDb
 import location.adapters.driven.antiseche.postGreSQL.TicketSqlRepository

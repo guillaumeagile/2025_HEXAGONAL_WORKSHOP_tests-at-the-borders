@@ -1,4 +1,4 @@
-package adapters.driven.stockage.antiseche.withAggregatedContractTesting
+package antiseche.adapters.driven.stockage.antiseche.withAggregatedContractTesting
 
 import io.kotest.core.spec.style.stringSpec
 import io.kotest.matchers.nulls.shouldNotBeNull

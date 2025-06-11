@@ -1,4 +1,4 @@
-package adapters.driven.stockage.antiseche.withInheritedAnnotationSpecs
+package antiseche.adapters.driven.stockage.antiseche.withInheritedAnnotationSpecs
 
 import io.kotest.core.spec.style.AnnotationSpec
 import io.kotest.matchers.shouldBe
