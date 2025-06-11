@@ -1,8 +1,9 @@
 package atelier2025.adapters.driven.storage.fake
 
-import location.ports.Pour
+import location.ports.PourQuelqueChose
 
-class UnTruc : Pour
+class UnTruc : PourQuelqueChose
 {
+    override fun faireQuelqueChose(): Boolean = true
 
 }

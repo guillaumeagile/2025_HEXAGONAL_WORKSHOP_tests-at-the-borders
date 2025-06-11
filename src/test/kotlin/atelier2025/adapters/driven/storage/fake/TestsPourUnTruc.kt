@@ -2,11 +2,11 @@ package atelier2025.adapters.driven.storage.fake
 
 import io.kotest.core.spec.style.AnnotationSpec
 import io.kotest.matchers.shouldBe
-import location.ports.Pour
+import location.ports.PourQuelqueChose
 
 class TestsPourUnTruc : AnnotationSpec {
 
-    private var _sut: Pour
+    private var _sut: PourQuelqueChose
 
     constructor(){
         _sut = UnTruc()
