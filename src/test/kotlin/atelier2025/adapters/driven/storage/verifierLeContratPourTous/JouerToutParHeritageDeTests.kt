@@ -32,12 +32,15 @@ class InheritedAnnotationTests_WithFake : ContratDeTestPour(fakeStorageFactory()
 
 class InheritedAnnotationTests_WithMongoDB : ContratDeTestPour(mongoStockageFactory()  ) {}
 
-//class InheritedAnnotationTests_WithSQL : ContratDeTestPour(sqlStockageFactory()) {}
+//on peut essayer de tester un autre adaptateur, par exemple qui utiliserait ValKey (ex Redis)
 
+
+//class InheritedAnnotationTests_WithSQL : ContratDeTestPour(sqlStockageFactory()) {}
+// on pourrait aussi utiliser un adaptateur SQL pour PostgreSQL
 val sqlStockageFactory = {
     // Arrange
     //  1 - containers
-    val postgres = PostgreSQLContainer("postgres:16")
+    val postgres = PostgreSQLContainer("postgres:16") // c'est pas la bonne interface, faut le ré écrire
     postgres.start()
 
     // 2- adapter  -> CHANGER POUR NOUVEL ADAPTER

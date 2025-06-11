@@ -5,13 +5,11 @@ import location.domain.entities.Ticket
 import location.domain.usine.UsineDeTickets
 import location.domain.valueObjects.DureeDeLocation
 import location.ports.PourAvoirHeure
-import location.ports.antiseche.PourTickets
+import location.ports.PourQuelqueChose
 
-class PaiementLocation(
+class LillePaiementLocation(
     val usineDeTickets: UsineDeTickets,
-    // port d'antiseche, à changer
-    val adapter: PourTickets,
-    // PourQuelqueChose,
+    val chose:  PourQuelqueChose,
     val horloges: PourAvoirHeure
 ) {
 
@@ -24,7 +22,7 @@ class PaiementLocation(
            return Ticket.enEchec()
 
      // à vous de jouer pour choisir ce qu'oon va faire avec le ticket .....
-        adapter.save(ticket.getOrDefault( Ticket.enEchec() ))
+     //   chose.X(ticket)
 
 
         return ticket.getOrDefault( Ticket.enEchec() )
