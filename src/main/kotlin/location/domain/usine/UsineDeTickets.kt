@@ -1,7 +1,5 @@
 package location.domain.usine
 
-import io.nacular.measured.units.Time
-import io.nacular.measured.units.times
 import kotlinx.datetime.LocalDateTime
 import location.domain.entities.Ticket
 import location.domain.valueObjects.Monnaie

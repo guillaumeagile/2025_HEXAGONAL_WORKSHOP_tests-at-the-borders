@@ -4,8 +4,6 @@ import adapters.autres_adapters_fakes.FausseHorloge
 import adapters.driven.stockage.antiseche.XAdapter
 import io.kotest.core.spec.style.BehaviorSpec
 import io.kotest.matchers.shouldBe
-import io.nacular.measured.units.Time
-import io.nacular.measured.units.times
 import kotlinx.datetime.LocalDateTime
 import location.domain.useCases.PaiementLocation
 import location.domain.usine.UsineDeTickets
@@ -15,6 +13,7 @@ import location.domain.valueObjects.Monnaie
 import location.ports.PourAvoirHeure
 import location.ports.antiseche.PourTickets
 import location.utilities.TestableIdGenerateur
+import kotlin.time.Duration.Companion.minutes
 
 class PaiementLocationTests: BehaviorSpec( {
 
@@ -38,7 +37,7 @@ class PaiementLocationTests: BehaviorSpec( {
                 actualTicket.id shouldBe "fakeId-1"
                 actualTicket.momentEntree shouldBe LocalDateTime.Companion.parse("2025-06-01T00:00:00")
                 //A FAIRE PASSER: actualTicket.momentSortie shouldBe LocalDateTime.parse("2025-06-01T00:15:00")
-                actualTicket.dureeDeLocation shouldBe 15 * Time.Companion.minutes
+                actualTicket.dureeDeLocation shouldBe 15 .minutes
                 actualTicket.prix shouldBe  Monnaie.Companion.Euros(0.25)
             }
 

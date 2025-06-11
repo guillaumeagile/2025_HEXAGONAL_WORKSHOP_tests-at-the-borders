@@ -1,6 +1,5 @@
 package adapters.driven.stockage.antiseche
 
-import location.adapters.driven.storage.DTOs.TicketDto
 import location.domain.entities.Ticket
 import location.ports.antiseche.PourTickets
 

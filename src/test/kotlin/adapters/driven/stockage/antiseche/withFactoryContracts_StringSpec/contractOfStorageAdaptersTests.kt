@@ -4,7 +4,6 @@ package adapters.driven.stockage.antiseche.withFactoryContracts_StringSpec
 import io.kotest.core.spec.style.stringSpec
 import io.kotest.matchers.nulls.shouldNotBeNull
 import io.kotest.matchers.shouldBe
-import location.adapters.driven.storage.DTOs.TicketDto
 import location.domain.entities.Ticket
 import location.ports.antiseche.PourTickets
 
