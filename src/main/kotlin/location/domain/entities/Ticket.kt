@@ -1,17 +1,9 @@
 package location.domain.entities
 
 
-import kotlinx.datetime.DateTimeUnit
-import kotlinx.datetime.FixedOffsetTimeZone
-import kotlinx.datetime.LocalDateTime
-import kotlinx.datetime.TimeZone
-import kotlinx.datetime.plus
-import kotlinx.datetime.toInstant
-import kotlinx.datetime.toLocalDateTime
+import kotlinx.datetime.*
 import location.domain.valueObjects.Monnaie
 import kotlin.time.Duration
-import kotlin.time.Duration.Companion.days
-import kotlin.time.Duration.Companion.minutes
 
 
 data class Ticket(

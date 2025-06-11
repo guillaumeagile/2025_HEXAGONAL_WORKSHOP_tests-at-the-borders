@@ -1,8 +1,7 @@
 package location.adapters.driven.antiseche.postGreSQL
 
-import location.ports.antiseche.PourTickets
-import location.adapters.driven.storage.DTOs.TicketDto
 import location.domain.entities.Ticket
+import location.ports.antiseche.PourTickets
 import java.sql.DriverManager
 
 

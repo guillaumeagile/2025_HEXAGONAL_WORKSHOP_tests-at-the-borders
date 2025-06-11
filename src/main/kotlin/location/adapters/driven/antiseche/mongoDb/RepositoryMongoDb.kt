@@ -4,21 +4,14 @@ import com.mongodb.client.model.Filters
 import com.mongodb.client.model.ReplaceOptions
 import com.mongodb.client.model.Sorts.ascending
 import com.mongodb.kotlin.client.MongoClient
-import dev.krud.shapeshift.ShapeShiftBuilder
-import io.nacular.measured.units.Time.Companion.minutes
-import io.nacular.measured.units.times
-import kotlinx.datetime.LocalDateTime
-import kotlinx.datetime.toJavaInstant
 import kotlinx.datetime.toJavaLocalDateTime
 import kotlinx.datetime.toKotlinLocalDateTime
-import location.adapters.driven.storage.DTOs.TicketDto
 import location.domain.entities.Ticket
 import location.domain.valueObjects.Monnaie
 import location.ports.antiseche.PourTickets
 import org.bson.codecs.pojo.annotations.BsonId
 import java.time.Instant
 import java.time.ZoneOffset
-import kotlin.time.Duration
 import kotlin.time.Duration.Companion.minutes
 
 

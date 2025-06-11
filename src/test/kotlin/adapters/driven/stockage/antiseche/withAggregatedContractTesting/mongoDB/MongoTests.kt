@@ -1,15 +1,13 @@
 package adapters.driven.stockage.antiseche.withAggregatedContractTesting.mongoDB
 
 import adapters.driven.stockage.antiseche.withAggregatedContractTesting.AggregatorOfContractTests
-
 import io.kotest.core.spec.style.FunSpec
-import location.adapters.driven.storage.DTOs.TicketDto
 import location.adapters.driven.antiseche.mongoDb.RepositoryMongoDb
+
 import org.testcontainers.containers.MongoDBContainer
 
 class MongoTests : FunSpec(
     {
-        TicketDto(1, 200)
 
         beforeTest {
             println("Starting a test $it")

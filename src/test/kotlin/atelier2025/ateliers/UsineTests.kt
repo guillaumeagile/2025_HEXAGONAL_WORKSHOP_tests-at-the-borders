@@ -5,12 +5,12 @@ import io.kotest.core.spec.style.StringSpec
 import io.kotest.matchers.shouldBe
 import io.kotest.matchers.shouldNotBe
 import io.kotest.matchers.string.shouldNotContain
-import io.nacular.measured.units.Time
-import io.nacular.measured.units.times
+
 import kotlinx.datetime.LocalDateTime
 import location.domain.usine.UsineDeTickets
 import location.utilities.TestableIdGenerateur
 import location.utilities.ulidGenerateur
+import kotlin.time.Duration.Companion.minutes
 
 class UsineTests
     : StringSpec({
@@ -25,7 +25,7 @@ class UsineTests
 
         ticket.isSuccess shouldBe true
         ticket.getOrNull()?.id shouldBe "fakeId-1"
-        ticket.getOrNull()?.dureeDeLocation shouldBe 42 * Time.Companion.minutes
+        ticket.getOrNull()?.dureeDeLocation shouldBe 42.minutes
         ticket.getOrNull()?.momentEntree?.year shouldBe 2016
         ticket.getOrNull()?.momentEntree?.dayOfMonth shouldBe 15
     }

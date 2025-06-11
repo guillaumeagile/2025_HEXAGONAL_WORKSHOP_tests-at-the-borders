@@ -1,6 +1,7 @@
 package location.adapters.driver
 
 
+import location.commandHandlers.AcheterUnTicketDeLocation
 import org.http4k.core.*
 import org.http4k.core.Status.Companion.OK
 import org.http4k.filter.ServerFilters.CatchLensFailure
@@ -11,7 +12,6 @@ import org.http4k.routing.routes
 import org.http4k.server.Http4kServer
 import org.http4k.server.Jetty
 import org.http4k.server.asServer
-import location.commandHandlers.AcheterUnTicketDeLocation
 
 
 data class TicketDTO(

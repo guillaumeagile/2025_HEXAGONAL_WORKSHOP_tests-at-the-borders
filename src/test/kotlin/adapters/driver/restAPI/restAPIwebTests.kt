@@ -3,8 +3,10 @@ package adapters.driver.restAPI
 
 import com.natpryce.hamkrest.and
 import com.natpryce.hamkrest.assertion.assertThat
-
 import io.kotest.core.spec.style.FunSpec
+import location.adapters.driver.httpServer
+import location.commandHandlers.AcheterUnTicketDeLocation
+import location.commandHandlers.data.DemandeDuTicket
 import org.http4k.client.OkHttp
 import org.http4k.core.Method
 import org.http4k.core.Method.GET
@@ -12,9 +14,6 @@ import org.http4k.core.Request
 import org.http4k.core.Status.Companion.OK
 import org.http4k.hamkrest.hasBody
 import org.http4k.hamkrest.hasStatus
-import location.adapters.driver.httpServer
-import location.commandHandlers.AcheterUnTicketDeLocation
-import location.commandHandlers.data.DemandeDuTicket
 
 
 class RestApiTest : FunSpec({

@@ -1,6 +1,5 @@
 package location.ports.antiseche
 
-import location.adapters.driven.storage.DTOs.TicketDto
 import location.domain.entities.Ticket
 
 interface PourTickets { //CQS

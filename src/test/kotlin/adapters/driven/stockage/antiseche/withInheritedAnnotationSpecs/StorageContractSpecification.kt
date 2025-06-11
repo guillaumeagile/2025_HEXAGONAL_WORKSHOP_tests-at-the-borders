@@ -2,7 +2,6 @@ package adapters.driven.stockage.antiseche.withInheritedAnnotationSpecs
 
 import io.kotest.core.spec.style.AnnotationSpec
 import io.kotest.matchers.shouldBe
-import location.adapters.driven.storage.DTOs.TicketDto
 import location.domain.entities.Ticket
 import location.ports.antiseche.PourTickets
 
