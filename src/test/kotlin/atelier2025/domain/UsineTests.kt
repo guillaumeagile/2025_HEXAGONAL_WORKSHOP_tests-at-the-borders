@@ -1,4 +1,4 @@
-package atelier2025.ateliers
+package atelier2025.domain
 
 import atelier2025.entites.RegleDePrixPourTests
 import io.kotest.core.spec.style.StringSpec
