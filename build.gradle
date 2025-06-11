@@ -93,11 +93,13 @@ dependencies {
 
     // Testcontainers mongodb
     testImplementation("org.testcontainers:mongodb:1.20.6")
+    testImplementation("com.redis:testcontainers-redis:2.2.4")
 
     //adapters drivers
     implementation("org.mongodb:mongodb-driver-kotlin-sync:5.4.0")
     implementation("org.mongodb:bson-kotlin:5.4.0")
     implementation ("org.redisson:redisson:3.25.2")
+
 
 }
 

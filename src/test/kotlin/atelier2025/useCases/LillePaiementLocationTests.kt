@@ -1,6 +1,6 @@
 package atelier2025.useCases
 
-import adapters.autres_adapters_fakes.FausseHorloge
+import antiseche.adapters.autres_adapters_fakes.FausseHorloge
 import atelier2025.adapters.driven.storage.fake.UnTruc
 import io.kotest.core.spec.style.BehaviorSpec
 import io.kotest.matchers.shouldBe

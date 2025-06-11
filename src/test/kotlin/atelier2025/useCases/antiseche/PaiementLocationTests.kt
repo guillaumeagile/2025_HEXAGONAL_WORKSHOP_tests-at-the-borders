@@ -1,6 +1,8 @@
 package atelier2025.useCases.antiseche
 
-import adapters.autres_adapters_fakes.FausseHorloge
+
+import antiseche.adapters.autres_adapters_fakes.FausseHorloge
+import antiseche.adapters.driven.stockage.antiseche.FakeAdapterPourTicket
 import io.kotest.core.spec.style.BehaviorSpec
 import io.kotest.matchers.shouldBe
 import kotlinx.datetime.LocalDateTime
@@ -19,7 +21,7 @@ class PaiementLocationTests: BehaviorSpec( {
     Given("le use case de paiement de location") {
         val fausseHorloge = FausseHorloge(LocalDateTime.Companion.parse("2025-06-01T00:00:00")) as PourAvoirHeure
 
-        val adapter = adapters.driven.stockage.antiseche.XAdapter() as  location.ports.antiseche. PourTickets  // à vous de jouer:
+        val adapter =  FakeAdapterPourTicket() as  location.ports.antiseche. PourTickets  // à vous de jouer:
         // écrivez le port et l'adapter qui va bien pour notre métier
 
         val usineDeTickets = UsineDeTickets(TestableIdGenerateur(), CalculPrixHauteSaison())

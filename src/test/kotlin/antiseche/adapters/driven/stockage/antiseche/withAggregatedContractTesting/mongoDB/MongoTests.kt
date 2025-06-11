@@ -1,6 +1,7 @@
 package antiseche.adapters.driven.stockage.antiseche.withAggregatedContractTesting.mongoDB
 
-import adapters.driven.stockage.antiseche.withAggregatedContractTesting.AggregatorOfContractTests
+
+import antiseche.adapters.driven.stockage.antiseche.withAggregatedContractTesting.AggregatorOfContractTests
 import io.kotest.core.spec.style.FunSpec
 import location.adapters.driven.antiseche.mongoDb.RepositoryMongoDb
 
