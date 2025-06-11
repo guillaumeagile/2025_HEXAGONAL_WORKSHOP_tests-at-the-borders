@@ -3,6 +3,7 @@ package adapters.driven.stockage.antiseche.withInheritedAnnotationSpecs
 import io.kotest.core.spec.style.AnnotationSpec
 import io.kotest.matchers.shouldBe
 import location.adapters.driven.storage.DTOs.TicketDto
+import location.domain.entities.Ticket
 import location.ports.antiseche.PourTickets
 
 // specification de contrat de tous les tests avec Annotation
@@ -27,21 +28,21 @@ import location.ports.antiseche.PourTickets
 
     @Test
     fun    count_should_return_the_number_of_saved_tickets() {
-        _sut.save(TicketDto(1, 2))
+        _sut.save(Ticket.BuildOne( ))
         _sut.count().getOrNull() shouldBe 1
     }
 
     @Test
     fun    getTickets_should_return_the_list_of_saved_tickets() {
-        val testTicket = TicketDto(2, 3)
+        val testTicket = Ticket.BuildOne( )
         _sut.save(testTicket)
         _sut.getAll().getOrNull()?.first() shouldBe testTicket
     }
 
     @Test
     fun    getTickets_should_return_the_list_of_saved_tickets_ordered_by_id() {
-        val testTicket1 = TicketDto(1, 3)
-        val testTicket2 = TicketDto(2, 4)
+        val testTicket1 = Ticket.BuildOne( )
+        val testTicket2 = Ticket.BuildOne( ).copy(id = "2", usagerId = "2")
         _sut.save(testTicket2)
         _sut.save(testTicket1)
         _sut.getAll().getOrNull()?.first() shouldBe testTicket1
@@ -50,8 +51,8 @@ import location.ports.antiseche.PourTickets
 
     @Test
     fun    saving_2_tickets_with_the_same_id_should_return_only_the_last_updated() {
-        val testTicket1 = TicketDto(1, 3)
-        val testTicket2 = TicketDto(1, 4)
+        val testTicket1 = Ticket.BuildOne( )
+        val testTicket2 = Ticket.BuildOne( ).copy( usagerId = "2")
         _sut.save(testTicket1)
         _sut.save(testTicket2)
         _sut.getAll().getOrNull()?.first() shouldBe testTicket2

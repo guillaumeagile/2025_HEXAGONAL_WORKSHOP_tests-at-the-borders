@@ -7,6 +7,7 @@ import io.nacular.measured.units.times
 import kotlinx.datetime.LocalDateTime
 import location.domain.entities.Ticket
 import location.domain.valueObjects.Monnaie
+import kotlin.time.Duration.Companion.minutes
 
 class TicketTests : StringSpec({
 
@@ -23,7 +24,7 @@ class TicketTests : StringSpec({
     "le ticket ne peut avoir un montant à zero ou négatif" .config(enabled = false) {
 
         val sut =  Ticket.Companion.builder( momentEntree = LocalDateTime.Companion.parse("2000-01-01T00:00:00"),
-            dureeDeLocation = 0 * Time.Companion.minutes, prix = Monnaie.Companion.Euros(-1.0))
+            dureeDeLocation = 0.minutes, prix = Monnaie.Companion.Euros(-1.0))
 
         sut.isFailure shouldBe true
     }

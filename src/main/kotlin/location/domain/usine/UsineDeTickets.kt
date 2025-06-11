@@ -6,6 +6,7 @@ import kotlinx.datetime.LocalDateTime
 import location.domain.entities.Ticket
 import location.domain.valueObjects.Monnaie
 import location.ports.PourLesIdentifiants
+import kotlin.time.Duration.Companion.minutes
 
 class UsineDeTickets(
     val idGenerateur: PourLesIdentifiants,
@@ -15,7 +16,7 @@ class UsineDeTickets(
 
     fun creation(heureEntree: LocalDateTime, dureeMinutes: Int): Result<Ticket>  {
 
-        val tempsDemmande=  dureeMinutes * Time.Companion.minutes;
+        val tempsDemmande=  dureeMinutes.minutes;
         val temp = Ticket.Companion.builder( heureEntree, tempsDemmande,  Monnaie.Companion.Euros(0.0))
         val ticket = temp .map {
             it.copy(

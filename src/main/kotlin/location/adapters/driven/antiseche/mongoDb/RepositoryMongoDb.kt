@@ -12,6 +12,8 @@ import location.adapters.driven.storage.DTOs.TicketDto
 import location.domain.entities.Ticket
 import location.ports.antiseche.PourTickets
 import org.bson.codecs.pojo.annotations.BsonId
+import kotlin.time.Duration
+import kotlin.time.Duration.Companion.minutes
 
 
 class RepositoryMongoDb(connexionUrl: String) : PourTickets {
@@ -43,7 +45,7 @@ class RepositoryMongoDb(connexionUrl: String) : PourTickets {
             id = ticket.id,
             usagerId = ticket.usagerId,
             momentEntree = ticket.momentEntree,
-            dureeDeLocationEnMinutes = (ticket.dureeDeLocation.amount * minutes ).amount.toLong(),
+            dureeDeLocationEnMinutes =  ticket.dureeDeLocation.inWholeMinutes,
             momentSortie = ticket.momentSortie,
             prixEnEuros = ticket.prix.EnEuros()
         )

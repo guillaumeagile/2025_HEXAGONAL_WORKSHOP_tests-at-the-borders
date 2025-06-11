@@ -40,8 +40,8 @@ object AggregatorOfContractTests  {
     fun storageSaveTwoAndRead(stockage: PourTickets) = stringSpec {
         "getTickets should return the list of saved tickets ordered by id" {
             stockage.reset()
-            val testTicket1 = TicketDto(1, 3)
-            val testTicket2 = TicketDto(2, 4)
+            val testTicket1 = Ticket.BuildOne( )
+            val testTicket2 = Ticket.BuildOne( ).copy(id = "2", usagerId = "2")
             stockage.save(testTicket2)
             stockage.save(testTicket1)
             val actualResultOfGetAll = stockage.getAll().getOrNull()
@@ -58,8 +58,8 @@ object AggregatorOfContractTests  {
     fun storageCannotSaveTwoOfTheSameId(stockage: PourTickets) = stringSpec {
         "saving 2 tickets with the same id should return only the last updated" {
             stockage.reset()
-            val testTicket1 = TicketDto(1, 3)
-            val testTicket2 = TicketDto(1, 4)
+            val testTicket1 = Ticket.BuildOne( )
+            val testTicket2 = Ticket.BuildOne( ).copy( usagerId = "2")
             stockage.save(testTicket1)
             stockage.save(testTicket2)
             val actualResultOfGetAll = stockage.getAll().getOrNull()
@@ -75,7 +75,7 @@ object AggregatorOfContractTests  {
     fun storageSaveAndCount(stockage: PourTickets) = stringSpec {
         "count should return the number of saved tickets" {
             stockage.reset()
-            stockage.save(TicketDto(1, 2))
+            stockage.save(Ticket.BuildOne( ))
             stockage.count().getOrNull() shouldBe 1
         }
     }
