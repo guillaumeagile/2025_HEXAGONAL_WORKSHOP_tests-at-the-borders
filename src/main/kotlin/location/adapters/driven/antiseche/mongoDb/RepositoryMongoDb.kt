@@ -8,10 +8,16 @@ import dev.krud.shapeshift.ShapeShiftBuilder
 import io.nacular.measured.units.Time.Companion.minutes
 import io.nacular.measured.units.times
 import kotlinx.datetime.LocalDateTime
+import kotlinx.datetime.toJavaInstant
+import kotlinx.datetime.toJavaLocalDateTime
+import kotlinx.datetime.toKotlinLocalDateTime
 import location.adapters.driven.storage.DTOs.TicketDto
 import location.domain.entities.Ticket
+import location.domain.valueObjects.Monnaie
 import location.ports.antiseche.PourTickets
 import org.bson.codecs.pojo.annotations.BsonId
+import java.time.Instant
+import java.time.ZoneOffset
 import kotlin.time.Duration
 import kotlin.time.Duration.Companion.minutes
 
@@ -23,9 +29,9 @@ class RepositoryMongoDb(connexionUrl: String) : PourTickets {
         @BsonId
         val id: String,
         val usagerId: String,  // son email
-        val momentEntree: LocalDateTime,
+        val momentEntree: Instant,
         val dureeDeLocationEnMinutes: Long,
-        val momentSortie: LocalDateTime,
+        val momentSortie: Instant,
         val prixEnEuros: Double)
 
 
@@ -44,9 +50,9 @@ class RepositoryMongoDb(connexionUrl: String) : PourTickets {
         val adaptedTicket = DTOMongoTicket(
             id = ticket.id,
             usagerId = ticket.usagerId,
-            momentEntree = ticket.momentEntree,
+            momentEntree = ticket.momentEntree.toJavaLocalDateTime().toInstant(ZoneOffset.UTC),
             dureeDeLocationEnMinutes =  ticket.dureeDeLocation.inWholeMinutes,
-            momentSortie = ticket.momentSortie,
+            momentSortie = ticket.momentSortie.toJavaLocalDateTime().toInstant(ZoneOffset.UTC),
             prixEnEuros = ticket.prix.EnEuros()
         )
             //DTOMongoTicket(id = ticket.id.toLong(), parkTimeMinutes = ticket.elapsedMinutes)
@@ -59,12 +65,19 @@ class RepositoryMongoDb(connexionUrl: String) : PourTickets {
     }
 
     override fun getAll(): Result<List<Ticket>>  = runCatching {
-        TODO("mapper le DTO vers le domain object")
-      /*  ticketCollection
+        ticketCollection
             .find()
             .sort(ascending("_id"))
-            .map  { t -> Ticket(id = t.id.toInt(), elapsedMinutes = t.parkTimeMinutes) }.toList()
-            */
+            .map { t -> 
+                Ticket(
+                    id = t.id,
+                    usagerId = t.usagerId,
+                    momentEntree = Instant.ofEpochMilli(t.momentEntree.toEpochMilli()).atZone(ZoneOffset.UTC).toLocalDateTime().toKotlinLocalDateTime(),
+                    dureeDeLocation = t.dureeDeLocationEnMinutes.minutes,
+                    momentSortie = Instant.ofEpochMilli(t.momentSortie.toEpochMilli()).atZone(ZoneOffset.UTC).toLocalDateTime().toKotlinLocalDateTime(),
+                    prix =  Monnaie.Euros(  t.prixEnEuros)
+                )
+            }.toList()
     }
 
     override fun reset(): Result<Boolean> {
