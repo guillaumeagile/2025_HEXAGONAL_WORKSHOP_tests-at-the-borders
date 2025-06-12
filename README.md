@@ -1,5 +1,10 @@
 # Atelier Doublures
 
+## Slides (DevLille 2025 et DevQuest)
+
+https://docs.google.com/presentation/d/1DY6wku1XMeQ2bTLOzdwPBKHVf3JfPyOcAZWty54my2M/edit?usp=sharing
+
+
 ## Pitch 
 
 Vous vous posez des questions sur les doublures de tests ou ce qui est généralement et abusivement dénommé “mocks”.

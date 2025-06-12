@@ -5,11 +5,11 @@ import location.domain.entities.Ticket
 import location.domain.usine.UsineDeTickets
 import location.domain.valueObjects.DureeDeLocation
 import location.ports.PourAvoirHeure
-import location.ports.PourQuelqueChose
+import location.ports.PourPersisterUnTicket
 
 class LillePaiementLocation(
     val usineDeTickets: UsineDeTickets,
-    val chose:  PourQuelqueChose,
+    val persistance:  PourPersisterUnTicket,
     val horloges: PourAvoirHeure
 ) {
 
@@ -21,9 +21,9 @@ class LillePaiementLocation(
         if ( ticket.isFailure )
            return Ticket.enEchec()
 
-     // à vous de jouer pour choisir ce qu'oon va faire avec le ticket .....
-     //   chose.X(ticket)
+        val leBonTicket = ticket.getOrNull()
 
+        persistance.enregistrer(leBonTicket)
 
         return ticket.getOrDefault( Ticket.enEchec() )
     }
@@ -34,5 +34,9 @@ class LillePaiementLocation(
 
     fun obtenirTicket(id: String) : Ticket{
         TODO("il faut chercher le ticket qq part")
+    }
+
+    fun donneMoiTousLesTicketsExistants() {
+        TODO("Not yet implemented")
     }
 }

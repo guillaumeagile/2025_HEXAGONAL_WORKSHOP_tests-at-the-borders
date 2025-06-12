@@ -7,11 +7,13 @@ import location.domain.valueObjects.Monnaie
 
 class RegleDePrixTests : FeatureSpec({
     val sut = CalculPrixHauteSaison()
+
     feature("cout de location: 0,25€ pour 15 minutes") {
 
         scenario("je loue pour 15 minutes, le prix est de 0,25€") {
 
             val actual = sut.calculPrix(15)
+          //  sut.rembourse(Idticket, partiellement)
             val expected = Monnaie.Euros(0.25)
             actual shouldBe expected
         }

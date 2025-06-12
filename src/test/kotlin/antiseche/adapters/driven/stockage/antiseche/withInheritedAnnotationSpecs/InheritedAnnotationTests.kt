@@ -1,5 +1,6 @@
 package antiseche.adapters.driven.stockage.antiseche.withInheritedAnnotationSpecs
 
+import antiseche.adapters.driven.stockage.antiseche.FakeAdapterPourTicket
 import com.redis.testcontainers.RedisContainer
 import location.adapters.driven.antiseche.mongoDb.RepositoryMongoDb
 import location.adapters.driven.antiseche.postGreSQL.TicketSqlRepository
@@ -26,7 +27,7 @@ val mongoStockageFactory = {
     // return repo
 }
 
-//class InheritedAnnotationTests_WithFake : StorageContractSpecification(FakeAdapterPourTicket()) {}   // le fake n'est pas compatible
+class InheritedAnnotationTests_WithFake : StorageContractSpecification(FakeAdapterPourTicket()) {}   // le fake n'est pas compatible
 
 class InheritedAnnotationTests_WithMongoDB : StorageContractSpecification(mongoStockageFactory()) {}
 

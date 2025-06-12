@@ -1,18 +1,18 @@
 package atelier2025.adapters.driven.storage.verifierLeContratPourTous
 
 import atelier2025.adapters.driven.storage.ContratDeTestPour
-import atelier2025.adapters.driven.storage.fake.UnTruc
+import atelier2025.adapters.driven.storage.fake.UnEspionEtFakeDePersistence
 import atelier2025.adapters.driven.storage.pasFake.RepositoryMongoDbPourQuelqueChose
 import location.adapters.driven.antiseche.postGreSQL.TicketSqlRepository
-import location.ports.PourQuelqueChose
+import location.ports.PourPersisterUnTicket
 import org.testcontainers.containers.MongoDBContainer
 import org.testcontainers.containers.PostgreSQLContainer
 
 // on setup les adaptateurs qui doivent respect le contrat de tests
 
-val fakeStorageFactory = { UnTruc() }
+val fakeStorageFactory = { UnEspionEtFakeDePersistence() }
 
-val mongoStockageFactory : () -> PourQuelqueChose  = {
+val mongoStockageFactory : () -> PourPersisterUnTicket  = {
     // Arrange
     // 1 - container
     val mongoDB = MongoDBContainer("mongo:8")

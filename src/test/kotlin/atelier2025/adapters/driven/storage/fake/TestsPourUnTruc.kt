@@ -2,14 +2,14 @@ package atelier2025.adapters.driven.storage.fake
 
 import io.kotest.core.spec.style.AnnotationSpec
 import io.kotest.matchers.shouldBe
-import location.ports.PourQuelqueChose
+import location.ports.PourPersisterUnTicket
 
 class TestsPourUnTruc : AnnotationSpec {
 
-    private var _sut: PourQuelqueChose
+    private var _sut: PourPersisterUnTicket
 
     constructor(){
-        _sut = UnTruc()
+        _sut = UnEspionEtFakeDePersistence()
     }
 
     @Test

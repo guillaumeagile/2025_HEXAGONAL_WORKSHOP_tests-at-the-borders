@@ -2,13 +2,13 @@ package atelier2025.adapters.driven.storage
 
 import io.kotest.core.spec.style.AnnotationSpec
 import io.kotest.matchers.shouldBe
-import location.ports.PourQuelqueChose
+import location.ports.PourPersisterUnTicket
 
 abstract class ContratDeTestPour : AnnotationSpec  {
 
-    protected lateinit var sut: PourQuelqueChose
+    protected lateinit var sut: PourPersisterUnTicket
 
-    constructor(sut: PourQuelqueChose) {  // remplacer Any par PourXXX
+    constructor(sut: PourPersisterUnTicket) {  // remplacer Any par PourXXX
        this.sut =sut
      }
 

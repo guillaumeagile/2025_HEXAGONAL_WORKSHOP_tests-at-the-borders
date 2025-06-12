@@ -3,12 +3,13 @@ package atelier2025.adapters.driven.storage.pasFake
 import com.mongodb.client.model.Filters
 import com.mongodb.client.model.ReplaceOptions
 import com.mongodb.kotlin.client.MongoClient
-import location.ports.PourQuelqueChose
+import location.domain.entities.Ticket
+import location.ports.PourPersisterUnTicket
 import org.bson.codecs.pojo.annotations.BsonId
 import java.time.Instant
 
 
-class RepositoryMongoDbPourQuelqueChose(connexionUrl: String) : PourQuelqueChose {
+class RepositoryMongoDbPourQuelqueChose(connexionUrl: String) : PourPersisterUnTicket {
 
 
     data class DTOMongoTicket(
@@ -32,6 +33,14 @@ class RepositoryMongoDbPourQuelqueChose(connexionUrl: String) : PourQuelqueChose
     }
 
     override fun faireQuelqueChose(): Boolean {
+        TODO("Not yet implemented")
+    }
+
+    override fun enregistrer(ticket: Ticket?): Ticket? {
+        TODO("Not yet implemented")
+    }
+
+    override fun compterLesTicketsExistants(): Int {
         TODO("Not yet implemented")
     }
 
