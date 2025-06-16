@@ -1,10 +1,9 @@
-package location.ports
+package lille2025.ports
 
 import location.domain.entities.Ticket
 
 interface PourPersisterUnTicket {
 
-    fun faireQuelqueChose() : Boolean
 
     fun enregistrer(ticket: Ticket?) : Ticket?
 

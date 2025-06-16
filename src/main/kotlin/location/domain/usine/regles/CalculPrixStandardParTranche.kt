@@ -1,10 +1,9 @@
 package location.domain.usine.regles
 
-import location.domain.usine.PourCalculerLePrix
 import location.domain.valueObjects.Monnaie
 import kotlin.math.ceil
 
-class CalculPrixHauteSaison : PourCalculerLePrix {
+class CalculPrixHauteSaison : location.domain.usine.PourCalculerLePrix {
 
     override fun calculPrix(duree: Int): Monnaie {
 

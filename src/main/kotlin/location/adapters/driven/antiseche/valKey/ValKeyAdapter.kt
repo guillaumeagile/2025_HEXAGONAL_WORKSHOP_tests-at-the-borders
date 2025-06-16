@@ -60,10 +60,10 @@ class ValKeyAdapter(redisUrl: String = "redis://localhost:6379") : PourTickets {
         )
     }
 
-    override fun save(ticket: Ticket): Result<Boolean> = runCatching {
+    override fun save(ticket: Ticket): Result<Ticket> = runCatching {
         val ticketMap = redissonClient.getMap<String, RedisTicketDTO>(ticketMapName)
         ticketMap.put(ticket.id, toRedisDTO(ticket))
-        true
+        ticket
     }
 
     override fun count(): Result<Int> = runCatching {

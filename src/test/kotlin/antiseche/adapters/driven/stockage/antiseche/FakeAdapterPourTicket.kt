@@ -8,10 +8,10 @@ class FakeAdapterPourTicket : PourTickets {
    // val listeOrdonneeDesTickets = hashMapOf<Int, TicketDto>()
     val listDesTickets = ArrayList<Ticket>()
 
-    override fun save(ticket: Ticket) = runCatching {
+    override fun save(ticket: Ticket): Result<Ticket> = runCatching {
         listDesTickets.add(ticket)
       //  listeOrdonneeDesTickets.put(ticket.id, ticket)
-        true
+        ticket
     }
 
     override fun count(): Result<Int> = Result.success(

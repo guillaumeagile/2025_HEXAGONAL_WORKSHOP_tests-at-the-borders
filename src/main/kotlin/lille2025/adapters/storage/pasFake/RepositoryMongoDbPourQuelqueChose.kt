@@ -1,10 +1,10 @@
-package atelier2025.adapters.driven.storage.pasFake
+package lille2025.adapters.storage.pasFake
 
 import com.mongodb.client.model.Filters
 import com.mongodb.client.model.ReplaceOptions
 import com.mongodb.kotlin.client.MongoClient
+import lille2025.ports.PourPersisterUnTicket
 import location.domain.entities.Ticket
-import location.ports.PourPersisterUnTicket
 import org.bson.codecs.pojo.annotations.BsonId
 import java.time.Instant
 
@@ -32,9 +32,6 @@ class RepositoryMongoDbPourQuelqueChose(connexionUrl: String) : PourPersisterUnT
         ticketCollection.replaceOne(filter, ticket, options)
     }
 
-    override fun faireQuelqueChose(): Boolean {
-        TODO("Not yet implemented")
-    }
 
     override fun enregistrer(ticket: Ticket?): Ticket? {
         TODO("Not yet implemented")

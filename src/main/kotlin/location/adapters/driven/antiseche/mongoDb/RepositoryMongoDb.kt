@@ -38,7 +38,7 @@ class RepositoryMongoDb(connexionUrl: String) : PourTickets {
         ticketCollection.replaceOne(filter, ticket, options)
     }
 
-    override fun save(ticket: Ticket): Result<Boolean> {
+    override fun save(ticket: Ticket): Result<Ticket> {
         // mapper le domain object vers le DTO
         val adaptedTicket = DTOMongoTicket(
             id = ticket.id,
@@ -50,7 +50,7 @@ class RepositoryMongoDb(connexionUrl: String) : PourTickets {
         )
             //DTOMongoTicket(id = ticket.id.toLong(), parkTimeMinutes = ticket.elapsedMinutes)
         saveOrUpdateTicket(adaptedTicket)
-        return Result.success(true)
+        return Result.success(ticket)
     }
 
     override fun count(): Result<Int> = runCatching {

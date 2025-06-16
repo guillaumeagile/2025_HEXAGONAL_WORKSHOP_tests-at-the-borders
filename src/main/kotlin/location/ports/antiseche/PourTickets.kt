@@ -6,7 +6,8 @@ interface PourTickets { //CQS
 
 
     // write
-    fun save(ticket: Ticket): Result<Boolean>
+    fun save(ticket: Ticket): Result<Ticket>
+
     // read
     fun count(): Result<Int>
     fun getAll(): Result<List<Ticket>>

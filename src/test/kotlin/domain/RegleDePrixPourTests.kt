@@ -1,4 +1,4 @@
-package atelier2025.entites
+package domain
 
 import location.domain.usine.PourCalculerLePrix
 import location.domain.valueObjects.Monnaie

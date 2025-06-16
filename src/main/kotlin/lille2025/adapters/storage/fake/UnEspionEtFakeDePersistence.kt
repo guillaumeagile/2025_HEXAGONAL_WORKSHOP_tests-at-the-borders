@@ -1,10 +1,10 @@
-package atelier2025.adapters.driven.storage.fake
+package lille2025.adapters.storage.fake
 
 import location.domain.entities.Ticket
-import location.ports.PourPersisterUnTicket
+import lille2025.ports.PourPersisterUnTicket
 
 class UnEspionEtFakeDePersistence : PourPersisterUnTicket {
-    override fun faireQuelqueChose(): Boolean = true
+
     var compteur: Int = 0
 
     val listeDesTickets = mutableListOf<Ticket>()

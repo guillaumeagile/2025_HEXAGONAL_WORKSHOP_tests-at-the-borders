@@ -1,6 +1,6 @@
-package atelier2025.domain
+package sunny2025.domain
 
-import atelier2025.entites.RegleDePrixPourTests
+import domain.RegleDePrixPourTests
 import io.kotest.core.spec.style.StringSpec
 import io.kotest.matchers.shouldBe
 import io.kotest.matchers.shouldNotBe

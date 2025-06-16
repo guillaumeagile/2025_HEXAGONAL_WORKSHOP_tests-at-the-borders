@@ -1,4 +1,4 @@
-package atelier2025.domain
+package sunny2025.domain
 
 import location.abstractions.PourDeterminerUneRemiseCommerciale
 import location.abstractions.PourLireLesLocations

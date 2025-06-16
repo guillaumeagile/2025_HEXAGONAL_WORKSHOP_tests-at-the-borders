@@ -1,4 +1,4 @@
-package atelier2025.entites
+package domain.entites
 
 import io.kotest.core.spec.style.StringSpec
 import io.kotest.matchers.shouldBe
