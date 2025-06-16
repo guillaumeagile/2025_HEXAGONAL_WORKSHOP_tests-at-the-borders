@@ -5,6 +5,6 @@ import location.domain.entities.Location
 
 class FakeX : PourLireLesLocations {
     override fun enregistrer(location: Location) {
-        TODO("Not yet implemented")
+
     }
 }

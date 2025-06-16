@@ -30,6 +30,8 @@ class RegleDePrixAvecFidelitéTests : FeatureSpec({
             stockage.enregistrer(location3)
             stockage.enregistrer(location4)
 
+            sut.QuelleRemiseAppliquer shouldBe Remise.Totale
+
         }
 
     }
