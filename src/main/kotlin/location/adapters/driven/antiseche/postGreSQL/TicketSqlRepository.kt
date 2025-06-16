@@ -183,7 +183,9 @@ class TicketSqlRepository(jdbcUrl: String, username: String, password: String) :
                     nanosecond = momentEntreeJava.nano
                 )
                 
-                val dureeDeLocation = kotlin.time.Duration.parse("PT${resultSet.getLong("duree_location")}ms")
+                // Create Duration directly from milliseconds without parsing
+                val durationMs = resultSet.getLong("duree_location")
+                val dureeDeLocation = kotlin.time.Duration.parseIsoString(  "PT${durationMs/1000}S")
                 
                 val momentSortieTimestamp = resultSet.getTimestamp("moment_sortie")
                 val momentSortieJava = momentSortieTimestamp.toLocalDateTime()
