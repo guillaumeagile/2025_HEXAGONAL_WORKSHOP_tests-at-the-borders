@@ -15,4 +15,8 @@ class StubLireLocation : PourLireLesLocations {
     override fun NombreDeLocations(): Int {
       return locations.size
     }
+
+    override fun donneMoiLes4DernieresLocations(): List<Location> {
+        return locations .take(4)
+    }
 }
