@@ -16,11 +16,10 @@ class TicketSqlRepository(jdbcUrl: String, username: String, password: String) :
     }
 
     init {
-        println("TicketSqlRepository initialized with connection: $jdbcUrl")
+        storageConnection
     }
 
     fun createTableTicket() = runCatching {
-        println("Creating ticket table...")
         val createTableStatement = storageConnection.prepareStatement(
             """ 
                 CREATE TABLE IF NOT EXISTS ticket(
@@ -36,14 +35,10 @@ class TicketSqlRepository(jdbcUrl: String, username: String, password: String) :
         )
         val result = createTableStatement.executeUpdate()
         storageConnection.commit()
-        println("Table created successfully, result: $result")
         result
     }
 
     override fun save(ticket: Ticket): Result<Ticket> = runCatching {
-        println("Saving ticket: ${ticket.id}, usagerId: ${ticket.usagerId}, duration: ${ticket.dureeDeLocation}")
-        println("Entry time: ${ticket.momentEntree}, Exit time: ${ticket.momentSortie}")
-        
         val insertStatement = storageConnection.prepareStatement(
             """
             INSERT INTO ticket(
@@ -66,11 +61,6 @@ class TicketSqlRepository(jdbcUrl: String, username: String, password: String) :
                 prix_devise = EXCLUDED.prix_devise
             """.trimIndent()
         )
-        
-        // Debug parameter values
-        println("Setting parameters:")
-        println("1. id: ${ticket.id}")
-        println("2. usagerId: ${ticket.usagerId}")
         
         // Convert Kotlin LocalDateTime to java.sql.Timestamp properly
         val momentEntreeJava = java.time.LocalDateTime.of(
@@ -95,12 +85,6 @@ class TicketSqlRepository(jdbcUrl: String, username: String, password: String) :
         val timestampEntree = java.sql.Timestamp.valueOf(momentEntreeJava)
         val timestampSortie = java.sql.Timestamp.valueOf(momentSortieJava)
         
-        println("3. momentEntree: ${ticket.momentEntree} -> $timestampEntree")
-        println("4. dureeDeLocation: ${ticket.dureeDeLocation.inWholeMilliseconds} ms")
-        println("5. momentSortie: ${ticket.momentSortie} -> $timestampSortie")
-        println("6. prix.valeur: ${ticket.prix.valeur}")
-        println("7. prix.devise: ${ticket.prix.devise.name}")
-        
         insertStatement.setString(1, ticket.id)
         insertStatement.setString(2, ticket.usagerId)
         insertStatement.setTimestamp(3, timestampEntree)
@@ -111,29 +95,21 @@ class TicketSqlRepository(jdbcUrl: String, username: String, password: String) :
         
         val rowsAffected = insertStatement.executeUpdate()
         storageConnection.commit()
-        println("Ticket saved, rows affected: $rowsAffected")
-        
-        // Verify the ticket was saved by checking count
-        val countAfterSave = count().getOrNull() ?: 0
-        println("Count after save: $countAfterSave")
         
         ticket
     }
 
     override fun count(): Result<Int> = runCatching {
-        println("Counting tickets...")
         val selectStatement = storageConnection.prepareStatement(
             "SELECT COUNT(*) AS cardinalityTickets FROM ticket"
         )
         val result = selectStatement.executeQuery()
         result.next()
         val count = result.getInt("cardinalityTickets")
-        println("Ticket count: $count")
         count
     }
 
     override fun getAll(): Result<List<Ticket>> = runCatching {
-        println("Getting all tickets...")
         val selectStatement = storageConnection.prepareStatement(
             """
             SELECT 
@@ -152,20 +128,7 @@ class TicketSqlRepository(jdbcUrl: String, username: String, password: String) :
         val resultSet = selectStatement.executeQuery()
         val tickets = mutableListOf<Ticket>()
         
-        // Debug: Print column count
-        val metaData = resultSet.metaData
-        val columnCount = metaData.columnCount
-        println("Query executed, column count: $columnCount")
-        
-        // Debug column names
-        println("Column names:")
-        for (i in 1..columnCount) {
-            println("${i}: ${metaData.getColumnName(i)} (${metaData.getColumnTypeName(i)})")
-        }
-        
-        var rowCount = 0
         while (resultSet.next()) {
-            rowCount++
             try {
                 val id = resultSet.getString("id")
                 val usagerId = resultSet.getString("usager_id")
@@ -202,11 +165,6 @@ class TicketSqlRepository(jdbcUrl: String, username: String, password: String) :
                 val prixValeur = resultSet.getDouble("prix_valeur")
                 val prixDevise = Devises.valueOf(resultSet.getString("prix_devise"))
                 
-                println("Reading row $rowCount: id=$id, usagerId=$usagerId")
-                println("  momentEntree=$momentEntree, momentSortie=$momentSortie")
-                println("  dureeDeLocation=$dureeDeLocation")
-                println("  prix=$prixValeur ${prixDevise.name}")
-                
                 val ticket = Ticket(
                     id = id,
                     usagerId = usagerId,
@@ -218,24 +176,19 @@ class TicketSqlRepository(jdbcUrl: String, username: String, password: String) :
                 
                 tickets.add(ticket)
             } catch (e: Exception) {
-                println("Error processing row $rowCount: ${e.message}")
-                e.printStackTrace()
                 throw e
             }
         }
         
-        println("Total rows found: $rowCount, tickets size: ${tickets.size}")
         tickets
     }
 
     override fun reset(): Result<Boolean> = runCatching {
-        println("Resetting tickets table...")
         val deleteStatement = storageConnection.prepareStatement(
             "TRUNCATE TABLE ticket RESTART IDENTITY"
         )
         val rowsAffected = deleteStatement.executeUpdate()
         storageConnection.commit()
-        println("Reset complete, rows deleted: $rowsAffected")
         true
     }
 }
