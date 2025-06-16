@@ -6,9 +6,9 @@ interface PourLireLesLocations
 {
     fun enregistrer(location: Location)
 
-    fun NombreDeLocations() : Int
+    fun NombreDeLocations(client: String = "Alice") : Int
 
-    fun donneMoiLes4DernieresLocations() : List<Location>
+    fun donneMoiLes4DernieresLocations( client: String = "Alice") : List<Location>
 
    // fun DonneMoiUneQueryable() : IQueryable
 }

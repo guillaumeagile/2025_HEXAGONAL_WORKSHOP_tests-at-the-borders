@@ -12,11 +12,11 @@ class StubLireLocation : PourLireLesLocations {
         locations.add(location)
     }
 
-    override fun NombreDeLocations(): Int {
-      return locations.size
+    override fun NombreDeLocations( client: String): Int {
+      return locations.filter { it.client == client }  .size
     }
 
-    override fun donneMoiLes4DernieresLocations(): List<Location> {
-        return locations .take(4)
+    override fun donneMoiLes4DernieresLocations( client: String): List<Location> {
+        return locations  .filter { it.client == client } .take(4)
     }
 }

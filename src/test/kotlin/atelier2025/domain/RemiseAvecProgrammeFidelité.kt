@@ -8,8 +8,8 @@ class RemiseAvecProgrammeFidelité(val stockage: PourLireLesLocations) : PourDet
 
     fun getQuelleRemiseAppliquer(client : String = "Alice"): Remise =
         when {
-            stockage.NombreDeLocations() == 0 -> Remise.Aucune
-            stockage.donneMoiLes4DernieresLocations().any() { it.remise == Remise.Totale } -> Remise.Aucune
+            stockage.NombreDeLocations( client) == 0 -> Remise.Aucune
+            stockage.donneMoiLes4DernieresLocations( client).any() { it.remise == Remise.Totale } -> Remise.Aucune
             else -> Remise.Totale
         }
 
