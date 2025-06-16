@@ -5,4 +5,6 @@ import location.domain.entities.Location
 interface PourLireLesLocations
 {
     fun enregistrer(location: Location)
+
+    fun NombreDeLocations() : Int
 }
