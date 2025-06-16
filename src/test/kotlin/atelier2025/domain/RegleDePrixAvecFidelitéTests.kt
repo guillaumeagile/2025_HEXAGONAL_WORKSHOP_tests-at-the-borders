@@ -30,10 +30,10 @@ class RegleDePrixAvecFidelitéTests : FeatureSpec({
             stockage.enregistrer(location3)
             stockage.enregistrer(location4)
 
+            // setMock  pour que  retourne  NombreDeLocations = 4
             val sut = RemiseAvecProgrammeFidelité(stockage)
 
             sut.QuelleRemiseAppliquer shouldBe Remise.Totale
-
         }
 
     }

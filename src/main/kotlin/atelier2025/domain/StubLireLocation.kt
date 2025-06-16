@@ -4,11 +4,15 @@ import location.abstractions.PourLireLesLocations
 import location.domain.entities.Location
 
 class StubLireLocation : PourLireLesLocations {
-    override fun enregistrer(location: Location) {
 
+    val locations = mutableListOf<Location>()
+
+
+    override fun enregistrer(location: Location) {
+        locations.add(location)
     }
 
     override fun NombreDeLocations(): Int {
-        TODO("Not yet implemented")
+      return locations.size
     }
 }
