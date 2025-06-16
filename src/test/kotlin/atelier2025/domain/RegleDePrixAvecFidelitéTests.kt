@@ -7,13 +7,13 @@ import location.domain.entities.Location
 
 class RegleDePrixAvecFidelitéTests : FeatureSpec({
 
-    val sut = RemiseAvecProgrammeFidelité()
+
 
 
     feature("determiner la remise du client Alice selon le nombre de voyages effectués par elle") {
 
         scenario("si aucun voyage effectué, alors pas de remise ") {
-
+            val sut = RemiseAvecProgrammeFidelité(stockage = FakeX() as PourLireLesLocations)
             sut.QuelleRemiseAppliquer shouldBe Remise.Aucune
         }
 
@@ -29,6 +29,8 @@ class RegleDePrixAvecFidelitéTests : FeatureSpec({
             stockage.enregistrer(location2)
             stockage.enregistrer(location3)
             stockage.enregistrer(location4)
+
+            val sut = RemiseAvecProgrammeFidelité(stockage)
 
             sut.QuelleRemiseAppliquer shouldBe Remise.Totale
 
