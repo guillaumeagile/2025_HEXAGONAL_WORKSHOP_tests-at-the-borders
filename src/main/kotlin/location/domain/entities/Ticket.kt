@@ -37,15 +37,15 @@ data class Ticket(
             )
 
         fun BuildOne() : Ticket {
-            val momentEntree = LocalDateTime.parse("2025-01-01T00:00:00")    .toInstant(TimeZone.currentSystemDefault())
-            val momentSortie = momentEntree .plus(5, DateTimeUnit.MINUTE)
-            val duration = momentEntree - momentSortie
+            val momentEntree = LocalDateTime.parse("2025-01-01T00:00:00").toInstant(TimeZone.currentSystemDefault())
+            val momentSortie = momentEntree.plus(5, DateTimeUnit.MINUTE)
+            val duration = momentSortie - momentEntree  // Fixed: Calculate positive duration
             return Ticket(
                 id = "1",
                 usagerId = "userID",
-                momentEntree = momentEntree  .toLocalDateTime(TimeZone.currentSystemDefault()),
+                momentEntree = momentEntree.toLocalDateTime(TimeZone.currentSystemDefault()),
                 dureeDeLocation = duration,
-                momentSortie = momentSortie .toLocalDateTime(TimeZone.currentSystemDefault()),
+                momentSortie = momentSortie.toLocalDateTime(TimeZone.currentSystemDefault()),
                 prix = Monnaie.Euros(0.0)
             )
         }

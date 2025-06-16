@@ -109,16 +109,46 @@ wrapper {
 }
 
 test {
-
     useJUnitPlatform()
     testLogging {
-        events "PASSED", "FAILED", "SKIPPED"
-        //exceptionFormat TestExceptionFormat.FULL
+        events "passed", "skipped", "failed", "standardOut", "standardError"
+        showStandardStreams = true
+        exceptionFormat = 'full'
     }
+    
+    // Enable debugging for tests
+    systemProperty 'java.awt.headless', 'true'
+    systemProperty 'gradle.testrun.debug', 'true'
+    
+    // Ensure tests are forked in a separate JVM
+    forkEvery = 1
+    
+    // Increase memory if needed
+    maxHeapSize = "1g"
+    
+    // Debug options - uncomment if needed for remote debugging
+    // jvmArgs '-Xdebug', '-Xrunjdwp:transport=dt_socket,server=y,suspend=n,address=5005'
 }
 
 kotlin {
     jvmToolchain(17)
+}
+
+// Add a dedicated task for debugging tests
+task testDebug(type: Test) {
+    useJUnitPlatform()
+    
+    // Debug configuration
+    systemProperty 'java.awt.headless', 'true'
+    systemProperty 'gradle.testrun.debug', 'true'
+    
+    // Always enable debug mode with correct syntax
+    jvmArgs '-Xdebug', '-Xrunjdwp:transport=dt_socket,server=y,suspend=y,address=5005'
+    
+    testLogging {
+        events "PASSED", "FAILED", "SKIPPED"
+        showStandardStreams = true
+    }
 }
 
 publishing {

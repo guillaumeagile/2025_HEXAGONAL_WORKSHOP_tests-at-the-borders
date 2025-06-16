@@ -8,13 +8,27 @@ import location.adapters.driven.antiseche.valKey.ValKeyAdapter
 import org.testcontainers.containers.MongoDBContainer
 import org.testcontainers.containers.PostgreSQLContainer
 
+// Create a singleton PostgreSQL container
+class PostgresContainer : PostgreSQLContainer<PostgresContainer>("postgres:16")
+
+// Singleton instance
+object PostgresqlTestContainer {
+    val instance by lazy {
+        PostgresContainer().apply {
+            start()
+        }
+    }
+}
+
 val sqlStockageFactory = {
-    // Arrange
-    val postgres = PostgreSQLContainer("postgres:16")
-    postgres.start()
-    val repo = TicketSqlRepository(postgres.getJdbcUrl(), postgres.getUsername(), postgres.getPassword())
+    // Use the shared PostgreSQL container instance
+    val postgres = PostgresqlTestContainer.instance
+    val repo = TicketSqlRepository(postgres.jdbcUrl, postgres.username, postgres.password)
+    // Make sure the table exists
     repo.createTableTicket()
-    // return repo
+    println("PostgreSQL container started at ${postgres.jdbcUrl}")
+    // Print connection details for debugging
+    println("PostgreSQL connection: ${postgres.jdbcUrl}, user: ${postgres.username}")
     repo
 }
 

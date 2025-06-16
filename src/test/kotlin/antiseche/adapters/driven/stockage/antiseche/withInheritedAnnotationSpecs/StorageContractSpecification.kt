@@ -27,7 +27,9 @@ import location.ports.antiseche.PourTickets
 
     @Test
     fun    count_should_return_the_number_of_saved_tickets() {
-        _sut.save(Ticket.BuildOne( ))
+      val res = _sut.save(Ticket.BuildOne( ))
+
+        res.isSuccess shouldBe true
         _sut.count().getOrNull() shouldBe 1
     }
 
@@ -35,7 +37,10 @@ import location.ports.antiseche.PourTickets
     fun    getTickets_should_return_the_list_of_saved_tickets() {
         val testTicket = Ticket.BuildOne( )
         _sut.save(testTicket)
-        _sut.getAll().getOrNull()?.first() shouldBe testTicket
+
+        var actual = _sut.getAll()
+        actual.isSuccess shouldBe true // la requête est une réussite
+        actual.getOrNull()?.first() shouldBe testTicket
     }
 
     @Test
