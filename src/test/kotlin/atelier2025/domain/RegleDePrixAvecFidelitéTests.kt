@@ -8,7 +8,7 @@ import location.domain.entities.Location
 class RegleDePrixAvecFidelitéTests : FeatureSpec({
 
 
-
+        //TODO: écrire ca avec un mock
 
     feature("determiner la remise du client Alice selon le nombre de voyages effectués par elle") {
 
