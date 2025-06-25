@@ -77,6 +77,21 @@ class RegleDePrixAvecFidelitéTests : FeatureSpec({
 
             sut.getQuelleRemiseAppliquer("Bob") shouldBe Remise.Aucune
         }
+
+        scenario("si 2 voyages ont été payés par Alice, le 3e est payant (aucune remise)")
+        {
+            val stockage = StubLireLocation() as PourLireLesLocations
+            val location1 = Location( "1", "Alice", Remise.Aucune)
+            val location2 = Location ( "2", "Alice", Remise.Aucune)
+
+            stockage.enregistrer(location1)
+            stockage.enregistrer(location2)
+
+            // setMock  pour que  retourne  NombreDeLocations = 4
+            val sut = RemiseAvecProgrammeFidelité(stockage)
+
+            sut.getQuelleRemiseAppliquer() shouldBe Remise.Aucune
+        }
     }
 
 
