@@ -2,7 +2,7 @@ package sunny2025.domain.regles
 
 import location.abstractions.PourDeterminerUneRemiseCommerciale
 import location.abstractions.PourLireLesLocations
-import sunny2025.domain.Remise
+import sunny2025.domain.regles.Remise
 
 class RemiseAvecProgrammeFidelité(val stockage: PourLireLesLocations) : PourDeterminerUneRemiseCommerciale {
 

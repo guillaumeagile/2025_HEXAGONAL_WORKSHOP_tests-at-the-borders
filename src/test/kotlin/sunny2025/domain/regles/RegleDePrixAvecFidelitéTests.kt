@@ -5,7 +5,7 @@ import io.kotest.matchers.shouldBe
 import location.abstractions.PourLireLesLocations
 import location.domain.entities.Location
 import sunny2025.adapters.StubLireLocation
-import sunny2025.domain.Remise
+import sunny2025.domain.regles.Remise
 import sunny2025.domain.regles.RemiseAvecProgrammeFidelité
 
 class RegleDePrixAvecFidelitéTests : FeatureSpec({
