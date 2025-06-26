@@ -10,5 +10,8 @@ interface PourLireLesLocations
 
     fun donneMoiLes4DernieresLocations( client: String = "Alice") : List<Location>
 
-   // fun DonneMoiUneQueryable() : IQueryable
+    fun reset()
+
+
+    // fun DonneMoiUneQueryable() : IQueryable
 }

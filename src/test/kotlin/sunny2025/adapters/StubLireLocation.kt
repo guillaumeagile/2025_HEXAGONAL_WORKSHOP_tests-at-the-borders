@@ -19,4 +19,8 @@ class StubLireLocation : PourLireLesLocations {
     override fun donneMoiLes4DernieresLocations( client: String): List<Location> {
         return locations  .filter { it.client == client } .take(4)
     }
+
+    override fun reset() {
+        locations.clear() // Reset the list of locations
+    }
 }

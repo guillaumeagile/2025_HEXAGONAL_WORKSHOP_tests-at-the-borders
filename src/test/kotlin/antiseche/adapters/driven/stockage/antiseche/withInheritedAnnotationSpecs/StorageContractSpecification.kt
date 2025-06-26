@@ -6,13 +6,9 @@ import location.domain.entities.Ticket
 import location.ports.antiseche.PourTickets
 
 // specification de contrat de tous les tests avec Annotation
- abstract class StorageContractSpecification : AnnotationSpec {
+ abstract class StorageContractSpecification(sut: PourTickets) : AnnotationSpec() {
 
-    private var _sut: PourTickets
-
-    constructor(sut: PourTickets ) {
-        _sut = sut
-    }
+    private var _sut: PourTickets = sut
 
     @BeforeEach
     fun beforeTest() {

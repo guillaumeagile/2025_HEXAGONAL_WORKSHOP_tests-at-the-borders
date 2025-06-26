@@ -43,4 +43,8 @@ class MongoPourLireLesLocations(connexionUrl: String): PourLireLesLocations {
             }
             .toList()
     }
+
+    override fun reset() {
+        collection.deleteMany(Filters.empty())
+    }
 }
