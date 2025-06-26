@@ -1,7 +1,8 @@
-package sunny2025.domain
+package sunny2025.domain.regles
 
 import location.abstractions.PourDeterminerUneRemiseCommerciale
 import location.abstractions.PourLireLesLocations
+import sunny2025.domain.Remise
 
 class RemiseAvecProgrammeFidelité(val stockage: PourLireLesLocations) : PourDeterminerUneRemiseCommerciale {
 

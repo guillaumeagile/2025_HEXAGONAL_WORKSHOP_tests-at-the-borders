@@ -1,4 +1,4 @@
-package sunny2025.domain
+package sunny2025.adapters
 
 import location.abstractions.PourLireLesLocations
 import location.domain.entities.Location

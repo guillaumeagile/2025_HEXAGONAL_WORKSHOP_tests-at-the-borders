@@ -1,11 +1,11 @@
-package sunny2025.domain
+package sunny2025.domain.regles
 
 import io.kotest.core.spec.style.FeatureSpec
 import io.kotest.matchers.shouldBe
 import location.domain.usine.regles.CalculPrixHauteSaison
 import location.domain.valueObjects.Monnaie
 
-class RegleDePrixTests : FeatureSpec({
+class RegleDePrixStandardTests : FeatureSpec({
     val sut = CalculPrixHauteSaison()
 
     feature("cout de location: 0,25€ pour 15 minutes") {

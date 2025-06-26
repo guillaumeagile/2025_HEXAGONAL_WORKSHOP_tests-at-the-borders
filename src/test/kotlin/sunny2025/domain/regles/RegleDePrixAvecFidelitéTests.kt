@@ -1,9 +1,12 @@
-package sunny2025.domain
+package sunny2025.domain.regles
 
 import io.kotest.core.spec.style.FeatureSpec
 import io.kotest.matchers.shouldBe
 import location.abstractions.PourLireLesLocations
 import location.domain.entities.Location
+import sunny2025.adapters.StubLireLocation
+import sunny2025.domain.Remise
+import sunny2025.domain.regles.RemiseAvecProgrammeFidelité
 
 class RegleDePrixAvecFidelitéTests : FeatureSpec({
 
@@ -19,10 +22,10 @@ class RegleDePrixAvecFidelitéTests : FeatureSpec({
         scenario("si 4 voyages ont été payés par Alice, le 5e est gratuit")
         {
             val stockage = StubLireLocation() as PourLireLesLocations
-            val location1 = Location( "1", "Alice", Remise.Aucune)
-            val location2 = Location ( "2", "Alice", Remise.Aucune)
-            val location3 = Location( "3", "Alice", Remise.Aucune)
-            val location4 = Location( "4", "Alice", Remise.Aucune)
+            val location1 = Location("1", "Alice", Remise.Aucune)
+            val location2 = Location("2", "Alice", Remise.Aucune)
+            val location3 = Location("3", "Alice", Remise.Aucune)
+            val location4 = Location("4", "Alice", Remise.Aucune)
 
             stockage.enregistrer(location1)
             stockage.enregistrer(location2)
@@ -38,10 +41,10 @@ class RegleDePrixAvecFidelitéTests : FeatureSpec({
         scenario("si dans les 4 derniers locations, une a bénéficié de la remise totale, la 5e n'est pas gratuite")
         {
             val stockage = StubLireLocation() as PourLireLesLocations
-            val location1 = Location( "1", "Alice", Remise.Totale)
-            val location2 = Location ( "2", "Alice", Remise.Aucune)
-            val location3 = Location( "3", "Alice", Remise.Aucune)
-            val location4 = Location( "4", "Alice", Remise.Aucune)
+            val location1 = Location("1", "Alice", Remise.Totale)
+            val location2 = Location("2", "Alice", Remise.Aucune)
+            val location3 = Location("3", "Alice", Remise.Aucune)
+            val location4 = Location("4", "Alice", Remise.Aucune)
 
             stockage.enregistrer(location1)
             stockage.enregistrer(location2)
@@ -80,8 +83,8 @@ class RegleDePrixAvecFidelitéTests : FeatureSpec({
         scenario("si 2 voyages ont été payés par Alice, le 3e est payant (aucune remise)")
         {
             val stockage = StubLireLocation() as PourLireLesLocations
-            val location1 = Location( "1", "Alice", Remise.Aucune)
-            val location2 = Location ( "2", "Alice", Remise.Aucune)
+            val location1 = Location("1", "Alice", Remise.Aucune)
+            val location2 = Location("2", "Alice", Remise.Aucune)
 
             stockage.enregistrer(location1)
             stockage.enregistrer(location2)
