@@ -5,7 +5,7 @@ import com.mongodb.kotlin.client.MongoClient
 import location.abstractions.PourLireLesLocations
 import location.domain.entities.Location
 import org.bson.codecs.pojo.annotations.BsonId
-import sunny2025.domain.regles.Remise
+import sunny2025.domain.Remise
 
 class MongoPourLireLesLocations(connexionUrl: String): PourLireLesLocations {
 

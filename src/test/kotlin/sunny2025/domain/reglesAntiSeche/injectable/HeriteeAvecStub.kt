@@ -1,4 +1,4 @@
-package sunny2025.domain.regles.injectable
+package sunny2025.domain.reglesAntiSeche.injectable
 
 import sunny2025.adapters.StubLireLocation
 

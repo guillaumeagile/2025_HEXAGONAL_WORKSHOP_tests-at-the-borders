@@ -1,4 +1,4 @@
-package sunny2025.domain.regles.injectable
+package sunny2025.domain.reglesAntiSeche.injectable
 
 import location.adapters.driven.sunny2025.MongoPourLireLesLocations
 import org.testcontainers.containers.MongoDBContainer

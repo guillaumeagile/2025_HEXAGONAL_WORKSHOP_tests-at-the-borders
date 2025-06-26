@@ -1,10 +1,11 @@
-package sunny2025.domain.regles
+package sunny2025.domain.reglesAntiSeche
 
 import io.kotest.core.spec.style.FeatureSpec
 import io.kotest.matchers.shouldBe
 import location.abstractions.PourLireLesLocations
 import location.domain.entities.Location
 import sunny2025.adapters.StubLireLocation
+import sunny2025.domain.Remise
 
 class RegleDePrixAvecFidelitéDeAliceEtBobTests : FeatureSpec({
 

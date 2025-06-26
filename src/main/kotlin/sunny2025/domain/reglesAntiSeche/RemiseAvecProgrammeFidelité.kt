@@ -1,8 +1,8 @@
-package sunny2025.domain.regles
+package sunny2025.domain.reglesAntiSeche
 
 import location.abstractions.PourDeterminerUneRemiseCommerciale
 import location.abstractions.PourLireLesLocations
-import sunny2025.domain.regles.Remise
+import sunny2025.domain.Remise
 
 class RemiseAvecProgrammeFidelité(val stockage: PourLireLesLocations) : PourDeterminerUneRemiseCommerciale {
 

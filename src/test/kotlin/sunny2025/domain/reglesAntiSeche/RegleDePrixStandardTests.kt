@@ -1,4 +1,4 @@
-package sunny2025.domain.regles
+package sunny2025.domain.reglesAntiSeche
 
 import io.kotest.core.spec.style.FeatureSpec
 import io.kotest.matchers.shouldBe

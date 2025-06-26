@@ -1,6 +1,6 @@
 package location.abstractions
 
-import sunny2025.domain.regles.Remise
+import sunny2025.domain.Remise
 
 interface PourDeterminerUneRemiseCommerciale {
 

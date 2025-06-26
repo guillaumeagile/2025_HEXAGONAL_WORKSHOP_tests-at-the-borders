@@ -1,12 +1,12 @@
-package sunny2025.domain.regles.injectable
+package sunny2025.domain.reglesAntiSeche.injectable
 
 import io.kotest.core.spec.style.FeatureSpec
 import io.kotest.matchers.shouldBe
 import location.abstractions.PourLireLesLocations
 import location.domain.entities.Location
 import sunny2025.adapters.StubLireLocation
-import sunny2025.domain.regles.Remise
-import sunny2025.domain.regles.RemiseAvecProgrammeFidelité
+import sunny2025.domain.Remise
+import sunny2025.domain.reglesAntiSeche.RemiseAvecProgrammeFidelité
 
 open class BaseRegleDePrixAvecFidelitéTests(val stockage: PourLireLesLocations) : FeatureSpec({
 

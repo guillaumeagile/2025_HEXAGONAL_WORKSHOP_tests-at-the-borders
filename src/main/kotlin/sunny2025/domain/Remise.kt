@@ -1,4 +1,4 @@
-package sunny2025.domain.regles
+package sunny2025.domain
 
 enum class Remise {
 
