@@ -11,8 +11,7 @@ class RemiseAvecProgrammeFidelité(val stockage: PourLireLesLocations) : PourDet
 
     override fun quelleRemiseAppliquer(client: String ): Remise {
         if (stockage.nombreDeLocations(client) == SEUIL_REMISE_TOTAL &&
-            stockage.donneMoiLes4DernieresLocations(client).all({ it.remise == Remise.Aucune })
-        )
+            stockage.donneMoiLes4DernieresLocations(client).all({ it.remise == Remise.Aucune }))
             return Remise.Totale
         return Remise.Aucune
     }
