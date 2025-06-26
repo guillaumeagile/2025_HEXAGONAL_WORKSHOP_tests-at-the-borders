@@ -1,4 +1,4 @@
-package sunny2025.adapters
+package sunny2025.adapters.antiSeche
 
 import location.adapters.driven.sunny2025.MongoPourLireLesLocations
 import org.testcontainers.containers.MongoDBContainer

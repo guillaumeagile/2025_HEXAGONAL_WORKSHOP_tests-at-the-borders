@@ -4,7 +4,7 @@ import io.kotest.core.spec.style.FeatureSpec
 import io.kotest.matchers.shouldBe
 import location.abstractions.PourLireLesLocations
 import location.domain.entities.Location
-import sunny2025.adapters.StubLireLocation
+import sunny2025.adapters.antiSeche.StubLireLocation
 import sunny2025.domain.Remise
 
 class RegleDePrixAvecFidelitéTests : FeatureSpec({

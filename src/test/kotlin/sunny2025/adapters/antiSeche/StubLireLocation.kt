@@ -1,4 +1,4 @@
-package sunny2025.adapters
+package sunny2025.adapters.antiSeche
 
 import location.abstractions.PourLireLesLocations
 import location.domain.entities.Location

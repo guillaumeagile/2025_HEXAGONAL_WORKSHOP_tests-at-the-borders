@@ -1,4 +1,4 @@
-package sunny2025.adapters
+package sunny2025.adapters.antiSeche
 
 import io.kotest.core.spec.style.AnnotationSpec
 import io.kotest.matchers.shouldBe

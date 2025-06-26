@@ -3,6 +3,7 @@ package sunny2025.domain
 import io.kotest.core.spec.style.FeatureSpec
 import io.kotest.matchers.shouldBe
 import location.domain.entities.Location
+import sunny2025.adapters.ImplementationAEcrire
 
 
 class RegleDePrixAvecFidelitéTests : FeatureSpec({
