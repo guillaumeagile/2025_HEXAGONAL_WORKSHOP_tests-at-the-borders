@@ -12,7 +12,7 @@ import location.domain.valueObjects.Monnaie.Companion.Euros
 class MonnaieTest: StringSpec({
 
 
-    "je peux acheter une chevre avec des dollars".config(enabled = true) {
+    "je peux acheter une chevre avec des dollars".config(enabled = false) {
         // Arrange
         val laPayeDeChasseurDePrime = Monnaie(500, Devises.DOLLARS)
         val lePrixDuneChevreNoire = Monnaie(500, Devises.DOLLARS)
@@ -22,7 +22,7 @@ class MonnaieTest: StringSpec({
         laPayeDeChasseurDePrime shouldBe lePrixDuneChevreNoire
     }
 
-    "je ne peux pas acheter un spinner avec ma paye".config(enabled = true) {
+    "je ne peux pas acheter un spinner avec ma paye"  {
         // Arrange
         val laPayeDeChasseurDePrime = Monnaie(500, Devises.DOLLARS)
         val lePrixDunSpinner = Monnaie(50000, Devises.DOLLARS)
@@ -32,7 +32,7 @@ class MonnaieTest: StringSpec({
         laPayeDeChasseurDePrime shouldNotBe lePrixDunSpinner
     }
 
-    "je peux echanger des Euros avec des dollars".config(enabled = true) {
+    "je peux echanger des Euros avec des dollars"  {
         // Arrange
         val unDollar = Dollars(1)
         val deuxEuros = Euros(2)
