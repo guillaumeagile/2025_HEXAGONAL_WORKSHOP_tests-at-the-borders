@@ -1,0 +1,26 @@
+{
+  "permissions": {
+    "allow": [
+      "mcp__code-review-graph__get_architecture_overview_tool",
+      "mcp__code-review-graph__list_communities_tool",
+      "mcp__code-review-graph__build_or_update_graph_tool",
+      "Bash(./gradlew dependencies:*)",
+      "Bash(./gradlew compileKotlin compileTestKotlin)",
+      "Bash(curl -s \"https://repo.maven.apache.org/maven2/io/insert-koin/koin-core/maven-metadata.xml\")",
+      "Bash(curl -s \"https://repo.maven.apache.org/maven2/io/kotest/kotest-runner-junit5/maven-metadata.xml\")",
+      "Bash(curl -s \"https://repo.maven.apache.org/maven2/io/arrow-kt/arrow-core/maven-metadata.xml\")",
+      "Bash(curl -s \"https://repo.maven.apache.org/maven2/org/http4k/http4k-bom/maven-metadata.xml\")",
+      "Bash(curl -s \"https://repo.maven.apache.org/maven2/io/insert-koin/koin-core/4.2.1/koin-core-4.2.1.pom\")",
+      "Bash(jar tf:*)",
+      "Bash(xargs -I{} jar tf {})",
+      "Read(//private/tmp/**)",
+      "Bash(jar xf:*)",
+      "Bash(javap -p io/kotest/core/config/AbstractProjectConfig.class)",
+      "Bash(./gradlew test:*)"
+    ]
+  },
+  "enableAllProjectMcpServers": true,
+  "enabledMcpjsonServers": [
+    "code-review-graph"
+  ]
+}
