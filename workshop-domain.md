@@ -110,6 +110,62 @@ Technical/infrastructure terms may be in English (`Either`, `fun interface`, `su
 
 ---
 
+## Testing DSLs
+
+Two distinct DSLs, each with its own scope, style, and Kotest runner.
+
+### DSL 1 — Domain DSL (interne, précis)
+
+**Scope:** pure domain tests — value objects, aggregates, invariants, factory rules.
+**Audience:** developers working on the domain.
+**Kotest style:** `FunSpec` — simple, no ceremony, each test is one rule.
+**Built on:** extension functions on `Either`, since `Either` is the central type of all domain operations.
+
+The test *is* the rule. No Given/When/Then — just the invariant stated directly:
+
+```kotlin
+NomDeProduit.de("Vélo électrique") estValide()
+NomDeProduit.de("") estRefusé avecErreur ErreurDeCatalog.NomVide
+
+unProduit.deprecier() produitLEvenement EvenementDeCatalog.ProduitDeprecied::class
+unProduitDéjàDéprécié.deprecier() estRefusé avecErreur ErreurDeCatalog.ProduitDejaDeprecied
+```
+
+DSL 1 lives in `src/test/kotlin/_dsl/domaine/` and is shared across all bounded context domain tests.
+
+### DSL 2 — Application Scenario DSL (fluent, lisible métier)
+
+**Scope:** application service tests — full scenarios with commands, events, side effects.
+**Audience:** developers + product owners — readable without Kotlin knowledge.
+**Kotest style:** `BehaviorSpec` — `given/when/then` blocks map naturally to the scenario structure.
+**Design:** each bounded context defines its own scenario context (a simple class holding fakes and
+the service under test). The DSL functions are infix extension functions on that context — no shared
+global state, easy to maintain, one file per bounded context.
+
+```kotlin
+given("un fournisseur ajoute un produit au catalog") {
+    `when`("le produit est valide") {
+        val scenario = ScenarioCatalog()
+            .avecUnProduit("Vélo électrique", prix = 299.euros)
+        then("le produit est dans le catalogue et un événement est publié") {
+            scenario estDansLeCatalog "Vélo électrique"
+            scenario aPublié evenementDuType<ProduitAjoute>()
+        }
+    }
+}
+```
+
+DSL 2 lives in `src/test/kotlin/_dsl/application/` with one scenario context class per bounded context.
+
+### Principles common to both DSLs
+
+- Built on `Either` — no unwrapping with `!!`, no `getOrNull()` in test bodies
+- Compatible with any Kotest `Spec` style — the DSL functions are plain extension functions
+- No shared mutable state between tests
+- The DSL vocabulary uses the ubiquitous language (French domain terms)
+
+---
+
 ## 🚀 Strategic changes
 
 1. **Contextual Design** — align code structure with domain boundaries, no cross-context dependencies
