@@ -12,7 +12,7 @@ import io.kotest.matchers.types.shouldBeInstanceOf
 //
 // Usage:
 //   NomDeProduit.de("Vélo") estValide()
-//   NomDeProduit.de("")     estRefusé avecErreur ErreurDeCatalog.NomVide
+//   NomDeProduit.de("")     estRefuséParceQue ErreurDeCatalog.NomVide
 //   produit.deprecier()     produitUnEvenement EvenementDeCatalog.ProduitDeprecied::class
 // ---------------------------------------------------------------------------
 
@@ -25,7 +25,8 @@ fun <T> Either<*, T>.estValide(): T {
 
 infix fun <A, B> Either<A, Pair<B, *>>.produitUnEvenement(type: kotlin.reflect.KClass<*>): B {
     val (valeur, evenement) = this.estValide()
-    evenement.shouldBeInstanceOf(type)
+    checkNotNull(evenement)
+    evenement!!::class shouldBe type
     return valeur
 }
 
@@ -37,11 +38,11 @@ infix fun <A, B, E> Either<A, Pair<B, E>>.etLEvenementEst(assertions: (E) -> Uni
 
 // --- Échec ---
 
-infix fun <A, B> Either<A, B>.estRefusé(erreurAttendue: A) {
+infix fun <A, B> Either<A, B>.estRefuséParceQue(erreurAttendue: A) {
     this shouldBe Either.Left(erreurAttendue)
 }
 
-// Alias for readability: `estRefusé avecErreur ErreurDeCatalog.NomVide`
+// Peut s'utiliser seul ou après une autre assertion pour nommer l'erreur attendue
 infix fun <A, B> Either<A, B>.avecErreur(erreurAttendue: A) {
     this shouldBe Either.Left(erreurAttendue)
 }
