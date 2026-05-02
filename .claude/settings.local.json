@@ -16,7 +16,8 @@
       "Read(//private/tmp/**)",
       "Bash(jar xf:*)",
       "Bash(javap -p io/kotest/core/config/AbstractProjectConfig.class)",
-      "Bash(./gradlew test:*)"
+      "Bash(./gradlew test:*)",
+      "Bash(./gradlew compileKotlin)"
     ]
   },
   "enableAllProjectMcpServers": true,

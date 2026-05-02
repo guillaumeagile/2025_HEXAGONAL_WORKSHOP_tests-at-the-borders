@@ -12,11 +12,13 @@ The domain knows nothing about the outside world.
 Infrastructure knows about the domain. Never the reverse.
 
 ```
-HTTP / CLI / Events          ← driver adapters    (left side)
+HTTP / CLI / Events          ← driver adapters      (left / primary)
         ↓
-    [use cases]              ← domain core
+  [application services]     ← orchestration layer  (commands & queries)
         ↓
-Database / Cache / Clock     ← driven adapters    (right side)
+     [domain]                ← pure business logic
+        ↓
+Database / Cache / Clock     ← driven adapters      (right / secondary)
 ```
 
 Dependency arrows always point **inward**, toward the domain.
@@ -27,18 +29,22 @@ Dependency arrows always point **inward**, toward the domain.
 
 ```
 src/main/kotlin/<bounded-context>/
+│
 ├── domain/
-│   ├── entities/            # Aggregates and entities (pure Kotlin, no framework)
-│   ├── valueObjects/        # Immutable value types (@JvmInline where applicable)
-│   ├── useCases/            # One class per use case, depends only on ports
-│   └── usine/               # Factories and domain rules (pure functions preferred)
+│   ├── entities/            # Aggregates — always valid, constructed via factory methods only
+│   ├── valueObjects/        # Immutable value types, self-validating (@JvmInline where zero-cost)
+│   ├── errors/              # Sealed domain error hierarchy
+│   ├── services/            # Pure domain services (logic that spans multiple aggregates)
+│   └── factories/           # Aggregate factories (UsineDeTickets, etc.)
 │
 ├── ports/
-│   ├── driven/              # Interfaces the domain calls out through
-│   │   ├── PourPersister*.kt
-│   │   ├── PourAvoirHeure.kt
-│   │   └── PourLesIdentifiants.kt
-│   └── driver/              # Interfaces the outside world calls in through (optional)
+│   ├── driven/              # Interfaces the application calls outward (persistence, clock, ids)
+│   └── driver/              # Interfaces the outside world calls inward (optional, for testability)
+│
+├── application/             # Thin orchestration — no business logic here
+│   ├── commands/            # Plain data classes: AcheterUnTicketCmd, ProlongerUnTicketCmd
+│   ├── queries/             # Plain data classes: ObtenirTicketQuery, TousLesTicketsQuery
+│   └── services/            # Application services: one class per aggregate root
 │
 ├── adapters/
 │   ├── driven/              # Implementations of driven ports
@@ -48,68 +54,179 @@ src/main/kotlin/<bounded-context>/
 │   │   │   └── valkey/
 │   │   └── time/
 │   └── driver/              # Implementations of driver ports
-│       └── http/            # HTTP handlers, DTOs, routing
+│       └── http/            # HTTP handlers, DTOs, routing — one file per route group
 │
-└── bootstrap/               # Wiring only: DI setup, main(), server start
+└── bootstrap/               # Wiring only: DI (Koin modules), main(), server start
 ```
+
+---
+
+## Always-valid domain
+
+**An invalid domain object must never exist.**
+There is no such thing as a "default", "empty", or "failure" aggregate instance.
+If construction can fail, the factory returns `Either<DomainError, T>` — not a nullable, not a sentinel value, not an exception.
+
+### Rules
+
+1. **No public constructors on aggregates.**
+   All constructors are `private`. Creation goes through a factory method or companion object that validates invariants and returns `Either<DomainError, T>`.
+
+   ```kotlin
+   // WRONG
+   data class Ticket(val id: String, val duree: DureeDeLocation, val prix: Monnaie)
+   // → caller can construct Ticket("", DureeDeLocation(-1), Monnaie.Euros(-5.0)) — invalid
+
+   // RIGHT
+   class Ticket private constructor(
+       val id: String,
+       val duree: DureeDeLocation,
+       val prix: Monnaie
+   ) {
+       companion object {
+           fun creer(id: String, duree: DureeDeLocation, prix: Monnaie): Either<ErreurDeLocation, Ticket> =
+               either {
+                   ensure(id.isNotBlank()) { ErreurDeLocation.IdManquant }
+                   Ticket(id, duree, prix)
+               }
+       }
+   }
+   ```
+
+2. **No sentinel / null-object instances** (`enEchec()`, `empty()`, `default()`).
+   These exist only to paper over the absence of `Either`. Remove them.
+
+3. **Value objects enforce their own invariants at construction.**
+
+   ```kotlin
+   @JvmInline
+   value class DureeDeLocation private constructor(val enMinutes: Int) {
+       companion object {
+           fun de(minutes: Int): Either<ErreurDeLocation, DureeDeLocation> =
+               if (minutes > 0) DureeDeLocation(minutes).right()
+               else ErreurDeLocation.DureeInvalide.left()
+       }
+   }
+   ```
+
+4. **`data class` is allowed for value objects**, but only when all fields are themselves always-valid types, so structural equality is always meaningful.
+   Aggregates should **not** be `data class` — their identity is their ID, not structural equality.
+
+5. **Domain operations that change state return a new instance or `Either`.**
+   They never mutate in place, never return `Unit`, never throw.
+
+   ```kotlin
+   fun prolonger(dureeSupplementaire: DureeDeLocation): Either<ErreurDeLocation, Ticket>
+   ```
+
+6. **Reconstruction from persistence is exempt from validation.**
+   Adapters reconstituting a stored aggregate use a dedicated `reconstituer(...)` factory that bypasses business rules (the data was already valid when saved). Mark it clearly:
+
+   ```kotlin
+   // For adapter use only — skips invariant checks
+   internal fun reconstituer(id: String, duree: DureeDeLocation, prix: Monnaie): Ticket =
+       Ticket(id, duree, prix)
+   ```
+
+---
+
+## Application services (commands & queries)
+
+An application service is a **thin orchestrator**. It:
+- Receives a command or a query (plain data class)
+- Loads the aggregate via a driven port
+- Calls domain logic
+- Persists the result via a driven port
+- Returns `Either<DomainError, T>`
+
+There is **one application service class per aggregate root**.
+Each method handles exactly one command or one query.
+Commands change state. Queries do not.
+
+```kotlin
+class ServiceDePaiementLocation(
+    private val tickets: PourPersisterUnTicket,
+    private val horloge: PourAvoirHeure,
+    private val usine: UsineDeTickets
+) {
+    // --- Commands (write, state-changing) ---
+    suspend fun acheterUnTicket(cmd: AcheterUnTicketCmd): Either<ErreurDeLocation, Ticket>
+    suspend fun prolongerUnTicket(cmd: ProlongerUnTicketCmd): Either<ErreurDeLocation, Ticket>
+
+    // --- Queries (read, no state change) ---
+    suspend fun obtenirTicket(query: ObtenirTicketQuery): Either<ErreurDeLocation, Ticket>
+    suspend fun tousLesTickets(): List<Ticket>
+}
+```
+
+**No business logic in application services.**
+If you find yourself writing an `if` that relates to domain rules, move it to the aggregate or a domain service.
+
+**No mediator bus.** Direct method calls are explicit and traceable by agents and humans alike.
+If multiple bounded contexts appear, introduce a bus at that point — not before.
 
 ---
 
 ## Rules by layer
 
-### Domain
+### Domain (`domain/`)
 
-- **No framework imports.** No Spring, no Ktor, no Koin, no Jackson.
+- **No framework imports.** No Ktor, no Koin, no Jackson, no coroutine imports.
 - **No coroutines.** Domain functions are pure and synchronous.
-- Entities are `data class`. Value objects are `data class` or `@JvmInline value class`.
-- Use `Either<DomainError, T>` (Arrow) for operations that can fail. Never throw exceptions for business errors.
-- Sealed classes for domain errors:
+- No public constructors on aggregates (see Always-valid domain above).
+- No nulls in signatures. Use `Either` or `Option` (Arrow).
+- No exceptions for business errors. Use `Either`.
+- Sealed interfaces for the error hierarchy:
   ```kotlin
   sealed interface ErreurDeLocation {
       data object DureeInvalide : ErreurDeLocation
+      data object IdManquant : ErreurDeLocation
       data class TicketIntrouvable(val id: String) : ErreurDeLocation
   }
   ```
-- Factories (`UsineDeTickets`) take their dependencies as constructor parameters (ports/lambdas), never as singletons.
-- No nulls in domain signatures. Use `Either` or `Option` (Arrow).
 
-### Ports (interfaces)
+### Ports (`ports/`)
 
-- One interface per capability, named from the domain's point of view (`PourPersisterUnTicket`, not `TicketRepository`).
+- One interface per capability, named from the domain's point of view.
 - `fun interface` for single-method ports — they become lambdas in tests.
-- No `reset()` or test helpers in production port interfaces. Use a separate `Resettable` interface in test scope only.
-- Driven ports can be `suspend` if the use case layer is coroutine-aware. Be consistent: either all driven ports are suspend, or none are.
+- No `reset()` or test helpers. Use a separate `Resettable` interface in test scope only.
+- Driven ports may be `suspend`. Be consistent: if one is, all are.
 
-### Adapters (driven)
+### Application services (`application/services/`)
+
+- Depends on: domain + driven ports.
+- Does not depend on: adapters, HTTP, DI framework.
+- Constructor-injected. Fully testable with fake adapters, no framework.
+
+### Adapters — driven (`adapters/driven/`)
 
 - Each adapter implements exactly one port.
-- DTOs (Mongo documents, SQL rows, Redis hashes) are **private inner classes** of the adapter. They never escape.
-- Mapping between domain types and DTOs lives inside the adapter, not in the domain.
-- TestContainers setup belongs in the test adapter, not in the production adapter.
-- The production adapter must not know it is being tested.
+- DTOs are **private inner classes** of the adapter. They never escape.
+- Mapping lives inside the adapter, not in the domain.
+- Use `reconstituer(...)` factory (not the validated constructor) when rehydrating from storage.
+- No test helpers in production code.
 
-### Adapters (driver — HTTP)
+### Adapters — driver / HTTP (`adapters/driver/http/`)
 
-- HTTP DTOs are **separate from domain entities**. Never serialize a domain entity directly.
-- One file per route group. Routing, DTO, and mapping are co-located in the same file only for small handlers; split when the handler grows.
-- Handlers are thin: validate input → call use case → map result to response. No business logic.
-- Error mapping (domain `Either` → HTTP status) lives in a single dedicated function, not scattered across handlers.
+- HTTP DTOs are separate from domain types. Never serialize a domain object directly.
+- Handlers are thin: parse input → call application service → map result to HTTP response.
+- Error mapping (`Either` → HTTP status) lives in one dedicated function per bounded context.
+- No business logic.
 
-### Bootstrap
+### Bootstrap (`bootstrap/`)
 
-- Dependency injection wiring happens **only here**. No `@Inject`, no service locators anywhere else.
-- The `main()` function reads config, builds the dependency graph, starts the server.
-- Use Koin modules as a wiring DSL, not as a framework. The domain must be instantiable without Koin in tests.
+- Wiring only. Koin modules live here.
+- `main()` reads config, builds the graph, starts the server.
+- The domain and application services must be instantiable without Koin in tests.
 
 ---
 
 ## Contract testing for adapters
 
 Every driven adapter must pass a shared contract test suite.
-The contract is defined once as an abstract spec; each adapter provides a concrete subclass.
 
 ```kotlin
-// The contract (in test scope, next to the port)
+// Abstract contract — lives in test scope, alongside the port
 abstract class ContratDeStockage : AnnotationSpec() {
     abstract fun adapter(): PourPersisterUnTicket
 
@@ -117,82 +234,86 @@ abstract class ContratDeStockage : AnnotationSpec() {
     @Test fun `deux tickets avec le même id`() { ... }
 }
 
-// Concrete subclass per adapter
+// One subclass per adapter
 class TestsAvecMongo : ContratDeStockage() {
-    override fun adapter() = MongoAdapter(mongoContainer.connectionString())
+    override fun adapter() = MongoAdapterPourTickets(mongoContainer.connectionString())
 }
 
 class TestsAvecFake : ContratDeStockage() {
-    override fun adapter() = FakeAdapter()
+    override fun adapter() = FakePourPersisterUnTicket()
 }
 ```
 
-The **Fake adapter** (in-memory) must also pass the same contract.
-If the fake passes but the real adapter does not, fix the real adapter.
-If the real adapter passes but the fake does not, fix the fake.
+The fake adapter is a first-class citizen — it passes the same contract as the real adapter.
+It lives in `src/test/kotlin/.../adapters/driven/storage/fake/` and is the adapter used in application service tests.
 
 ---
 
 ## Error handling
 
-Use Arrow `Either` end-to-end:
+Arrow `Either` end-to-end, with the `either { }` / `Raise` DSL (Arrow 2.x):
 
 ```kotlin
-// Domain
-fun payerLocation(duree: DureeDeLocation): Either<ErreurDeLocation, Ticket>
+// Domain factory
+fun creer(...): Either<ErreurDeLocation, Ticket> = either {
+    ensure(duree.enMinutes > 0) { ErreurDeLocation.DureeInvalide }
+    Ticket(id, duree, prix)
+}
 
-// Use case — Raise DSL (Arrow 2.x)
-fun Either.Companion.catch { ... }  // for adapter calls that throw
-raise(ErreurDeLocation.DureeInvalide)  // for domain rule violations
+// Application service — using raise DSL
+suspend fun acheterUnTicket(cmd: AcheterUnTicketCmd): Either<ErreurDeLocation, Ticket> = either {
+    val ticket = usine.creer(cmd.duree).bind()      // propagates Left automatically
+    tickets.enregistrer(ticket)
+    ticket
+}
 
 // HTTP adapter
-useCase.payerLocation(duree).fold(
-    ifLeft  = { err -> Response(err.toStatus()) },
+service.acheterUnTicket(cmd).fold(
+    ifLeft  = { err -> Response(err.toHttpStatus()) },
     ifRight = { ticket -> Response(OK).with(ticketLens of ticket.toDTO()) }
 )
 ```
 
-Never use `Result<T>` in the domain — it hides the error type. Reserve `Result` for infrastructure boundaries where exceptions are expected (JDBC, network).
+Reserve `Result<T>` for infrastructure boundaries where Java exceptions are expected (JDBC, network calls).
+Never use `Result` in domain or application service signatures.
 
 ---
 
 ## Coroutines
 
-- Use cases **may** be `suspend` if the driven adapters are genuinely async (e.g., reactive Mongo, non-blocking Redis).
-- If adapters are blocking (JDBC, synchronous Mongo driver), keep use cases synchronous and run them on `Dispatchers.IO` at the driver adapter boundary.
-- Do not mix blocking calls and coroutines inside the domain.
+- Application services are `suspend`. Driven port interfaces are `suspend`.
+- Domain functions are **not** `suspend` — they are pure and synchronous.
+- If a driven adapter wraps a blocking library (JDBC, synchronous Mongo driver), it runs on `Dispatchers.IO` internally and exposes a `suspend` interface.
 
 ---
 
 ## Testing strategy
 
-| Layer | Test type | What to use |
-|-------|-----------|-------------|
-| Domain (entities, value objects, rules) | Unit | Kotest `AnnotationSpec` or `FunSpec`, no mocks |
-| Use cases | Unit | Fake adapters only, no mocks, no TestContainers |
+| Layer | Test type | Tools |
+|-------|-----------|-------|
+| Domain (entities, value objects, rules) | Unit | Kotest `FunSpec`, no mocks, no fakes |
+| Application services | Unit | Fake adapters, no mocks, no TestContainers |
 | Driven adapters | Contract (integration) | TestContainers + shared contract spec |
-| Driver adapters (HTTP) | Integration | `http4k` / Ktor in-process test client |
+| Driver adapters (HTTP) | Integration | Ktor `testApplication` or http4k in-process client |
 | Full stack | E2E (optional) | Docker Compose, real infra |
 
-**No mocks for driven adapters.** Use fakes that implement the port. Mocks couple tests to implementation details.
-
-The fake adapter is a first-class citizen:
-- It lives in `src/test/kotlin/.../adapters/driven/storage/fake/`
-- It passes the same contract tests as the real adapter
-- It is the adapter used in use-case tests
+**No mocks for driven adapters.** Mocks couple tests to implementation details and allow the fake to drift from reality.
 
 ---
 
 ## What an agent must NOT do
 
 - Import framework types into `domain/` or `ports/`
+- Create a public constructor on an aggregate
+- Create sentinel instances (`enEchec()`, `empty()`, `nul()`)
 - Add `reset()` to a production port interface
-- Put DTO mapping logic in the domain
-- Use `!!` (force unwrap) anywhere
-- Throw exceptions for domain business errors (use `Either`)
-- Create a new abstraction layer (e.g. `services/`, `managers/`) not described in this document
-- Write a new adapter without a corresponding contract test
-- Add logic to the bootstrap/wiring layer
+- Put DTO mapping in the domain
+- Use `!!` anywhere
+- Throw exceptions for domain business errors
+- Put business logic in an application service
+- Create a layer not described in this document (`services/` at domain level is allowed; `managers/`, `helpers/`, `utils/` are not)
+- Write a driven adapter without a corresponding contract test
+- Add logic to the bootstrap layer
 
 ---
 
@@ -201,11 +322,14 @@ The fake adapter is a first-class citizen:
 | Concept | Convention | Example |
 |---------|------------|---------|
 | Driven port | `Pour<WhatItDoes>` | `PourPersisterUnTicket` |
-| Driver port | `<UseCase>` or `Pour<WhatItDoes>` | `PaiementLocation` |
-| Use case impl | Concrete name of the business | `LillePaiementLocation` |
-| Domain error | Sealed interface + `data object` | `ErreurDeLocation.DureeInvalide` |
+| Driver port | `Pour<WhatItDoes>` | `PourGererLaPaiementLocation` |
+| Application service | `ServiceDe<AggregateName>` | `ServiceDePaiementLocation` |
+| Command | `<Verb><Noun>Cmd` | `AcheterUnTicketCmd` |
+| Query | `<Noun>Query` | `ObtenirTicketQuery` |
+| Domain error | Sealed interface per aggregate | `ErreurDeLocation.DureeInvalide` |
+| Aggregate factory | `Usine<Aggregate>` | `UsineDeTickets` |
 | Adapter | `<Technology>AdapterPour<Port>` | `MongoAdapterPourTickets` |
-| DTO (adapter) | Private inner class | `RepositoryMongoDb.DTOMongoTicket` |
+| DTO (adapter-internal) | Private inner `data class` | `MongoAdapterPourTickets.DocumentTicket` |
 | DTO (HTTP) | Suffix `DTO` in driver adapter | `TicketDTO` |
 | Test contract | `ContratDe<Port>` | `ContratDeStockage` |
-| Fake adapter | `Fake<Port>` | `FakePourPersisterUnTicket` |
+| Fake adapter | `FakePour<Port>` | `FakePourPersisterUnTicket` |
