@@ -2,6 +2,7 @@ package catalog.application
 
 import _dsl.application.ScenarioCatalog
 import _dsl.application.à
+import _dsl.application.centimes
 import _dsl.application.euros
 import _dsl.application.exactement
 import _dsl.application.unEvenementDuType
@@ -34,6 +35,16 @@ class ServiceDeCatalogTest : BehaviorSpec({
             }
             then("un seul événement ProduitDeprecied est publié") {
                 scenario aPublié exactement<EvenementDeCatalog.ProduitDeprecied>(1)
+            }
+        }
+    }
+
+    given("un produit est exprimé en centimes") {
+        `when`("le prix est saisi en centimes directement") {
+            val scenario = ScenarioCatalog()
+            scenario ajouteUnProduit ("Casque vélo" à 4999.centimes)
+            then("le produit est dans le catalogue avec le bon prix") {
+                scenario estDansLeCatalog "Casque vélo"
             }
         }
     }

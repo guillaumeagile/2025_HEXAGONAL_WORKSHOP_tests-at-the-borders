@@ -4,18 +4,15 @@ import arrow.core.Either
 import catalog.adapters.driven.persistence.fake.FakePourPersisterUnProduit
 import catalog.application.commands.AjouterUnProduitCmd
 import catalog.application.commands.DeprecierUnProduitCmd
-import catalog.application.queries.ObtenirProduitQuery
 import catalog.application.services.ServiceDeCatalog
 import catalog.domain.entities.EtatDuProduit
 import catalog.domain.entities.Produit
 import catalog.domain.errors.ErreurDeCatalog
 import catalog.domain.events.EvenementDeCatalog
-import catalog.domain.factories.PourGenererUnSlug
 import catalog.domain.factories.UsineDeProduits
 import catalog.domain.valueObjects.NomDeProduit
 import catalog.domain.valueObjects.Prix
 import catalog.domain.valueObjects.Slug
-import catalog.ports.driven.PourPublierUnEvenement
 import io.kotest.matchers.shouldBe
 import io.kotest.matchers.types.shouldBeInstanceOf
 
@@ -42,10 +39,10 @@ class ScenarioCatalog {
 
     val service = ServiceDeCatalog(
         produits = fakeProduits,
-        evenements = PourPublierUnEvenement { evenementsPublies.add(it) },
+        evenements = { evenementsPublies.add(it) },
         usine = UsineDeProduits(
             generateurId = { "id-fixe" },
-            generateurSlug = PourGenererUnSlug { nom ->
+            generateurSlug = { nom ->
                 Slug.de(nom.valeur.lowercase().replace(Regex("[^a-z0-9]"), "-"))
             }
         )
